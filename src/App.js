@@ -1,12 +1,35 @@
 import React from 'react';
-import Navbar from './components/navbar/navbar';
+import Navbar from './components/Navbar/Navbar';
+import LoginForm from './components/LoginForm/LoginForm';
+import SignupForm from './components/SignupForm/SignupForm';
+import Footer from './components/Footer/Footer';
 import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  BrowserRouter
+} from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
+    <BrowserRouter>
+      <div className="App">
         <Navbar />
-    </div>
+          <Switch>
+            <Route path="/login">
+                <LoginForm />
+            </Route>
+            <Route path="/signup">
+                <SignupForm />
+            </Route>
+        </Switch>
+      <Footer/>
+      </div>
+    </BrowserRouter>
+
+
   );
 }
 

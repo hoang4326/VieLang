@@ -1,0 +1,19 @@
+.footer{
+    background: #262b30;
+    text-align: center;
+    padding: 32px 0;
+}
+.footer p {
+    margin: 0;
+    line-height: 26px;
+    font-size: 15px;
+    color: #999;
+}
+
+.container{
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
