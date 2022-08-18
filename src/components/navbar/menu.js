@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 
 export const MenuItems = [
     {
@@ -18,7 +17,7 @@ export const MenuItems = [
     },
     {
         title: 'SUPPORT',
-        url: '#',
+        url: '/support',
         cName: 'nav-links'
     },
     {
