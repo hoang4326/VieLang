@@ -5,7 +5,7 @@ import "./LoginForm.css";
 export default function LoginForm() {
     return (
     <div className="loginForm">
-        <form>
+        <form className="login">
             <h1>Sign in <br /> Access your account</h1>
             <br />
             <br />

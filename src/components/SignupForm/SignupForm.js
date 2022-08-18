@@ -5,7 +5,7 @@ import "./SignupForm.css";
 export default function SignupForm() {
     return (
     <div className="SignupForm">
-        <form>
+        <form className="signup">
             <h1>Sign up</h1>
             <br />
             <label htmlFor="name" className="name">Your name:</label>
