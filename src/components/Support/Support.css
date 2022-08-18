@@ -76,7 +76,7 @@
     width: 100%;
     margin-top: 10px;
 }
-.contactForm .inputBox input,
+.contactForm .inputBox input.support,
 .contactForm .inputBox textarea
 {
     width: 100%;
@@ -98,8 +98,8 @@
     transition: 0.5s;
     color: #666;
 }
-.contactForm .inputBox input:focus ~ span,
-.contactForm .inputBox input:valid ~ span,
+.contactForm .inputBox input.support:focus ~ span,
+.contactForm .inputBox input.support:valid ~ span,
 .contactForm .inputBox textarea:focus ~ span,
 .contactForm .inputBox textarea:valid ~ span
 {

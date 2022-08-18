@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from './components/Navbar/Navbar';
-// import LoginForm from './components/LoginForm/LoginForm';
-// import SignupForm from './components/SignupForm/SignupForm';
+import LoginForm from './components/LoginForm/LoginForm';
+import SignupForm from './components/SignupForm/SignupForm';
 import Footer from './components/Footer/Footer';
 import Support from './components/Support/Support';
 import './App.css';
@@ -22,12 +22,12 @@ function App() {
           <Route path="/support">
                 <Support />
             </Route>
-            {/* <Route path="/login">
+            <Route path="/login">
                 <LoginForm />
             </Route>
             <Route path="/signup">
                 <SignupForm />
-            </Route> */}
+            </Route>
         </Switch>
       <Footer/>
       </div>

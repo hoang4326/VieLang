@@ -36,11 +36,11 @@ export default function Support(){
                     <form>
                         <h2>Send Message</h2>
                         <div className="inputBox">
-                            <input type='text' name='' required='required'/>
+                            <input type='text' className='support'  required='required'/>
                             <span>Full name</span>
                         </div>
                         <div className="inputBox">
-                            <input type='text' name='' required='required'/>
+                            <input type='text' className='support' required='required'/>
                             <span>Email</span>
                         </div>
                         <div className="inputBox">

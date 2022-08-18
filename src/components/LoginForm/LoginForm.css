@@ -13,12 +13,12 @@ form.login {
     margin: 0 auto;
 }
 
-form.login input {
+form.login input.loginform {
     width: 100%;
 
 }
 
-input,
+input.loginform,
 button {
     display: block;
     padding: 0.8rem;

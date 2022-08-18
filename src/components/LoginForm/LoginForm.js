@@ -10,11 +10,12 @@ export default function LoginForm() {
             <br />
             <br />
             <label htmlFor="name" className="username">Username:</label>
-            <input type="text" name="name" id="name" placeholder="Username" />
+            <input type="text" className="loginform" name="name" id="name" placeholder="Username" />
             <label htmlFor="name" className="password">Password:</label>
             <input
                 type="password"
                 name="password"
+                className="loginform"
                 id="password"
                 placeholder="Password"
             />

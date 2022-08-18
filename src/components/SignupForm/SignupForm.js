@@ -9,15 +9,16 @@ export default function SignupForm() {
             <h1>Sign up</h1>
             <br />
             <label htmlFor="name" className="name">Your name:</label>
-            <input type="text" name="name" id="name" placeholder="Your name" />
+            <input type="text" name="name" className="signup" id="name" placeholder="Your name" />
             <label htmlFor="name" className="email">Email:</label>
-            <input type="text" name="name" id="name" placeholder="Email" />
+            <input type="text" name="name" className="signup" id="name" placeholder="Email" />
             <label htmlFor="name" className="username">Username:</label>
-            <input type="text" name="username" id="name" placeholder="Username" />
+            <input type="text" name="username" className="signup" id="name" placeholder="Username" />
             <label htmlFor="name" className="password">Password:</label>
             <input
                 type="password"
                 name="password"
+                className="signup"
                 id="password"
                 placeholder="Password"
             />
@@ -25,6 +26,7 @@ export default function SignupForm() {
             <input
                 type="password"
                 name="password"
+                className="signup"
                 id="password"
                 placeholder="Password"
             />

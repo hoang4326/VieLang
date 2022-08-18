@@ -15,12 +15,12 @@ form.signup {
 }
 
 label,
-input {
+input.signup {
     display: block;
     width: 100%;
 }
 
-input,
+input.signup,
 button {
     display: block;
     padding: 0.8rem;
