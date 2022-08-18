@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+
 export const MenuItems = [
     {
         title: 'HOME',
