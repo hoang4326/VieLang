@@ -10,7 +10,7 @@
 
 }
 form {
-    width: 500px;
+    width: 100%;
     margin: 0 auto;
 }
 
@@ -49,6 +49,11 @@ button {
     color: white;
     font-weight: bold;
     }
+@media screen and (max-width: 960px) {
+        .SignupForm {
+            width: 90%;
+        }
+}
 
 
 

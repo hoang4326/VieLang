@@ -3,11 +3,11 @@ import { MenuItems }   from "./Menu";
 import './Navbar.css'
 
 export default function Navbar() {
-    const state = { clicked: false}
+    // const state = { clicked: false}
 
-    const [clicked, setClicked] = useState(0);
+    const [clicked, setClicked] = useState(false);
 
-    const handleClick = e =>{
+    const handleClick = () =>{
         // this.setState({ clicked: !state.clicked })
         setClicked(!clicked);
     }
@@ -15,9 +15,9 @@ export default function Navbar() {
             <nav className='navbarItems'>
                 <h1 className='navbar-logo'> VIELANG</h1>
                 <div className='menu-icon' onClick={handleClick}>
-                        <i className={state.clicked ? 'fas fa-times': 'fa fa-bars'}></i>
+                        <i className={clicked ? 'fas fa-times': 'fa fa-bars'}></i>
                 </div>
-                <ul className={state.clicked ? 'nav-menu active' : 'nav-menu'}>
+                <ul className={clicked ? 'nav-menu active' : 'nav-menu'}>
                     {MenuItems.map((item,index)=>{
                         return (
                             <li key = {index}>

@@ -9,14 +9,13 @@
     margin-bottom: 60px;
 }
 form {
-    width: 500px;
+    width: 100%;
     margin: 0 auto;
 }
 
-label,
-input {
-    display: block;
+form input {
     width: 100%;
+
 }
 
 input,
@@ -48,7 +47,11 @@ button {
     color: white;
     font-weight: bold;
     }
-
+@media screen and (max-width: 960px) {
+    .loginForm {
+        width: 90%;
+    }
+}
 
 
 
