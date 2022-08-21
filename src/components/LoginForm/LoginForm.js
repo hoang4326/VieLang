@@ -26,7 +26,7 @@ export default function LoginForm() {
             <button type="submit">Sign in</button>
             <label htmlFor="name">Don't have an account ? <a href="/signup">Create your account here.</a></label>
             <br/>
-            <a href="#" ><label htmlFor="name">Forgot password?</label></a>
+            <label htmlFor="name"><a href="#" >Forgot password?</a></label>
         </form>
     </div>
 );

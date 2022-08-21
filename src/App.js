@@ -1,9 +1,9 @@
 import React from 'react';
 import Navbar from './components/Navbar/Navbar';
-// import LoginForm from './components/LoginForm/LoginForm';
-// import SignupForm from './components/SignupForm/SignupForm';
+import LoginForm from './components/LoginForm/LoginForm';
+import SignupForm from './components/SignupForm/SignupForm';
 import Footer from './components/Footer/Footer';
-// import Support from './components/Support/Support';
+import Support from './components/Support/Support';
 import Membership from './components/Membership/Membership';
 import './App.css';
 import {
@@ -20,15 +20,15 @@ function App() {
       <div className="App">
         <Navbar />
           <Switch>
-          {/* <Route path="/support">
+          <Route path="/support">
                 <Support />
-            </Route> */}
-            {/* <Route path="/login">
+            </Route>
+            <Route path="/login">
                 <LoginForm />
             </Route>
             <Route path="/signup">
                 <SignupForm />
-            </Route> */}
+            </Route>
             <Route path="/membership">
                 <Membership />
             </Route>
