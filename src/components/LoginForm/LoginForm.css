@@ -30,11 +30,11 @@ button {
     border: 1px solid lightgrey;
 }
 
-.error-container {
+/* .error-container {
     border: 1px dashed lightgray;
     padding: 1rem;
     width: 100%;
-}
+} */
 ul {
     list-style-position: inside;
     color: lightcoral;

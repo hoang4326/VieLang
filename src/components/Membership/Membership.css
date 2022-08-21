@@ -1,0 +1,136 @@
+.containerMembership{
+    width: 50%;
+    height: 550px;
+    margin: auto;   
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 50px;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+.contentMembership{
+    text-align: center;
+}
+.planMembership{
+    width: 600px;
+    height: 170px;
+    top: 50px;
+    position: relative; 
+    margin: auto;
+    box-shadow: 0 2px 11px 0 rgb;
+    background-color: white;
+    -webkit-box-shadow: 0 2px 11px 0 rgb(0 0 0 / 14%);
+    -moz-box-shadow: 0 2px 11px 0 rgba(0,0,0,0.14);
+
+}
+.planMembership .itemMembership{
+    position: absolute;
+    top: 0px;
+    width: 200px;
+    height: 100%;
+    border-right: 1px solid rgba(114, 180, 236, 0.5);
+    min-height: 150px;
+}
+.itemMembership:hover{
+    background-color: #f2f2f2;
+}
+.price{
+    margin-top: 60px;
+    color: #104c6e;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+}
+.getitnow{
+    margin-top: 40px;
+    color: #0288d1;
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+}
+a{
+    text-decoration: none;
+    color: #333;
+}
+.planLifetime{
+    position: relative;
+    width: 600px;
+    height: 60px;
+    top: 60px;
+    margin: auto;
+}
+.itemLifetime:hover{
+    background-color: #f2f2f2;
+}
+.itemLifetime{
+    position: relative;
+    top: 10px;
+    margin: auto;
+    width: 600px;
+    height: 60px;
+    line-height: 60px;
+    vertical-align: middle;
+    background-color: #ffffff;
+    -webkit-box-shadow: 0 2px 11px 0 rgb(0 0 0 / 14%);
+    -moz-box-shadow: 0 2px 11px 0 rgba(0,0,0,0.14);
+    box-shadow: 0 2px 11px 0 rgb(0 0 0 / 14%);
+}
+.itemLifetime .head{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 200px;
+    height: 60px;
+    line-height: 60px;
+    margin: auto;
+    color: #000000;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #eeeeee;
+}
+.itemLifetime .priceLifetime{
+    position: absolute;
+    top: 0px;
+    left: 200px;
+    width: 225px;
+    height: 60px;
+    line-height: 60px;
+    color: #104c6e;
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+}
+.itemLifetime .textLifetime{
+    position: absolute;
+    top: 0px;
+    left: 425px;
+    width: 150px;
+    height: 60px;
+    line-height: 60px;
+    color: #0288d1;
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+}
+.itemLifetime .discountLifetime{
+    position: absolute;
+    top: 35px;
+    left: 200px;
+    width: 225px;
+    height: 20px;
+    line-height: 20px;
+    color: #808080;
+    font-size: 12px;
+    text-align: center;
+    text-decoration: line-through;
+}
+.advantageMembership{
+    position: relative;
+    width: 600px;
+    height: 100px;
+    top: 100px;
+    margin: auto;
+    font-size: 13px;
+    font-weight: 200;
+}

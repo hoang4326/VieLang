@@ -12,7 +12,7 @@ export const MenuItems = [
     },
     {
         title: 'MEMBERSHIP',
-        url: '#',
+        url: 'membership',
         cName: 'nav-links'
     },
     {
