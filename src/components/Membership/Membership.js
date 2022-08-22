@@ -12,19 +12,19 @@ export default function Membership(){
                 <h2 style={{fontWeight: "650"}}>Premium Plans for VieLang</h2>
                 <div className='planMembership'>
                     <div className='itemMembership' style={{left:"0px"}}>
-                        <a href='#'>
+                        <a href='#' className='membershipTagA'>
                             <div className='price'>US $15 /MONTH</div>
                             <div className='getitnow'>GET IT NOW!</div>
                         </a>
                     </div>
                     <div className='itemMembership' style={{left:"200px"}} >
-                        <a href='#'>
+                        <a href='#' className='membershipTagA'>
                             <div className='price'>US $40 /QUARTER</div>
                             <div className='getitnow'>GET IT NOW!</div>
                         </a>                    
                     </div>
                     <div className='itemMembership' style={mystyle}>
-                        <a href='#'>
+                        <a href='#' className='membershipTagA'>
                             <div className='price'>US $80 /YEAR</div>
                             <div className='getitnow'>GET IT NOW!</div>
                         </a>

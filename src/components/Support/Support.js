@@ -1,4 +1,5 @@
 import React from 'react';
+
 import "./Support.css";
 
 export default function Support(){
@@ -6,6 +7,7 @@ export default function Support(){
         <section className='contact'>
             <div className='content'>
                 <h2>Contact Us</h2>
+                <br/>
                 <p>Please get in touch and our expert support team will answer all your questions.</p>
             </div>
             <div className='containerSupport'>

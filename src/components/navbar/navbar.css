@@ -41,10 +41,6 @@
     color: #fff;
 }
 
-.nav-links-mobile {
-    display: none;
-}
-
 .menu-icon {
     display: none;
 }
@@ -63,7 +59,6 @@
         top: 80px;
         left: -100%;
         opacity: 1;
-        justify-content: start;
         transition: all 0.5s ease;
     }
 
