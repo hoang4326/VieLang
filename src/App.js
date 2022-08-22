@@ -1,10 +1,11 @@
 import React from 'react';
 import Navbar from './components/Navbar/Navbar';
-import LoginForm from './components/LoginForm/LoginForm';
-import SignupForm from './components/SignupForm/SignupForm';
+// import LoginForm from './components/LoginForm/LoginForm';
+// import SignupForm from './components/SignupForm/SignupForm';
 import Footer from './components/Footer/Footer';
-import Support from './components/Support/Support';
-import Membership from './components/Membership/Membership';
+// import Support from './components/Support/Support';
+// import Membership from './components/Membership/Membership';
+import Home from './components/Home/Home';
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -20,7 +21,7 @@ function App() {
       <div className="App">
         <Navbar />
           <Switch>
-          <Route path="/support">
+          {/* <Route path="/support">
                 <Support />
             </Route>
             <Route path="/login">
@@ -31,6 +32,9 @@ function App() {
             </Route>
             <Route path="/membership">
                 <Membership />
+            </Route> */}
+            <Route path="/home">
+                <Home />
             </Route>
         </Switch>
       <Footer/>
