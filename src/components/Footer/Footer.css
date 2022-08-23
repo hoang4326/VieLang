@@ -22,7 +22,7 @@
     --pink:#FC427B;
   }
   
-section.footer{
+section.footer .boxFooter-container{
     padding:2rem 7%;
     background-color: #192027;
   }
@@ -65,9 +65,9 @@ section.footer{
   }
   
   .credit{
-    margin-top: 1rem;
-    padding:1rem;
+    padding:1rem ;
     padding-top: 2rem;
+    padding-bottom: 2rem;
     text-align: center;
     border-top: solid rgba(0,0,0,.1);
     color:white;
