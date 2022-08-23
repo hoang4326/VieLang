@@ -41,7 +41,7 @@ export default function Footer(){
 
     </div>
 
-    <div class="credit"> Created by <span> NVH </span> | All rights reserved </div>
+    <div class="credit"> Copyrights © 2021 - 2022. All rights reserved by VieLang </div>
 
 </section>
     )

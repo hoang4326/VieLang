@@ -61,7 +61,6 @@ section.home{
     background: #fefaf1;
 }
 .homePage .section-title{
-    font-family: "Quando",serif;
     font-size: 30px;
     font-weight: 900;
     color: #25222d;
@@ -118,4 +117,10 @@ section.home{
     .homePage .page-description .description-wrap .description-item-text{
         font-size: 50%;
     }
+    .homePage .page-description .description-wrap .description-item-text{
+      margin-top: 10px;
+      font-size: 16px;
+      color: #2b2835;
+      line-height: 17px;
+  }
 }

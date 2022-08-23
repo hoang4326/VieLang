@@ -20,11 +20,11 @@
 :root{
     --violet:#6c5ce7;
     --pink:#FC427B;
-    --gradient:linear-gradient(90deg, var(--violet), var(--pink));
   }
   
 section.footer{
     padding:2rem 7%;
+    background-color: #192027;
   }
 .footer .boxFooter-container{
     display: flex;
@@ -37,43 +37,40 @@ section.footer{
   }
   
   .footer .boxFooter-container .boxFooter h3{
-    font-size: 2.5rem;
+    font-size: 25px;
     color:var(--violet);
     padding:.7rem 0;
   }
   
   .footer .boxFooter-container .boxFooter p{
-    font-size: 1.5rem;
-    color:#666;
+    color:white;
     padding:.7rem 0;
   }
   
   .footer .boxFooter-container .boxFooter a.linka{
     display: block;
-    font-size: 1.5rem;
-    color:#666;
+    color:white;
     padding:.7rem 0;
   }
-  
+  a.linka{
+    text-decoration: none;
+  }
   .footer .boxFooter-container .boxFooter a:hover{
-    color:var(--pink);
+    color:var(--violet);
   }
   
   .footer .boxFooter-container .boxFooter p i{
     padding-right: .5rem;
-    color:var(--pink);
+    color: white;
   }
   
-  .footer .credit{
-    font-size: 2rem;
+  .credit{
     margin-top: 1rem;
     padding:1rem;
     padding-top: 2rem;
     text-align: center;
-    border-top: .1rem solid rgba(0,0,0,.1);
-    color:#666;
+    border-top: solid rgba(0,0,0,.1);
+    color:white;
+    background-color: #262b30;
   }
   
-  .footer .credit span{
-    color:var(--pink);
-  }
