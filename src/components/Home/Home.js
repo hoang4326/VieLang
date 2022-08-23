@@ -20,7 +20,7 @@ export default function Home(){
             <h2 className='section-title'>Why VieLang?</h2>
             <div className='description-wrap'>
                 <div className='description-item'>
-                    <img src={require('../../assets/image/advantage1.png')} className='description-item-image'/>
+                    <img src={require('../../assets/image/expert.png')} className='description-item-image'/>
                     <h3 className='description-item-title'>Expert curricula</h3>
                 <p className='description-item-text'>Crafted by language teachers, our grammar-based curriculum will help you gain a deep understanding of your chosen language with no extra effort.</p>
                 </div>
@@ -32,7 +32,7 @@ export default function Home(){
                 </div>
 
                 <div className='description-item'>
-                    <img src={require('../../assets/image/advantage3.png')} className='description-item-image'/>
+                    <img src={require('../../assets/image/learning.png')} className='description-item-image'/>
                     <h3 className='description-item-title'>Effective learning</h3>
                 <p className='description-item-text'>Target weak areas, review key grammar points, retain everything you learn with our built-in flashcards - all in one app!</p>
                 </div>
