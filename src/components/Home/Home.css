@@ -107,57 +107,40 @@ section.home{
     color: #2b2835;
     line-height: 17px;
 }
-/* 
-.aboutSection{
-  padding: 100px 0;
-    background: #f7f7f7;
-}
-.containerSection{
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
-}
-.rowSection{
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
-}
-.col-12 .col-lg-6{
-  position: relative;
-  width: 100%;
-  min-height: 1px;
-  padding-right: 15px;
-  padding-left: 15px;
+
+section.about{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  padding: 0.5rem 6%;
 }
 
-.aboutsection .headerSection {
-  padding-right: 80px;
+.about-section{
+  background:url(https://img.freepik.com/free-photo/overhead-view-laptop-with-stationeries-study-text-white-background_23-2147875675.jpg?size=626&ext=jpg)
+  no-repeat left;
+  background-size: 55%;
+  overflow: hidden;
 }
-
-.aboutSection .headerSection .entry-title {
-  margin: 0;
-  font-size: 42px;
-  font-weight: 400;
+.inner-container{
+  width: 55%;
+  float: right;
+  padding: 150px;
+  background-color: white;
 }
-.about-section .headerSection p {
-  margin-top: 15px;
-  font-size: 16px;
-  line-height: 1.8;
-  color: #757686;
+.inner-container h1.aboutH1{
+  margin-bottom: 30px;
+  font-size: 30px;
+  font-weight: 900;
+  
 }
-.flex {
-  display: flex!important;
+.text{
+  font-size: 14px;
+  color: #2b2835;
+  line-height: 30px;
+  text-align: justify;
+  margin-bottom: 40px;
 }
-.ezuca-video .imgSection {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-} */
 
 /* Responsive */
 @media (max-width: 991px){
@@ -176,4 +159,10 @@ section.home{
       color: #2b2835;
       line-height: 17px;
   }
+}
+
+@media screen and (max-width: 1200px){
+.inner-container {
+    padding: 80px;
+}
 }

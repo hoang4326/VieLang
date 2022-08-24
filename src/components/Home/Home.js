@@ -1,6 +1,7 @@
 import React from 'react';
 import './Home.css'
 
+
 export default function Home(){
     return(
     <div className='homePage'>
@@ -51,24 +52,16 @@ export default function Home(){
                 
             </div>
         </section>
-        {/* <section className='aboutSection'>
-            <div className='containerSection'>
-                <div className='rowSection'>
-                    <div className='col-12 col-lg-6 align-content-lg-stretch'>
-                        <header className='headerSection'>
-                            <h2 className='entry-tile'>About VieLang</h2>
-                            <p className ='pSection'>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.</p>
-                        </header>
-                    </div>
-                    <div className='ezuca-video position-relative'>
-                        <div className='col-12 col-lg-6 flex align-content-center mt-5 mt-lg-0'>
-                            <img classname ='imgSection' src='https://preview.colorlib.com/theme/ezuca/images/xvideo-screenshot.png.pagespeed.ic.1KmQ_Dh4Lv.webp' />
-                        </div>
-                    </div>
+        <section className='about'>
+            <div className='about-section'>
+                <div className='inner-container'>
+                    <h1 className='aboutH1'>About us</h1>
+                    <p className='text'>
+                    Users progress through basic lessons in order and engage with languages through more targeted lessons organized by categories that include topics like color, number, food, occupation, health, education, music, sports, and more. 
+                    </p>
                 </div>
             </div>
-        </section> */}
+        </section>
     </div>
     )
 }
