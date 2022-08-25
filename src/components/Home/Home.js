@@ -53,11 +53,15 @@ export default function Home(){
             </div>
         </section>
         <section className='about'>
-            <div className='about-section'>
+            <div className='main'>
+                <img className='imgAbout' src={require('../../assets/image/study.jpg')}/>
                 <div className='inner-container'>
-                    <h1 className='aboutH1'>About us</h1>
+                    <h4 className='aboutH4'>About Us</h4>
+                    <h1 className='aboutH1'>VieLang</h1>
                     <p className='text'>
-                    Users progress through basic lessons in order and engage with languages through more targeted lessons organized by categories that include topics like color, number, food, occupation, health, education, music, sports, and more. 
+                    Users progress through basic lessons in order and engage with languages through more targeted lessons organized by categories that include topics like color,
+                    number, food, and more. Activities within each lesson include repetitive opportunities to learn and practice by choosing the proper vocabulary word from an illustration,
+                    hearing words and sentences, finding vocabulary words from a multiple-choice format, tapping letters or words in sequence to type out words or complete fill-in-the-blank answers.
                     </p>
                 </div>
             </div>

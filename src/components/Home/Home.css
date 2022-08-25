@@ -48,6 +48,7 @@ section.home{
     color:#fff;
     cursor: pointer;
     font-size: 1.7rem;
+    text-decoration: none;
   }
   
   .btn:hover{
@@ -107,39 +108,49 @@ section.home{
     color: #2b2835;
     line-height: 17px;
 }
-
-section.about{
-    min-height: 100vh;
+.about{
+    height: 90vh;
+    width: 100%;
+    background-color: white;
     display: flex;
-    align-items: center;
     justify-content: center;
-  padding: 0.5rem 6%;
+    align-items: center;
 }
-
-.about-section{
-  background:url(https://img.freepik.com/free-photo/overhead-view-laptop-with-stationeries-study-text-white-background_23-2147875675.jpg?size=626&ext=jpg)
-  no-repeat left;
-  background-size: 55%;
-  overflow: hidden;
+.about .main .imgAbout{
+    width: 580px;
+    max-width: 100%;
+    height: auto;
+    padding: 0 10px;
 }
 .inner-container{
-  width: 55%;
-  float: right;
-  padding: 150px;
-  background-color: white;
+    width: 600px;
+    max-width: 100%;
+    padding: 0 10px;
 }
-.inner-container h1.aboutH1{
-  margin-bottom: 30px;
-  font-size: 30px;
-  font-weight: 900;
-  
+.main{
+    width: 1290px;
+    max-width: 95%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
 }
-.text{
-  font-size: 14px;
-  color: #2b2835;
-  line-height: 30px;
-  text-align: justify;
-  margin-bottom: 40px;
+.inner-container .aboutH4{
+    font-size: 18px;
+    letter-spacing: 1px;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+.inner-container .aboutH1{
+    font-size: 65px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+.inner-container p.text{
+    font-size: 16px;
+    line-height: 30px;
+    margin-bottom: 35px;
 }
 
 /* Responsive */
@@ -161,8 +172,23 @@ section.about{
   }
 }
 
-@media screen and (max-width: 1200px){
-.inner-container {
-    padding: 80px;
+@media screen and (max-width:1250px){
+    .about{
+      width: 100%;
+      height: auto;
+      padding: 60px 0;
+    }
+    .inner-container{
+      text-align: center;
+      margin-top: 40px;
+    }
 }
+@media screen and (max-width: 650px){
+    .about .main .imgAbout{
+      margin-bottom: 35px;
+    }
+    .inner-container h1.aboutH1{
+      font-size: 45px;
+      margin-bottom: 20px;
+    }
 }
