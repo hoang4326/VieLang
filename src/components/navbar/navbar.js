@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
 import { MenuItems }   from "./Menu";
-import './Navbar.css'
-
+import LoginForm from '../LoginForm/LoginForm';
+import SignupForm from '../SignupForm/SignupForm';
+import Support from '../Support/Support';
+import Membership from '../Membership/Membership';
+import Home from '../Home/Home';
+import {
+    Routes,
+    Route,
+    Link
+} from "react-router-dom";
+import './Navbar.css';
 export default function Navbar() {
     // const state = { clicked: false}
 
@@ -12,23 +21,33 @@ export default function Navbar() {
         setClicked(!clicked);
     }
         return (
-            <nav className='navbarItems'>
-                <h1 className='navbar-logo'> VIELANG</h1>
-                <div className='menu-icon' onClick={handleClick}>
-                        <i className={clicked ? 'fas fa-times': 'fa fa-bars'}></i>
-                </div>
-                <ul className={clicked ? 'nav-menu active' : 'nav-menu'}>
-                    {MenuItems.map((item,index)=>{
-                        return (
-                            <li key = {index}>
-                                <a className={item.cName} href={item.url}>
-                                    {item.title}
-                                </a>
-                            </li>
-                        )
-                    })} 
-                </ul>
-            </nav>
+            <div className='Navigation'>
+                <nav className='navbarItems'>
+                    <h1 className='navbar-logo'> VIELANG</h1>
+                    <div className='menu-icon' onClick={handleClick}>
+                            <i className={clicked ? 'fas fa-times': 'fa fa-bars'}></i>
+                    </div>
+                    <ul className={clicked ? 'nav-menu active' : 'nav-menu'}>
+                        {MenuItems.map((item,index)=>{
+                            return (
+                                <li key = {index}>
+                                    <Link className={item.cName} to={item.url}>
+                                        {item.title}
+                                    </Link>
+                                </li>
+                            )
+                        })} 
+                    </ul>
+                </nav>
+                <Routes>
+                    <Route path="/" element={<Home/>} />
+                    <Route path='/login' element={<LoginForm/>}/>
+                    <Route path='/signup' element={<SignupForm/>}/>
+                    <Route path='/support' element={<Support/>}/>
+                    <Route path='/membership' element={<Membership/>}/>
+                </Routes>
+            </div>
+
         )
 }
 

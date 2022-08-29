@@ -1,4 +1,7 @@
 import './Footer.css';
+import {
+    Link
+} from "react-router-dom";
 
 export default function Footer(){
     return (
@@ -18,18 +21,18 @@ export default function Footer(){
 
         <div class="boxFooter">
             <h3>Quick links</h3>
-            <a href="#" className='linka'>Home</a>
-            <a href="#" className='linka'>Lessons</a>
-            <a href="#" className='linka'>Membership</a>
-            <a href="#" className='linka'>Support</a>
-            <a href="#" className='linka'>Sign in</a>
+            <a href="/" className='linka'>Home</a>
+            <a href="/#" className='linka'>Lessons</a>
+            <Link to="/membership" className='linka'>Membership</Link>
+            <Link to="/support" className='linka'>Support</Link>
+            <Link to="/login" className='linka'>Sign in</Link>
         </div>
 
         <div class="boxFooter">
             <h3>Follow us</h3>
-            <a href="#"  className='linka'>Facebook</a>
-            <a href="#" className='linka'>Twitter</a>
-            <a href="#" className='linka'>Instagram</a>
+            <a href="/#"  className='linka'>Facebook</a>
+            <a href="/#" className='linka'>Twitter</a>
+            <a href="/#" className='linka'>Instagram</a>
         </div>
 
         <div class="boxFooter">
