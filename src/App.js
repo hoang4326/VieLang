@@ -9,29 +9,12 @@ import './App.css';
 
 
 function App() {
-  return (
-      <div className="App">
+    return (
+    <div className="App">
         < Navbar />
-          {/* <Switch>
-          <Route path="/support">
-                <Support />
-            </Route>
-            <Route path="/login">
-                <LoginForm />
-            </Route>
-            <Route path="/signup">
-                <SignupForm />
-            </Route>
-            <Route path="/membership">
-                <Membership />
-            </Route>
-            <Route path="/home">
-                <Home />
-            </Route>
-        </Switch>  */}
-      <Footer/>
-      </div>
-  );
+        <Footer/>
+    </div>
+);
 }
 
 export default App;

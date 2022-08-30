@@ -1,5 +1,5 @@
 import React from "react";
-
+import {Link} from "react-router-dom";
 import "./LoginForm.css";
 
 export default function LoginForm() {
@@ -24,7 +24,7 @@ export default function LoginForm() {
             </ul> */}
 
             <button type="submit">Sign in</button>
-            <label htmlFor="name">Don't have an account ? <a href="/signup">Create your account here.</a></label>
+            <label htmlFor="name">Don't have an account ? <Link to="/signup">Create your account here.</Link></label>
             <br/>
             <label htmlFor="name"><a href="/#" >Forgot password?</a></label>
         </form>
