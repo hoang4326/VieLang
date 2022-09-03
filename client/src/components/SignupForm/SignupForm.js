@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 import "./SignupForm.css";
 
@@ -7,10 +9,40 @@ export default function SignupForm() {
     const [email,setEmail] = useState("");
     const [username,setUsername] = useState("");
     const [password,setPassword] = useState("");
+    const [cpassword,setCpassword] = useState("");
+    const MySwal = withReactContent(Swal);
+
 
     const handleSubmit = event => {
         event.preventDefault();
         console.log({name, email, username ,password});
+        if (password !== cpassword) {
+            MySwal.fire({
+                title: <strong>Try again!</strong>,
+                html: <i>Your confirm password is not correct!</i>,
+                icon: 'warning'
+            })
+        } else {
+        fetch("http://localhost:5000/signup",{
+            method: "POST",
+            crossDomain: true,
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                "Access-Control-Allow-Origin":"*",
+            },
+            body: JSON.stringify({
+                name,
+                email,
+                username,
+                password,
+            }),
+        })
+        .then((res)=> res.json())
+        .then((data)=>{
+            console.log(data, "userRegister")
+        });
+    }
     }
 
     return (
@@ -51,14 +83,15 @@ export default function SignupForm() {
                 placeholder="Password"
                 onChange= {event => setPassword(event.target.value)}
             />
-            {/* <label htmlFor="name" className="password">Confirm Password:</label>
+            <label htmlFor="name" className="password">Confirm Password:</label>
             <input
                 type="password"
-                name="password"
+                // name="password"
                 className="signup"
                 id="password"
                 placeholder="Password"
-            /> */}
+                onChange= {event => setCpassword(event.target.value)}
+            />
 
 
             <button type="submit">Sign up</button>
