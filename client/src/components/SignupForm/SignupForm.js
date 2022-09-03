@@ -10,8 +10,7 @@ export default function SignupForm() {
 
     const handleSubmit = event => {
         event.preventDefault();
-        const {name, email, username, password} = event.target;
-        console.log(name, email, username, password);
+        console.log({name, email, username ,password});
     }
 
     return (
