@@ -20,9 +20,9 @@ export const MenuItems = [
         url: '/support',
         cName: 'nav-links'
     },
-    {
-        title: 'SIGN IN',
-        url: '/login',
-        cName: 'nav-links'
-    }
+    // {
+    //     title: 'SIGN IN',
+    //     url: '/login',
+    //     cName: 'nav-links'
+    // }
 ]

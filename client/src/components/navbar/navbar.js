@@ -16,6 +16,11 @@ export default function Navbar() {
     // const state = { clicked: false}
 
     const [clicked, setClicked] = useState(false);
+    const subMenu = document.getElementById("subMenu");
+
+    const toggleMenu = () =>{
+        subMenu.classList.toggle("open-menu");
+    }
 
     const handleClick = () =>{
         // this.setState({ clicked: !state.clicked })
@@ -37,8 +42,30 @@ export default function Navbar() {
                                     </Link>
                                 </li>
                             )
-                        })} 
+                        })}
                     </ul>
+                    <img src={require('../../assets/image/user.png')} className='user-pic' alt='profile' onClick={toggleMenu} />
+                    <div className='sub-menu-wrap' id="subMenu">
+                        <div className='sub-menu'>
+                            <div className='user-info'>
+                                <img src={require('../../assets/image/user.png')}  alt='profile' />
+                                <h2>Việt Hoàng</h2>
+                            </div>
+                            <hr/>
+
+                            <a href='/#' className='sub-menu-link'>
+                                <img src={require('../../assets/image/profile.png')} alt='profile' />
+                                <p>Edit profile</p>
+                                <span>{'>'}</span>
+                            </a>
+                            <a href='/#' className='sub-menu-link'>
+                                <img src={require('../../assets/image/logout.png')} alt='profile' />
+                                <p>Logout</p>
+                                <span>{'>'}</span>
+                            </a>
+
+                        </div>
+                    </div>
                 </nav>
                 <Routes>
                     <Route path="/" element={<Home/>} />
