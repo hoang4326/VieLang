@@ -80,7 +80,7 @@ export default function SignupForm() {
                 // name="password"
                 className="signup"
                 id="password"
-                placeholder="Password"
+                placeholder="password"
                 onChange= {event => setPassword(event.target.value)}
             />
             <label htmlFor="name" className="password">Confirm Password:</label>
@@ -88,8 +88,8 @@ export default function SignupForm() {
                 type="password"
                 // name="password"
                 className="signup"
-                id="password"
-                placeholder="Password"
+                id="cpassword"
+                placeholder="cpassword"
                 onChange= {event => setCpassword(event.target.value)}
             />
 

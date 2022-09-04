@@ -6,6 +6,9 @@ const cors = require('cors');
 app.use(cors());
 const bcrypt = require('bcryptjs');
 
+const jwt = require('jsonwebtoken');
+const JWT_SECRET ="fafsfafw4124wrwqr#@#fasfasfsafasfsffa4%$@%@%";
+
 const mongoUrl = 
     "mongodb+srv://hoang4326:hoang190506@vielang-project.jh8v5og.mongodb.net/test"
 
@@ -42,6 +45,24 @@ app.post("/signup",async(req,res)=>{
         res.send({status:"error"});
     }
 });
+
+app.post("/login",async(req,res)=>{
+    const {email, password} = req.body;
+
+    const user = await User.findOne({email});
+    if(!user){
+        return res.json({error:"User not found"});
+    }
+    if ( await bcrypt.compare(password, user.password) ){
+        const token = jwt.sign({}, JWT_SECRET);
+        if(res.status(201)){
+            return res.json({status : "ok", data : token});
+        }else{
+            return res.json({status : "error"});
+        }
+    }
+    res.json({status: "error", error: "Invalid password"});
+})
 
     
     app.listen(5000, ()=>{

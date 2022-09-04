@@ -46,7 +46,11 @@ button {
     border-radius: 3px;
     color: white;
     font-weight: bold;
+    cursor: pointer;
     }
+button:hover{
+    background: #0674ec;
+}
 @media screen and (max-width: 960px) {
     .loginForm {
         width: 90%;
