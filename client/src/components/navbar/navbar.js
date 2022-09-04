@@ -11,6 +11,7 @@ import {
     Link
 } from "react-router-dom";
 import './Navbar.css';
+import UserDetails from '../userDetails';
 export default function Navbar() {
     // const state = { clicked: false}
 
@@ -45,6 +46,7 @@ export default function Navbar() {
                     <Route path='/signup' element={<SignupForm/>}/>
                     <Route path='/support' element={<Support/>}/>
                     <Route path='/membership' element={<Membership/>}/>
+                    <Route path='/userDetails' element={<UserDetails/>}/>
                 </Routes>
             </div>
 

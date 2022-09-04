@@ -24,7 +24,12 @@ export default function LoginForm() {
         })
         .then((res)=> res.json())
         .then((data)=>{
-            console.log(data, "userRegister")
+            console.log(data, "userRegister");
+            if (data.status === "ok"){
+                alert("login successful");
+                window.localStorage.setItem("token", data.data)
+                window.location.href = "./userDetails";
+            }
         });
     }
 
