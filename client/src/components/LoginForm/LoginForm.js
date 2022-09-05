@@ -5,7 +5,6 @@ import "./LoginForm.css";
 export default function LoginForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
     const handleSubmit = event => {
         event.preventDefault();
         console.log(email, password);
@@ -28,7 +27,7 @@ export default function LoginForm() {
             if (data.status === "ok"){
                 alert("login successful");
                 window.localStorage.setItem("token", data.data)
-                window.location.href = "./userDetails";
+                window.location.href = "./";
             }
         });
     }
