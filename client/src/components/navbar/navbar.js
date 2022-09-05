@@ -11,15 +11,13 @@ import {
     Link
 } from "react-router-dom";
 import './Navbar.css';
-import UserDetails from '../userDetails';
-export default function Navbar() {
-    // const state = { clicked: false}
 
+export default function Navbar() {
     const [clicked, setClicked] = useState(false);
-    const subMenu = document.getElementById("subMenu");
+    const [toggle, setToggle] = useState(false);
 
     const toggleMenu = () =>{
-        subMenu.classList.toggle("open-menu");
+        setToggle(!toggle);
     }
 
     const handleClick = () =>{
@@ -45,7 +43,7 @@ export default function Navbar() {
                         })}
                     </ul>
                     <img src={require('../../assets/image/user.png')} className='user-pic' alt='profile' onClick={toggleMenu} />
-                    <div className='sub-menu-wrap' id="subMenu">
+                    <div className={ toggle ? 'sub-menu-wrap' : 'sub-menu-wrap open-menu' } >
                         <div className='sub-menu'>
                             <div className='user-info'>
                                 <img src={require('../../assets/image/user.png')}  alt='profile' />
@@ -67,14 +65,14 @@ export default function Navbar() {
                         </div>
                     </div>
                 </nav>
-                <Routes>
+                {/* <Routes>
                     <Route path="/" element={<Home/>} />
                     <Route path='/login' element={<LoginForm/>}/>
                     <Route path='/signup' element={<SignupForm/>}/>
                     <Route path='/support' element={<Support/>}/>
                     <Route path='/membership' element={<Membership/>}/>
                     <Route path='/userDetails' element={<UserDetails/>}/>
-                </Routes>
+                </Routes> */}
             </div>
 
         )
