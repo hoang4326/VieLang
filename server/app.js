@@ -25,7 +25,7 @@ require("./userDetails");
 
 const User = mongoose.model("UserInfo");
 app.post("/signup",async(req,res)=>{
-    const {name, email, username, password } = req.body;
+    const {name, email, username, password, role } = req.body;
 
     const encryptedPassword = await bcrypt.hash(password, 10);
     try{
@@ -38,6 +38,7 @@ app.post("/signup",async(req,res)=>{
             email,
             username,
             password:encryptedPassword,
+            role
             
         });
     res.send({status:"ok"});

@@ -10,12 +10,13 @@ export default function SignupForm() {
     const [username,setUsername] = useState("");
     const [password,setPassword] = useState("");
     const [cpassword,setCpassword] = useState("");
+    const [role] = useState("customer");
     const MySwal = withReactContent(Swal);
 
 
     const handleSubmit = event => {
         event.preventDefault();
-        console.log({name, email, username ,password});
+        console.log({name, email, username ,password, role});
         if (password !== cpassword) {
             MySwal.fire({
                 title: <strong>Try again!</strong>,
@@ -36,6 +37,7 @@ export default function SignupForm() {
                 email,
                 username,
                 password,
+                role
             }),
         })
         .then((res)=> res.json())
@@ -92,7 +94,6 @@ export default function SignupForm() {
                 placeholder="cpassword"
                 onChange= {event => setCpassword(event.target.value)}
             />
-
 
             <button type="submit">Sign up</button>
         </form>

@@ -5,10 +5,10 @@ import "./LoginForm.css";
 export default function LoginForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
     const handleSubmit = event => {
         event.preventDefault();
-        console.log(email, password);
-        fetch("http://localhost:5000/login",{
+            fetch("http://localhost:5000/login",{
             method: "POST",
             crossDomain: true,
             headers: {
@@ -26,8 +26,10 @@ export default function LoginForm() {
             console.log(data, "userRegister");
             if (data.status === "ok"){
                 alert("login successful");
-                window.localStorage.setItem("token", data.data)
+                window.localStorage.setItem("token", data.data);
                 window.location.href = "./";
+            }else{
+                alert("login failed");
             }
         });
     }

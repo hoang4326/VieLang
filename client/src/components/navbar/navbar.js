@@ -1,25 +1,29 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 // import { MenuItems }   from "./Menu";
 import LoginForm from '../LoginForm/LoginForm';
 import SignupForm from '../SignupForm/SignupForm';
 import Support from '../Support/Support';
 import Membership from '../Membership/Membership';
 import Home from '../Home/Home';
+import Manage from '../admin';
+import Auth from './authProvider';
+
 import {
     Routes,
     Route,
-    Link
+    Link,
 } from "react-router-dom";
 import './Navbar.css';
 
 export default function Navbar() {
     const [userData, setUserData] = useState("");
     const [clicked, setClicked] = useState(false);
-    // const [toggled, setToggled] = useState(false);
-    const ref = useRef(null);
+
+    // const ref = useRef(null);
+    const [toggled, setToggled] = useState(false);
+
 
     const token = localStorage.getItem('token');
-    console.log(token);
     var style1 = {};
     var style2 = {};
 
@@ -29,21 +33,19 @@ export default function Navbar() {
         style2.display = 'none';
     }
 
-    // const toggleOpen = () =>{
-    //     setToggled(!toggled);
-    // }
-
-    const toggleMenu = () => {
-        const el = ref.current;
-        el.classList.toggle('open-menu');
+    const toggleMenu = () =>{
+        setToggled(!toggled);
     }
+    // const toggleMenu = () => {
+    //     const el = ref.current;
+    //     el.classList.toggle('open-menu');
+    // }
 
     const logOut = () =>{
         localStorage.removeItem('token');
     }
 
     const handleClick = () =>{
-        // this.setState({ clicked: !state.clicked })
         setClicked(!clicked);
     }
     useEffect(() => {
@@ -83,7 +85,7 @@ export default function Navbar() {
                             )
                         })} */}
                         <li>
-                            <Link className='nav-links' to='/'>
+                            <Link className='nav-links' to='/home'>
                                 HOME
                             </Link>
                         </li>
@@ -109,8 +111,8 @@ export default function Navbar() {
                         </li>
                     </ul>
                     <img src={require('../../assets/image/user.png')} className='user-pic' alt='profile' onClick={toggleMenu} style={style1}/>
-                    {/* <div className={ toggled ? 'sub-menu-wrap' : 'sub-menu-wrap open-menu' } style={style1} > */}
-                    <div className='sub-menu-wrap' style={style1} id='subMenu' ref={ref}>
+                    <div className={ toggled ? 'sub-menu-wrap open-menu' : 'sub-menu-wrap' } style={style1} >
+                    {/* <div className='sub-menu-wrap' style={style1} id='subMenu' ref={ref}> */}
                         <div className='sub-menu'>
                             <div className='user-info'>
                                 <img src={require('../../assets/image/user.png')}  alt='profile' />
@@ -133,11 +135,13 @@ export default function Navbar() {
                     </div>
                 </nav>
                 <Routes>
-                    <Route path="/" element={<Home/>} />
+                    <Route path="/home" element={<Home/>} />
                     <Route path='/login' element={<LoginForm/>}/>
                     <Route path='/signup' element={<SignupForm/>}/>
                     <Route path='/support' element={<Support/>}/>
                     <Route path='/membership' element={<Membership/>}/>
+                    <Route path='/admin' element={<Manage/>} />
+                    <Route path='/' element={<Auth/>}/>
 
                 </Routes>
             </div>
