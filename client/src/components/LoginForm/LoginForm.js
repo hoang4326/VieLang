@@ -25,9 +25,9 @@ export default function LoginForm() {
         .then((data)=>{
             console.log(data, "userRegister");
             if (data.status === "ok"){
-                alert("login successful");
-                window.localStorage.setItem("token", data.data);
-                window.location.href = "./";
+                    alert("login successful");
+                    window.localStorage.setItem("token", data.data);
+                    window.location.href = "./";
             }else{
                 alert("login failed");
             }

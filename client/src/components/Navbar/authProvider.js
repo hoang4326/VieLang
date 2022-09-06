@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import Manage from '../admin';
 import Home from '../Home/Home';
 
-
+import {
+    Routes,
+    Route,
+    Navigate,
+} from "react-router-dom";
 export default function Auth (){
     const [userData, setUserData] = useState("");
     useEffect(() => {
@@ -23,15 +27,17 @@ export default function Auth (){
             console.log(data, "userData");
             setUserData(data.data);
         });
-    },[]);
-    // console.log(userData.role);
-    return(
+    },[]);  
+
+    return (
         <div>
-            {userData.role === "admin" && <Manage/>}
-            {userData.role === "customer" && <Home/>}
-            {userData.role === undefined && <Home/>}
+            {userData.role === "admin" && <Navigate to = '/admin'/>}
+            {userData.role === "customer" && <Navigate to = '/home'/>}
+            <Routes>
+
+</Routes>
 
         </div>
+        
     )
-
 }

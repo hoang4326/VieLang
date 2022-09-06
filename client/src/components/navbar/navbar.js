@@ -12,12 +12,14 @@ import {
     Routes,
     Route,
     Link,
+    Navigate,
 } from "react-router-dom";
 import './Navbar.css';
 
 export default function Navbar() {
     const [userData, setUserData] = useState("");
     const [clicked, setClicked] = useState(false);
+
 
     // const ref = useRef(null);
     const [toggled, setToggled] = useState(false);
@@ -101,7 +103,7 @@ export default function Navbar() {
                         </li>
                         <li>
                             <Link className='nav-links' to='/support'>
-                                SUPPORT
+                                CONTACT
                             </Link>
                         </li>
                         <li>
@@ -125,7 +127,7 @@ export default function Navbar() {
                                 <p>Edit profile</p>
                                 {/* <span>{'>'}</span> */}
                             </Link>
-                            <a href='/' className='sub-menu-link' onClick={logOut}>
+                            <a href='/home' className='sub-menu-link' onClick={logOut}>
                                 <img src={require('../../assets/image/logout.png')} alt='profile' />
                                 <p>Logout</p>
                                 {/* <span>{'>'}</span> */}
@@ -140,7 +142,11 @@ export default function Navbar() {
                     <Route path='/signup' element={<SignupForm/>}/>
                     <Route path='/support' element={<Support/>}/>
                     <Route path='/membership' element={<Membership/>}/>
-                    <Route path='/admin' element={<Manage/>} />
+                    <Route path='/admin' element={<Manage/>}/>
+
+                    {/* <Route path='/admin' render = {()=>{
+                        return userData.role === 'admin' ? <Manage/> : <Navigate to = '/login'/>
+                    }} /> */}
                     <Route path='/' element={<Auth/>}/>
 
                 </Routes>
