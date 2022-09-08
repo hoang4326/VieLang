@@ -42,7 +42,15 @@ export default function SignupForm() {
         })
         .then((res)=> res.json())
         .then((data)=>{
-            console.log(data, "userRegister")
+            console.log(data, "userRegister");
+            MySwal.fire({
+                title: <strong>Success!</strong>,
+                html: <i>Registered successfully!</i>,
+                icon: 'success'
+            }).then(() =>{
+                window.location.href = "./login";
+
+            })
         });
     }
     }

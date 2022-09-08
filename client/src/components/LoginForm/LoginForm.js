@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import {Link} from "react-router-dom";
 import "./LoginForm.css";
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
 
 export default function LoginForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const MySwal = withReactContent(Swal);
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -25,11 +29,20 @@ export default function LoginForm() {
         .then((data)=>{
             console.log(data, "userRegister");
             if (data.status === "ok"){
-                    alert("login successful");
+                MySwal.fire({
+                    title: <strong>Success!</strong>,
+                    html: <i>Login successfully!</i>,
+                    icon: 'success'
+                }).then(()=>{
                     window.localStorage.setItem("token", data.data);
                     window.location.href = "./";
+                })
             }else{
-                alert("login failed");
+                MySwal.fire({
+                    title: <strong>Try again!</strong>,
+                    html: <i>Your email or password is not correct!</i>,
+                    icon: 'warning'
+                })
             }
         });
     }

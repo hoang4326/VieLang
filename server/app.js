@@ -10,7 +10,7 @@ const jwt = require('jsonwebtoken');
 const JWT_SECRET ="fafsfafw4124wrwqr#@#fasfasfsafasfsffa4%$@%@%";
 
 const mongoUrl = 
-    "mongodb+srv://hoang4326:hoang190506@vielang-project.jh8v5og.mongodb.net/test"
+    "mongodb://hoang4326:hoang190506@ac-ibx7lch-shard-00-00.jh8v5og.mongodb.net:27017,ac-ibx7lch-shard-00-01.jh8v5og.mongodb.net:27017,ac-ibx7lch-shard-00-02.jh8v5og.mongodb.net:27017/test?replicaSet=atlas-1mz6xt-shard-0&ssl=true&authSource=admin"
 
 mongoose
     .connect(mongoUrl,{
