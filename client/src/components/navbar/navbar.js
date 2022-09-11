@@ -7,12 +7,12 @@ import Membership from '../Membership/Membership';
 import Home from '../Home/Home';
 import Manage from '../admin';
 import Auth from './authProvider';
+import ForgotPassword from '../ForgotPass/ForgotPass';
 
 import {
     Routes,
     Route,
     Link,
-    Navigate,
 } from "react-router-dom";
 import './Navbar.css';
 
@@ -143,6 +143,7 @@ export default function Navbar() {
                     <Route path='/support' element={<Support/>}/>
                     <Route path='/membership' element={<Membership/>}/>
                     <Route path='/admin' element={<Manage/>}/>
+                    <Route path='/forgot-password' element={<ForgotPassword/>}/>
 
                     {/* <Route path='/admin' render = {()=>{
                         return userData.role === 'admin' ? <Manage/> : <Navigate to = '/login'/>

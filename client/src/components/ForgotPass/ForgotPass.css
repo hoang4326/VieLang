@@ -1,0 +1,71 @@
+.ForgotPassForm {
+    width: 35%;
+    height: 50%;
+    margin: auto;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 50px;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+h1.ForgotPassword{
+    text-align: center;
+
+}
+form.ForgotPassword {
+    width: 100%;
+    margin: 0 auto;
+    
+}
+
+
+
+form.ForgotPassword input.ForgotPassForm {
+    width: 100%;
+
+}
+
+input.ForgotPassForm,
+button {
+    display: block;
+    padding: 0.8rem;
+    outline: none;
+    font-size: inherit;
+    font-family: inherit;
+    margin-top: 1rem;
+    margin-bottom: 1.1rem;
+    border: 1px solid lightgrey;
+}
+
+/* .error-container {
+    border: 1px dashed lightgray;
+    padding: 1rem;
+    width: 100%;
+} */
+ul {
+    list-style-position: inside;
+    color: lightcoral;
+}
+button {
+    text-transform: uppercase;
+    background-color: #7577fa;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 25px;
+
+    }
+button:hover{
+    background: #0674ec;
+}
+@media screen and (max-width: 960px) {
+    .ForgotPassForm {
+        width: 90%;
+    }
+}
+
+
+
+

@@ -99,7 +99,7 @@ export default function SignupForm() {
                 // name="password"
                 className="signup"
                 id="cpassword"
-                placeholder="cpassword"
+                placeholder="Confirm password"
                 onChange= {event => setCpassword(event.target.value)}
             />
 
