@@ -8,6 +8,7 @@ import Home from '../Home/Home';
 import Manage from '../admin';
 import Auth from './authProvider';
 import ForgotPassword from '../ForgotPass/ForgotPass';
+import ResetPassword from '../ResetPass/ResetPass';
 
 import {
     Routes,
@@ -144,6 +145,9 @@ export default function Navbar() {
                     <Route path='/membership' element={<Membership/>}/>
                     <Route path='/admin' element={<Manage/>}/>
                     <Route path='/forgot-password' element={<ForgotPassword/>}/>
+                    {/* <Route path='/reset-password/:id/:token' element={<ResetPassword/>}/> */}
+                    <Route path='/reset-password' element={<ResetPassword/>}/>
+
 
                     {/* <Route path='/admin' render = {()=>{
                         return userData.role === 'admin' ? <Manage/> : <Navigate to = '/login'/>
