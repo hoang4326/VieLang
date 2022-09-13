@@ -7,9 +7,15 @@ app.use(cors());
 const bcrypt = require('bcryptjs');
 app.set("view engine", "ejs");
 app.use(express.urlencoded({extended: false}));
-const nodemailer = require('nodemailer');
+const hbs = require('nodemailer-express-handlebars');
+// const path = require("path");
+// const viewpath = path.join(__dirname, "../views");
+
+
 
 const jwt = require('jsonwebtoken');
+var nodemailer = require('nodemailer');
+
 const JWT_SECRET ="fafsfafw4124wrwqr#@#fasfasfsafasfsffa4%$@%@%";
 
 const mongoUrl = 
@@ -104,16 +110,60 @@ app.post('/forgot-password',async (req, res) => {
         var transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: 'group2hellomn@gmail.com',
-                pass: 'hellomn123'
+                user: "vielang123@gmail.com",
+                pass: "kowgahyxefqtgqxh"
             }
         });
-        
+
+        transporter.use('compile', hbs({
+            viewEngine: {
+                defaultLayout: false,
+            },
+            viewPath: './views/'
+        }));
+
+    
         var mailOptions = {
-            from: 'group2hellomn@gmail.com',
+            from: 'VieLang',
             to: req.body.email,
             subject: 'Password reset',
-            text: link,
+            context: {
+                name: oldUser.name,
+                link: link
+            },
+            attachments:[{
+                filename: 'image-2.png',
+                path:  './views/images/image-2.png',
+                cid: 'image-2'
+            },
+            {
+                filename: 'email.png',
+                path:   './views/images/email.png',
+                cid: 'email'
+            },
+            {
+                filename: 'image-3.png',
+                path: './views/images/image-3.png',
+                cid: 'image-3'
+            },
+            {
+                filename: 'image-1.png',
+                path:  './views/images/image-1.png',
+                cid: 'image-1'
+            },
+            {
+                filename: 'image-4.png',
+                path:  './views/images/image-4.png',
+                cid: 'image-4'
+            },
+            {
+                filename: 'image-6.png',
+                path:  './views/images/image-6.png',
+                cid: 'image-6'
+            },
+
+        ],
+            template: 'email'
         };
         
         transporter.sendMail(mailOptions, function(error, info){
