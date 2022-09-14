@@ -105,7 +105,7 @@ app.post('/forgot-password',async (req, res) => {
         const token = jwt.sign({email: oldUser.email, id: oldUser._id}, secret,{
             expiresIn: "5m",
         });
-        const link = `http://localhost:5000/reset-password/${oldUser._id}/${token}`;
+        const link = `http://localhost:3000/reset-password/${oldUser._id}/${token}`;
         
         var transporter = nodemailer.createTransport({
             service: 'gmail',
@@ -188,7 +188,7 @@ app.get('/reset-password/:id/:token', async (req, res) => {
     const secret = JWT_SECRET + oldUser.password;
     try{
         const verify = jwt.verify(token, secret);
-        res.render("index",{email: verify.email, status: "Not Verrifed"})
+        res.send({email: verify.email, status: "Not Verrifed"})
     }catch(error){
         res.send("Not Verrifed")
     }
@@ -213,8 +213,13 @@ app.post('/reset-password/:id/:token', async (req, res) => {
             $set:{
                 password: encryptedPassword,
             }
+        })
+        .then(() => {
+            res.send({email: verify.email, status:"verified"})
+        })
+        .catch((error) =>{
+            res.send({status:"Not Verrifed", email: error })
         });
-        res.render("index",{email: verify.email, status:"verified"})
     }catch(error){
         res.send("Not Verrifed")
     }

@@ -38,7 +38,8 @@ export default function ForgotPassword(){
             <label htmlFor="name" className="name">Email:</label>
             <input 
                 type="text"
-                // name="name"
+                name="email"
+                placeholder="Enter email"
                 className="ForgotPassForm"
                 placeholder="Enter email"
                 onChange={event => setEmail(event.target.value)}

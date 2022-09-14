@@ -145,8 +145,8 @@ export default function Navbar() {
                     <Route path='/membership' element={<Membership/>}/>
                     <Route path='/admin' element={<Manage/>}/>
                     <Route path='/forgot-password' element={<ForgotPassword/>}/>
-                    {/* <Route path='/reset-password/:id/:token' element={<ResetPassword/>}/> */}
-                    <Route path='/reset-password' element={<ResetPassword/>}/>
+                    <Route path='/reset-password/:id/:token' element={<ResetPassword/>}/>
+                    {/* <Route path='/reset-password' element={<ResetPassword/>}/> */}
 
 
                     {/* <Route path='/admin' render = {()=>{
