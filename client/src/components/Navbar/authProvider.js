@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Manage from '../admin';
-import Home from '../Home/Home';
-
 import {
-    Routes,
-    Route,
     Navigate,
 } from "react-router-dom";
 export default function Auth (){
@@ -24,18 +19,13 @@ export default function Auth (){
         })
         .then((res)=> res.json())
         .then((data)=>{
-            console.log(data, "userData");
-            setUserData(data.data);
+            setUserData(data.data); 
         });
     },[]);  
-
     return (
         <div>
             {userData.role === "admin" && <Navigate to = '/admin'/>}
-            {userData.role === "customer" && <Navigate to = '/home'/>}
-            <Routes>
-
-</Routes>
+            {userData.role === "customer" && <Navigate to = '/'/>}
 
         </div>
         

@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 // import { MenuItems }   from "./Menu";
-import LoginForm from '../LoginForm/LoginForm';
-import SignupForm from '../SignupForm/SignupForm';
-import Support from '../Support/Support';
-import Membership from '../Membership/Membership';
-import Home from '../Home/Home';
-import Manage from '../admin';
-import Auth from './authProvider';
-import ForgotPassword from '../ForgotPass/ForgotPass';
-import ResetPassword from '../ResetPass/ResetPass';
+// import LoginForm from '../LoginForm/LoginForm';
+// import SignupForm from '../SignupForm/SignupForm';
+// import Support from '../Support/Support';
+// import Membership from '../Membership/Membership';
+// import Home from '../Home/Home';
+// import Manage from '../admin';
+// import Auth from './authProvider';
+// import ForgotPassword from '../ForgotPass/ForgotPass';
+// import ResetPassword from '../ResetPass/ResetPass';
 
 import {
-    Routes,
-    Route,
+    // Routes,
+    // Route,
     Link,
 } from "react-router-dom";
 import './Navbar.css';
@@ -46,6 +46,8 @@ export default function Navbar() {
 
     const logOut = () =>{
         localStorage.removeItem('token');
+        localStorage.removeItem('role');
+
     }
 
     const handleClick = () =>{
@@ -66,7 +68,6 @@ export default function Navbar() {
         })
         .then((res)=> res.json())
         .then((data)=>{
-            console.log(data, "userData");
             setUserData(data.data);
         });
     },[]);
@@ -88,7 +89,7 @@ export default function Navbar() {
                             )
                         })} */}
                         <li>
-                            <Link className='nav-links' to='/home'>
+                            <Link className='nav-links' to='/'>
                                 HOME
                             </Link>
                         </li>
@@ -128,7 +129,7 @@ export default function Navbar() {
                                 <p>Edit profile</p>
                                 {/* <span>{'>'}</span> */}
                             </Link>
-                            <a href='/home' className='sub-menu-link' onClick={logOut}>
+                            <a href='/' className='sub-menu-link' onClick={logOut}>
                                 <img src={require('../../assets/image/logout.png')} alt='profile' />
                                 <p>Logout</p>
                                 {/* <span>{'>'}</span> */}
@@ -137,8 +138,8 @@ export default function Navbar() {
                         </div>
                     </div>
                 </nav>
-                <Routes>
-                    <Route path="/home" element={<Home/>} />
+                {/* <Routes>
+                    <Route path="/" element={<Home/>} />
                     <Route path='/login' element={<LoginForm/>}/>
                     <Route path='/signup' element={<SignupForm/>}/>
                     <Route path='/support' element={<Support/>}/>
@@ -146,15 +147,8 @@ export default function Navbar() {
                     <Route path='/admin' element={<Manage/>}/>
                     <Route path='/forgot-password' element={<ForgotPassword/>}/>
                     <Route path='/reset-password/:id/:token' element={<ResetPassword/>}/>
-                    {/* <Route path='/reset-password' element={<ResetPassword/>}/> */}
-
-
-                    {/* <Route path='/admin' render = {()=>{
-                        return userData.role === 'admin' ? <Manage/> : <Navigate to = '/login'/>
-                    }} /> */}
-                    <Route path='/' element={<Auth/>}/>
-
-                </Routes>
+                    <Route path='/auth' element={<Auth/>}/>
+                </Routes> */}
             </div>
 
         )

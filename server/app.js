@@ -15,6 +15,7 @@ const hbs = require('nodemailer-express-handlebars');
 
 const jwt = require('jsonwebtoken');
 var nodemailer = require('nodemailer');
+const { response } = require('express');
 
 const JWT_SECRET ="fafsfafw4124wrwqr#@#fasfasfsafasfsffa4%$@%@%";
 
@@ -60,14 +61,13 @@ app.post("/login",async(req,res)=>{
     const {email, password} = req.body;
 
     const user = await User.findOne({email});
-
     if(!user){
         return res.json({error:"User not found"});
     }
     if ( await bcrypt.compare(password, user.password) ){
         const token = jwt.sign({email: user.email}, JWT_SECRET);
         if(res.status(201)){
-            return res.json({status : "ok", data : token});
+            return res.json({status : "ok", data : token, role: user.role});
         }else{
             return res.json({error : "error"});
         }
@@ -79,7 +79,6 @@ app.post("/userData", async (req, res) => {
     const {token} = req.body;
     try{
         const user = jwt.verify(token, JWT_SECRET);
-        console.log(user);
         const useremail = user.email;
         User.findOne({email:useremail})
         .then((data) =>{
@@ -177,6 +176,14 @@ app.post('/forgot-password',async (req, res) => {
     console.log(link);
     }catch(error){}
 });
+app.get('/userRole/:id', async (req, res) =>{
+    const {id} = req.params;
+    const oldUser = await User.findOne({_id: id});
+    if (!oldUser){
+        return res.json({status: "User not exists!!"});
+    }
+    res.send({role: oldUser.role});
+})
 
 app.get('/reset-password/:id/:token', async (req, res) => {
     const {id, token} =req.params;

@@ -27,15 +27,22 @@ export default function LoginForm() {
         })
         .then((res)=> res.json())
         .then((data)=>{
-            console.log(data, "userRegister");
             if (data.status === "ok"){
                 MySwal.fire({
                     title: <strong>Success!</strong>,
                     html: <i>Login successfully!</i>,
                     icon: 'success'
                 }).then(()=>{
-                    window.localStorage.setItem("token", data.data);
-                    window.location.href = "./";
+                    if(data.role === 'admin'){
+                        window.localStorage.setItem("token", data.data);
+                        window.localStorage.setItem("role", data.role);
+                        window.location.href = "./admin";
+                    }else{
+                        window.localStorage.setItem("token", data.data);
+                        window.localStorage.setItem("role", data.role);
+
+                        window.location.href = "./";
+                    }
                 })
             }else{
                 MySwal.fire({
@@ -46,7 +53,6 @@ export default function LoginForm() {
             }
         });
     }
-
     return (
     <div className="loginForm">
         <form className="login" onSubmit={handleSubmit}>
