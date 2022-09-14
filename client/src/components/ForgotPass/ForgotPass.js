@@ -41,7 +41,6 @@ export default function ForgotPassword(){
                 name="email"
                 placeholder="Enter email"
                 className="ForgotPassForm"
-                placeholder="Enter email"
                 onChange={event => setEmail(event.target.value)}
                 />
             <button type="submit">Submit</button>
