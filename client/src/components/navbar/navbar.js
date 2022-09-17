@@ -64,6 +64,7 @@ export default function Navbar() {
             },
             body: JSON.stringify({
                 token:window.localStorage.getItem("token"),
+                role:window.localStorage.getItem("role"),
             }),
         })
         .then((res)=> res.json())

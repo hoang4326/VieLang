@@ -66,7 +66,8 @@ export default function LoginForm() {
                 name="email"
                 id="email"
                 placeholder="Email"
-                onChange={event => setEmail(event.target.value)}/>
+                onChange={event => setEmail(event.target.value)}
+                required='required'/>
             <label htmlFor="name" className="password">Password:</label>
             <input
                 type="password"
@@ -75,6 +76,7 @@ export default function LoginForm() {
                 id="password"
                 placeholder="Password"
                 onChange={event => setPassword(event.target.value)}
+                required='required'
             />
             {/* <ul className="error-container">
                 <li>Name is required</li>

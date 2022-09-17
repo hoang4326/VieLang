@@ -176,14 +176,14 @@ app.post('/forgot-password',async (req, res) => {
     console.log(link);
     }catch(error){}
 });
-app.get('/userRole/:id', async (req, res) =>{
-    const {id} = req.params;
-    const oldUser = await User.findOne({_id: id});
-    if (!oldUser){
-        return res.json({status: "User not exists!!"});
-    }
-    res.send({role: oldUser.role});
-})
+// app.get('/userRole/:id', async (req, res) =>{
+//     const {id} = req.params;
+//     const oldUser = await User.findOne({_id: id});
+//     if (!oldUser){
+//         return res.json({status: "User not exists!!"});
+//     }
+//     res.send({role: oldUser.role});
+// })
 
 app.get('/reset-password/:id/:token', async (req, res) => {
     const {id, token} =req.params;

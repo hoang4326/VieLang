@@ -6,9 +6,9 @@ import Home from '../components/Home/Home';
 import ForgotPassword from '../components/ForgotPass/ForgotPass';
 import ResetPassword from '../components/ResetPass/ResetPass';
 import { Navigate } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 // import Auth from '../components/Navbar/Navbar';
-import useFetch from "react-fetch-hook"
+// import useFetch from "react-fetch-hook"
 
 
 //Public routes

@@ -1,8 +1,28 @@
-import React from 'react';
-
+import React, {useRef} from 'react';
+import emailjs from '@emailjs/browser';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 import "./Support.css";
 
 export default function Support(){
+    const form = useRef();
+    const MySwal = withReactContent(Swal);
+
+    const sendEmail = (e) => {
+        e.preventDefault();
+    
+        emailjs.sendForm('service_akg4op4', 'template_zfbas73', form.current, '_AbHr5vqx_N_ioM-j')
+            .then((result) => {
+                MySwal.fire({
+                    title: <strong>Success!</strong>,
+                    html: <i>Login successfully!</i>,
+                    icon: 'success'
+                });
+                console.log(result.text);
+            }, (error) => {
+                console.log(error.text);
+            });
+        };
     return (
         <section className='contact'>
             <div className='content'>
@@ -34,19 +54,23 @@ export default function Support(){
                         </div>
                     </div>
                 </div>
-                <div className="contactForm">
-                    <form>
+                <div className="contactForm" >
+                    <form onSubmit={sendEmail} ref={form}>
                         <h2>Send Message</h2>
                         <div className="inputBox">
-                            <input type='text' className='support'  required='required'/>
+                            <input type='text' className='support'  required='required' name='fullName' />
                             <span>Full name</span>
                         </div>
                         <div className="inputBox">
-                            <input type='text' className='support' required='required'/>
+                            <input type='email' className='support' required='required' name='email'/>
                             <span>Email</span>
                         </div>
                         <div className="inputBox">
-                            <textarea required='required'></textarea>
+                            <input type='text' className='support' required='required' name='phone'/>
+                            <span>Phone Number</span>
+                        </div>
+                        <div className="inputBox">
+                            <textarea required='required' name='message'></textarea>
                             <span>Type your message...</span>
                         </div>
                         <div className="inputBox">

@@ -58,6 +58,7 @@ export default function ResetPassword(){
                 className="ResetPassForm"
                 placeholder="Enter password"
                 onChange={event => setPassword(event.target.value)}
+                required='required'
                 />
                 <label htmlFor="name" className="name">Confirm Password:</label>
             <input 
@@ -66,6 +67,7 @@ export default function ResetPassword(){
                 className="ResetPassForm"
                 placeholder="Enter confirm password"
                 onChange={event => setCpassword(event.target.value)}
+                required='required'
                 />
             <button type="submit">Reset</button>
         </form>

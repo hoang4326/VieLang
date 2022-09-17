@@ -67,15 +67,17 @@ export default function SignupForm() {
                 className="signup"
                 id="name"
                 placeholder="Your name"
-                onChange= {event => setName(event.target.value)} />
+                onChange= {event => setName(event.target.value)}
+                required='required'/>
             <label htmlFor="name" className="email">Email:</label>
             <input
-                type="text"
+                type="email"
                 // name="name"
                 className="signup"
                 id="email"
                 placeholder="Email"
-                onChange= {event => setEmail(event.target.value)} />
+                onChange= {event => setEmail(event.target.value)}
+                required='required'/>
             <label htmlFor="name" className="username">Username:</label>
             <input
                 type="text"
@@ -83,7 +85,8 @@ export default function SignupForm() {
                 className="signup"
                 id="username"
                 placeholder="Username"
-                onChange= {event => setUsername(event.target.value)} />
+                onChange= {event => setUsername(event.target.value)}
+                required='required'/>
             <label htmlFor="name" className="password">Password:</label>
             <input
                 type="password"
@@ -92,6 +95,7 @@ export default function SignupForm() {
                 id="password"
                 placeholder="password"
                 onChange= {event => setPassword(event.target.value)}
+                required='required'
             />
             <label htmlFor="name" className="password">Confirm Password:</label>
             <input
@@ -101,6 +105,7 @@ export default function SignupForm() {
                 id="cpassword"
                 placeholder="Confirm password"
                 onChange= {event => setCpassword(event.target.value)}
+                required='required'
             />
 
             <button type="submit">Sign up</button>

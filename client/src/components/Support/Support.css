@@ -8,6 +8,7 @@
     flex-direction: column;
     background: url(../../assets/image/contact.jpeg);
     background-size: cover;
+
 }
 .contact .content{
     max-width: 800px;
