@@ -1,5 +1,10 @@
+:root{
+    --violet:#6c5ce7;
+    --pink:#FC427B;
+    --gradient:linear-gradient(5deg, var(--violet), var(--pink));
+}
 .navbarItems{
-    background:linear-gradient(90deg, rgb(110, 94, 254) 0%, rgba(73, 63, 252, 1) 100%);
+    background:var(--gradient);
     height: 80px;
     display: flex;
     justify-content: center;
@@ -24,7 +29,7 @@
     margin-right: 2rem;
 }
 
-.nav-links {
+/* .nav-links {
     color: white;
     text-decoration: none;
     padding: 0.5rem 1rem;
@@ -34,7 +39,29 @@
     background-color: #6d76f7;
     border-radius: 4px;
     transition: all 0.2s ease-out;
+} */
+.nav-links{
+    padding: 0.5rem 1rem;
+    color: white;
+    cursor: pointer;
+    padding-bottom: 8px;
+    text-decoration: none;
+    position: relative;
 }
+.nav-links::after{
+    position: absolute;
+    content: "";
+    width: 0%;
+    height: 3px;
+    background-color: white;
+    bottom: 0;
+    left: 0;
+    transition: width 0.4s ease-out;
+}
+.nav-links:hover.nav-links::after{
+    width: 100%;
+}
+
 
 .fa-bars {
     color: #fff;

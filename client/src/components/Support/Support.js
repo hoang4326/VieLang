@@ -18,6 +18,7 @@ export default function Support(){
                     html: <i>Login successfully!</i>,
                     icon: 'success'
                 });
+            form.current.reset();
                 console.log(result.text);
             }, (error) => {
                 console.log(error.text);
