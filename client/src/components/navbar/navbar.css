@@ -1,10 +1,6 @@
-:root{
-    --violet:#6c5ce7;
-    --pink:#FC427B;
-    --gradient:linear-gradient(5deg, var(--violet), var(--pink));
-}
+
 .navbarItems{
-    background:var(--gradient);
+    background:linear-gradient(10deg, #3f5efb, #fc466b);
     height: 80px;
     display: flex;
     justify-content: center;
