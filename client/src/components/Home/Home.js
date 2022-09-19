@@ -9,11 +9,12 @@ import {dataFeedback} from './Feedback';
 export default function Home(){
     const settings = {
         dots: true,
-        infinite: false,
+        infinite: true,
         speed: 500,
         slidesToShow: 3,
         slidesToScroll: 3,
         initialSlide: 0,
+
         responsive: [
             {
             breakpoint: 1024,
@@ -104,17 +105,18 @@ export default function Home(){
                 </div>
             </div>
         </section>
-        <section className='slider'>    
+        <section className='slider'>
+            <h2 className='slider-title'>What learners like you are saying about VieLang</h2>
             <div className='slider-card'>
                 <Slider {...settings}>
                 {dataFeedback.map((item) =>(
                     <div className='card'>
                         <div className='card-top'>
-                            <img src={item.img} alt={item.name} />
+                            <img src={item.img} alt={item.name} className='card-img'/>
                             <h1>{item.name}</h1>
                         </div>
                         <div className='card-bottom'>
-                            <p>{item.content}</p>
+                            <i><p>{item.content}</p></i>
                         </div>
                     </div>
                 ))}
