@@ -68,3 +68,52 @@
     margin: 30px 0;
     border-radius: 5px;
 }
+.sidebar .section .recordContent .dayGoalArea {
+    display: flex;
+}
+.sidebar .section .recordContent .dayGoalArea>div:first-child {
+    font-size: 15px;
+    color: #4a4a4a;
+    font-weight: bold;
+}
+.sidebar .section .recordContent .chart {
+    padding-top: 20px;
+}
+.sidebar .section .recordContent .scoreCard {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 11px;
+}
+.sidebar .section .recordContent .scoreCard .card {
+    width: 38%;
+    height: 128px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.sidebar .section .recordContent .scoreCard .card .cardInner>div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.sidebar .section .recordContent .scoreCard .card .cardInner>div:first-child {
+    font-size: 28px;
+    font-weight: bold;
+    color: #4a4a4a;
+}
+.sidebar .section .recordContent .scoreCard .card .cardInner>div:last-child {
+    font-size: 13px;
+    padding-top: 16px;
+    color: #949494;
+}
+.sidebar .section .recordContent .scoreCard .vLine {
+    width: 2px;
+    background-color: #ececec;
+    height: 85px;
+    opacity: .7;
+    position: relative;
+    top: 2px;
+}
