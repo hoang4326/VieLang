@@ -5,6 +5,7 @@ import Membership from '../components/Membership/Membership';
 import Home from '../components/Home/Home';
 import ForgotPassword from '../components/ForgotPass/ForgotPass';
 import ResetPassword from '../components/ResetPass/ResetPass';
+import Lesson from '../components/Lesson/Lesson';
 import { Navigate } from 'react-router-dom';
 import React from 'react';
 // import Auth from '../components/Navbar/Navbar';
@@ -20,6 +21,7 @@ export const publicRoutes = [
     { path: '/membership', component: Membership},
     { path: '/forgot-password', component: ForgotPassword},
     { path: '/reset-password/:id/:token', component: ResetPassword},
+    { path: '/lesson', component: Lesson}
     // { path: '/auth', component: Auth},
 
 ]

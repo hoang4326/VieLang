@@ -1,0 +1,70 @@
+
+.lesson{
+    background-color: #f4f5f7;
+
+}
+.mainContent{
+    margin: 87px auto;
+    padding: 0 40px;
+    max-width: 1000px;
+    min-width: 840px;
+    cursor: default;
+}
+
+.unitList .sidebarArena{
+    float: right;
+    width: 300px;
+}
+
+.unitList .skilltree{
+    border-radius: 10px;
+    margin-right: 327px;
+    min-height: 700px;
+    background-color: #fff;
+}
+
+.unitList .sidebarArea {
+    float: right;
+    width: 300px;
+}
+
+.sidebar {
+    width: 100%;
+}
+
+.sidebar .section {
+    position: relative;
+    padding: 0 16px;
+    background-color: #fff;
+    border-radius: 10px;
+    min-height: 176px;
+    padding-bottom: 0px;
+    padding-top: 15px;
+}
+.progressTitle{
+    display: flex;
+    align-items: center;
+}
+.sidebar .section .progressTitle {
+    font-size: 15px;
+    text-align: left;
+    color: #4a4a4a;
+    font-weight: bold;
+}
+.sidebar .section .progressArea {
+    justify-content: center;
+    display: flex;
+    width: 100%;
+    margin-top: 30px;
+}
+.sidebar .section .progressArea .circleBar {
+    margin: auto;
+    min-height: 168px;
+}
+.sidebar .section .vLine {
+    background-color: #ececec;
+    height: 2px;
+    opacity: .5;
+    margin: 30px 0;
+    border-radius: 5px;
+}

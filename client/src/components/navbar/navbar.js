@@ -95,7 +95,7 @@ export default function Navbar() {
                             </Link>
                         </li>
                         <li>
-                            <Link className='nav-links' to='/#'>
+                            <Link className='nav-links' to='/lesson'>
                                 LESSONS
                             </Link>
                         </li>
