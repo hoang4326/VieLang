@@ -26,12 +26,10 @@ export default function Chart(){
                 {
                     label: "goal",
                     backgroundColor: "#c45850",
-                    data: [3, 0, 0, 0, 0, 0, 0]
+                    data: [10, 0, 0, 0, 0, 0, 0]
                 }
                 ]}
         } 
-        height="2px"
-        width="2px"
         options={
             {
                 responsive: true,

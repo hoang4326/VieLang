@@ -1,10 +1,10 @@
 
-.lesson{
+/* .lesson{
     background-color: #f4f5f7;
 
-}
+} */
 .mainContent{
-    margin: 87px auto;
+    margin: 50px auto;
     padding: 0 40px;
     max-width: 1000px;
     min-width: 840px;
@@ -19,8 +19,8 @@
 .unitList .skilltree{
     border-radius: 10px;
     margin-right: 327px;
-    min-height: 900px;
-    background-color: #fff;
+    min-height: 650px;
+    background-color: #f4f5f7;
 }
 
 .unitList .sidebarArea {
@@ -35,7 +35,7 @@
 .sidebar .section {
     position: relative;
     padding: 0 16px;
-    background-color: #fff;
+    background-color: #f4f5f7;
     border-radius: 10px;
     min-height: 176px;
     padding-bottom: 0px;
@@ -62,7 +62,7 @@
     min-height: 168px;
 }
 .sidebar .section .vLine {
-    background-color: #ececec;
+    background-color: #4a4a4a;
     height: 2px;
     opacity: .5;
     margin: 30px 0;
@@ -85,7 +85,7 @@
     align-items: center;
     margin-top: 11px;
 }
-.sidebar .section .recordContent .scoreCard .card {
+.sidebar .section .recordContent .scoreCard .cardLesson {
     width: 38%;
     height: 128px;
     border-radius: 5px;
@@ -93,18 +93,18 @@
     align-items: center;
     justify-content: center;
 }
-.sidebar .section .recordContent .scoreCard .card .cardInner>div {
+.sidebar .section .recordContent .scoreCard .cardLesson .cardInner>div {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-.sidebar .section .recordContent .scoreCard .card .cardInner>div:first-child {
+.sidebar .section .recordContent .scoreCard .cardLesson .cardInner>div:first-child {
     font-size: 28px;
     font-weight: bold;
     color: #4a4a4a;
 }
-.sidebar .section .recordContent .scoreCard .card .cardInner>div:last-child {
+.sidebar .section .recordContent .scoreCard .cardLesson .cardInner>div:last-child {
     font-size: 13px;
     padding-top: 16px;
     color: #949494;
@@ -116,4 +116,138 @@
     opacity: .7;
     position: relative;
     top: 2px;
+}
+.unitList .skilltree .wrap {
+    position: relative;
+}
+.unitList .skilltree .wrap .wrapInner {
+    display: flex;
+    justify-content: space-between;
+}
+.unitList .skilltree .wrap .wrapInner>div.left {
+    width: 50%;
+    border-right: 2px solid #999;
+    opacity: 0.8;
+}
+.unitList .skilltree .wrap .wrapInner .oneUnit {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    height: 168px;
+}
+.unitList .skilltree .wrap .wrapInner .oneUnit .rippleOuterCus {
+    background-color: transparent;
+    height: 100%;
+    width: 100%;
+    transition: all 0.5s;
+}
+
+.rippleOuter_1 {
+    background: #F4F5F7;
+    transition: 0.1s;
+}
+
+.unitList .skilltree .wrap .wrapInner>div.left .oneUnit .rippleOuterCus .rippleCus {
+    display: flex;
+    justify-content: flex-end;
+}
+.unitList .skilltree .wrap .wrapInner .oneUnit .rippleOuterCus .rippleCus {
+    height: 100%;
+    width: 100%;
+}
+.ripple_1 {
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+}
+.unitList .skilltree .wrap .wrapInner>div.left .oneUnit .rippleOuterCus .rippleCus>div {
+    position: relative;
+}
+.unitList .skilltree .wrap .wrapInner .oneUnit .rippleOuterCus .rippleCus>div {
+    height: 100%;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.unitList .skilltree .wrap .wrapInner .oneUnit .imgArea {
+    position: relative;
+    width: 70px;
+    min-height: 43px;
+    overflow: hidden;
+    text-align: center;
+}
+.unitList .skilltree .wrap .wrapInner .oneUnit .imgArea img.icon {
+    width: auto;
+    height: 40px;
+    position: relative;
+    max-width: 70px;
+}
+
+.unitList .skilltree .wrap .wrapInner .oneUnit .unitName._1 {
+    color: #3e98c7;
+}
+.unitList .skilltree .wrap .wrapInner .oneUnit .unitName {
+    /* font-size: 1.6rem; */
+    text-align: center;
+    margin-top: 8px;
+    color: #9B9B9B;
+    font-weight: 500;
+}
+.unitList .skilltree .wrap .wrapInner .oneUnit .lessonProgressText {
+    position: relative;
+    top: 9px;
+    color: #999;
+    /* font-size: 1.2rem; */
+}
+.unitList .skilltree .wrap .wrapInner .oneUnit._1 .hrLine {
+    background-color: #999;
+    opacity: 0.8;
+}
+.unitList .skilltree .wrap .wrapInner .oneUnit .hrLine {
+    height: 2px;
+    width: 80%;
+    margin: auto;
+    position: absolute;
+    bottom: 1px;
+    opacity: 0.8;
+    background-color: #F0F0F0;
+}
+.ripple_1::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, #666 10%, transparent 10.01%);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    transform: scale(15, 15);
+    opacity: 0;
+    transition: transform 0.3s, opacity 0.5s;
+}
+.unitList .skilltree .wrap .wrapInner>div.right {
+    width: 50%;
+}
+.unitList .skilltree .wrap .wrapInner .oneUnit.alphabet._1 {
+    display: block;
+}
+.unitList .skilltree .wrap .wrapInner .oneUnit.alphabet {
+    display: none;
+    height: 94px;
+}
+.unitList .skilltree .wrap .wrapInner .oneUnit.alphabet .unitName {
+    font-size: 14px;
+    width: 113px;
+    height: 30px;
+    line-height: 30px;
+    color: #3e98c7;
+    margin-top: 0;
+    border-radius: 19px;
+    border: 1px solid #3e98c7;
 }

@@ -39,10 +39,11 @@ export default function ResetPassword(){
                 title: <strong>Password Changed!</strong>,
                 html: <i>Your password has been changed successfully</i>,
                 icon: 'success'
-            }).then(() =>{
-                window.location.href = "./";
-
             })
+            // .then(() =>{
+            //     window.location.href = "./";
+
+            // })
         });
     }
     }
