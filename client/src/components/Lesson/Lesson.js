@@ -5,7 +5,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import BarChart from './BarChart';
 
 export default function Lesson(){
-    const percentage = 10;
+    const percentage = 15;
 
     return (
         <div className='lesson'>
