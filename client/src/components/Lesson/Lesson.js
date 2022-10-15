@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Lesson.css';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
@@ -6,7 +6,50 @@ import BarChart from './BarChart';
 
 export default function Lesson(){
     const percentage = 15;
+    const [topic, setTopic] = useState([]);
+    // const [topic, setTopic] = useState({topicL: [], topicR: []});
 
+    // const [topicR, setTopicR] = useState([]);
+
+    useEffect(() => {
+    fetch("http://localhost:5000/lesson")
+    .then(res => 
+        res.json()
+    )
+    .then((data)=>{
+        setTopic(data)
+    })
+    // .then((data) => {setTopic({
+    //     topicL: data.topicL,
+    //     topicR: data.topicR
+    // })})
+    .catch((err) => {console.log(err)})
+    }, [])
+
+    console.log(topic)
+    if (Array.isArray(topic)){
+        console.log("TRue")
+    }else{
+        console.log("False")
+    }
+    // function isJson(item) {
+    //     item = typeof item !== "string"
+    //         ? JSON.stringify(item)
+    //         : item;
+    
+    //     try {
+    //         item = JSON.parse(item);
+    //     } catch (e) {
+    //         return false;
+    //     }
+    
+    //     if (typeof item === "object" && item !== null) {
+    //         return true;
+    //     }
+    
+    //     return false;
+    // }
+    // console.log(isJson(topic));
     return (
         <div className='lesson'>
             <div className='mainContent'>
@@ -55,25 +98,30 @@ export default function Lesson(){
                         <div className='wrap'>
                             <div className='wrapInner'>
                                 <div className='left'>
-                                    <div id='id_1' className='oneUnit _1' onClick="window.location='/#';" style={{cursor: "pointer"}}>
-                                        <div className='rippleOuterCus rippleOuter_1 _1'>
-                                            <div className='rippleCus ripple_1'>
-                                                <div >
-                                                    <div className='imgArea _1'>
-                                                        <img className='icon' alt='icon' src='http://web.archive.org/web/20220920115031/https://webjson.lingodeer.com/mediaSource/static/images/unitPic/UnitIcons/1/81@2x.png' />
+                                {topic[0]?.map?.((item)=>(
+                                    
+                                            <div id={item.id} className='oneUnit _1' onClick="window.location='/#';" style={{cursor: "pointer"}} >
+                                                <div className='rippleOuterCus rippleOuter_1 _1'>
+                                                    <div className='rippleCus ripple_1'>
+                                                        <div >
+                                                            <div className='imgArea _1'>
+                                                                <img className='icon' alt='icon' src={item.url} />
+                                                            </div>
+                                                            <div className='unitName _1'>
+                                                                {item.name}
+                                                            </div>
+                                                            {/* <div className='lessonProgressText'>
+                                                                0 / 3
+                                                            </div> */}
+                                                            <div className='hrLine'></div>
+                                                        </div>
                                                     </div>
-                                                    <div className='unitName _1'>
-                                                        Basic 1
-                                                    </div>
-                                                    <div className='lessonProgressText'>
-                                                        0 / 3
-                                                    </div>
-                                                    <div className='hrLine'></div>
-                                                </div>
+                                                </div>    
                                             </div>
-                                        </div>    
-                                    </div>
-                                    <div id='id_3' className='oneUnit _1' onClick="window.location='/#';" style={{cursor: "pointer"}}>
+                                    
+                                ))}
+                                    
+                                    {/* <div id='id_3' className='oneUnit _1' onClick="window.location='/#';" style={{cursor: "pointer"}}>
                                         <div className='rippleOuterCus rippleOuter_1 _1'>
                                             <div className='rippleCus ripple_1'>
                                                 <div>
@@ -83,9 +131,9 @@ export default function Lesson(){
                                                     <div className='unitName _1'>
                                                         Basic 3
                                                     </div>
-                                                    {/* <div className='lessonProgressText'>
+                                                    <div className='lessonProgressText'>
                                                         "0 / 3"
-                                                    </div> */}
+                                                    </div>
                                                     <div className='hrLine'></div>
                                                 </div>
                                             </div>
@@ -101,9 +149,9 @@ export default function Lesson(){
                                                     <div className='unitName _1'>
                                                         Food
                                                     </div>
-                                                    {/* <div className='lessonProgressText'>
+                                                    <div className='lessonProgressText'>
                                                         "0 / 3"
-                                                    </div> */}
+                                                    </div>
                                                     <div className='hrLine'></div>
                                                 </div>
                                             </div>
@@ -119,15 +167,15 @@ export default function Lesson(){
                                                     <div className='unitName _1'>
                                                         Question
                                                     </div>
-                                                    {/* <div className='lessonProgressText'>
+                                                    <div className='lessonProgressText'>
                                                         0 / 3
-                                                    </div> */}
+                                                    </div>
                                                     <div className='hrLine'></div>
                                                 </div>
                                             </div>
                                         </div>    
-                                    </div>
-                                </div>
+                                    </div>*/}
+                                </div> 
                                 <div className='right'>
                                     <div className='oneUnit alphabet _1' onClick="window.location='/#';" style={{cursor: "pointer"}}>
                                         <div className='rippleOuterCus rippleOuter_1 _1'>
@@ -140,27 +188,32 @@ export default function Lesson(){
                                                 </div>
 
                                             </div>
-                                        </div>
+                                        </div>  
                                     </div>
-                                    <div id='id_2' className='oneUnit _1' onClick="window.location='/#';" style={{cursor: "pointer"}}>
-                                        <div className='rippleOuterCus rippleOuter_1 _1'>
-                                            <div className='rippleCus ripple_1'>
-                                                <div>
-                                                    <div className='imgArea _1'>
-                                                        <img className='icon' alt='icon' src='http://web.archive.org/web/20220920084301if_/https://webjson.lingodeer.com/mediaSource/static/images/unitPic/UnitIcons/1/82@2x.png' />
-                                                    </div>
-                                                    <div className='unitName _1'>
-                                                        Basic 2
-                                                    </div>
-                                                    {/* <div className='lessonProgressText'>
-                                                        "0 / 3"
-                                                    </div> */}
-                                                    <div className='hrLine'></div>
+                                    {topic[1]?.map?.((item,index)=>{
+                                            return (
+                                                <div id={item.id} className='oneUnit _1' onClick="window.location='/#';" style={{cursor: "pointer"}} key={index}>
+                                                    <div className='rippleOuterCus rippleOuter_1 _1'>
+                                                        <div className='rippleCus ripple_1'>
+                                                            <div>
+                                                                <div className='imgArea _1'>
+                                                                    <img className='icon' alt='icon' src={item.url} />
+                                                                </div>
+                                                                <div className='unitName _1'>
+                                                                    {item.name}
+                                                                </div>
+                                                                {/* <div className='lessonProgressText'>
+                                                                    "0 / 3"
+                                                                </div> */}
+                                                                <div className='hrLine'></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>    
                                                 </div>
-                                            </div>
-                                        </div>    
-                                    </div>
-                                    <div id='id_4' className='oneUnit _1' onClick="window.location='/#';" style={{cursor: "pointer"}}>
+                                            )
+                                    })}
+                                    
+                                    {/* <div id='id_4' className='oneUnit _1' onClick="window.location='/#';" style={{cursor: "pointer"}}>
                                         <div className='rippleOuterCus rippleOuter_1 _1'>
                                             <div className='rippleCus ripple_1'>
                                                 <div>
@@ -170,9 +223,9 @@ export default function Lesson(){
                                                     <div className='unitName _1'>
                                                         Greetings
                                                     </div>
-                                                    {/* <div className='lessonProgressText'>
+                                                    <div className='lessonProgressText'>
                                                         "0 / 3"
-                                                    </div> */}
+                                                    </div>
                                                     <div className='hrLine'></div>
                                                 </div>
                                             </div>
@@ -188,14 +241,14 @@ export default function Lesson(){
                                                     <div className='unitName _1'>
                                                         Animal
                                                     </div>
-                                                    {/* <div className='lessonProgressText'>
+                                                    <div className='lessonProgressText'>
                                                         "0 / 3"
-                                                    </div> */}
+                                                    </div>
                                                     <div className='hrLine'></div>
                                                 </div>
                                             </div>
                                         </div>    
-                                    </div>
+                                    </div> */}
 
                                 </div>
                             </div>

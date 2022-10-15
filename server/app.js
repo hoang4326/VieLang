@@ -20,7 +20,7 @@ const { response } = require('express');
 const JWT_SECRET ="fafsfafw4124wrwqr#@#fasfasfsafasfsffa4%$@%@%";
 
 const mongoUrl = 
-    "mongodb://hoang4326:hoang190506@ac-ibx7lch-shard-00-00.jh8v5og.mongodb.net:27017,ac-ibx7lch-shard-00-01.jh8v5og.mongodb.net:27017,ac-ibx7lch-shard-00-02.jh8v5og.mongodb.net:27017/test?replicaSet=atlas-1mz6xt-shard-0&ssl=true&authSource=admin"
+    "mongodb://hoang4326:hoang190506@ac-ibx7lch-shard-00-00.jh8v5og.mongodb.net:27017,ac-ibx7lch-shard-00-01.jh8v5og.mongodb.net:27017,ac-ibx7lch-shard-00-02.jh8v5og.mongodb.net:27017/vielangDatabase?replicaSet=atlas-1mz6xt-shard-0&ssl=true&authSource=admin"
 
 mongoose
     .connect(mongoUrl,{
@@ -30,8 +30,18 @@ mongoose
         console.log("Connect to database");
     })
     .catch((e)=>console.log(e));
+require("./models/userDetails");
+require("./models/topic");
 
-require("./userDetails");
+const Topic = mongoose.model("Topic");
+app.get("/lesson",async (req, res)=>{
+    const topicL = await Topic.find({id: { $mod: [ 2, 1 ] }});
+    const topicR = await Topic.find({id: { $mod: [ 2, 0 ] }});
+    // res.send({topicL: topicL, topicR: topicR} );
+    // res.send([topicL, topicR] );
+    res.send([data1 = topicL, data2 = topicR] );
+
+});
 
 const User = mongoose.model("UserInfo");
 app.post("/signup",async(req,res)=>{
