@@ -190,9 +190,9 @@ export default function Lesson(){
                                             </div>
                                         </div>  
                                     </div>
-                                    {topic[1]?.map?.((item,index)=>{
-                                            return (
-                                                <div id={item.id} className='oneUnit _1' onClick="window.location='/#';" style={{cursor: "pointer"}} key={index}>
+                                    {topic[1]?.map?.((item)=>
+                                            (
+                                                <div id={item.id} className='oneUnit _1' onClick="window.location='/#';" style={{cursor: "pointer"}}>
                                                     <div className='rippleOuterCus rippleOuter_1 _1'>
                                                         <div className='rippleCus ripple_1'>
                                                             <div>
@@ -211,7 +211,7 @@ export default function Lesson(){
                                                     </div>    
                                                 </div>
                                             )
-                                    })}
+                                    )}
                                     
                                     {/* <div id='id_4' className='oneUnit _1' onClick="window.location='/#';" style={{cursor: "pointer"}}>
                                         <div className='rippleOuterCus rippleOuter_1 _1'>
