@@ -26,12 +26,15 @@ export default function Lesson(){
     .catch((err) => {console.log(err)})
     }, [])
 
-    console.log(topic)
-    if (Array.isArray(topic)){
-        console.log("TRue")
-    }else{
-        console.log("False")
+    const location = () =>{
+        window.location='/#'
     }
+    // console.log(topic)
+    // if (Array.isArray(topic)){
+    //     console.log("TRue")
+    // }else{
+    //     console.log("False")
+    // }
     // function isJson(item) {
     //     item = typeof item !== "string"
     //         ? JSON.stringify(item)
@@ -98,9 +101,10 @@ export default function Lesson(){
                         <div className='wrap'>
                             <div className='wrapInner'>
                                 <div className='left'>
-                                {topic[0]?.map?.((item)=>(
+                                {topic[0]?.map?.((item, index)=>{
+                                    return(
                                     
-                                            <div id={item.id} className='oneUnit _1' onClick="window.location='/#';" style={{cursor: "pointer"}} >
+                                            <div id={item.id} className='oneUnit _1' onClick={location} style={{cursor: "pointer"}} key={index} >
                                                 <div className='rippleOuterCus rippleOuter_1 _1'>
                                                     <div className='rippleCus ripple_1'>
                                                         <div >
@@ -119,65 +123,13 @@ export default function Lesson(){
                                                 </div>    
                                             </div>
                                     
-                                ))}
+                                )
+                                    })}
                                     
-                                    {/* <div id='id_3' className='oneUnit _1' onClick="window.location='/#';" style={{cursor: "pointer"}}>
-                                        <div className='rippleOuterCus rippleOuter_1 _1'>
-                                            <div className='rippleCus ripple_1'>
-                                                <div>
-                                                    <div className='imgArea _1'>
-                                                        <img className='icon' alt='icon' src='http://web.archive.org/web/20220920115032if_/https://webjson.lingodeer.com/mediaSource/static/images/unitPic/UnitIcons/1/83@2x.png' />
-                                                    </div>
-                                                    <div className='unitName _1'>
-                                                        Basic 3
-                                                    </div>
-                                                    <div className='lessonProgressText'>
-                                                        "0 / 3"
-                                                    </div>
-                                                    <div className='hrLine'></div>
-                                                </div>
-                                            </div>
-                                        </div>    
-                                    </div>
-                                    <div id='id_5' className='oneUnit _1' onClick="window.location='/#';" style={{cursor: "pointer"}}>
-                                        <div className='rippleOuterCus rippleOuter_1 _1'>
-                                            <div className='rippleCus ripple_1'>
-                                                <div>
-                                                    <div className='imgArea _1'>
-                                                        <img className='icon' alt='icon' src='http://web.archive.org/web/20220920084302if_/https://webjson.lingodeer.com/mediaSource/static/images/unitPic/UnitIcons/1/6@2x.png' />
-                                                    </div>
-                                                    <div className='unitName _1'>
-                                                        Food
-                                                    </div>
-                                                    <div className='lessonProgressText'>
-                                                        "0 / 3"
-                                                    </div>
-                                                    <div className='hrLine'></div>
-                                                </div>
-                                            </div>
-                                        </div>    
-                                    </div>
-                                    <div id='id_7' className='oneUnit _1' onClick="window.location='/#';" style={{cursor: "pointer"}}>
-                                        <div className='rippleOuterCus rippleOuter_1 _1'>
-                                            <div className='rippleCus ripple_1'>
-                                                <div>
-                                                    <div className='imgArea _1'>
-                                                        <img className='icon' alt='icon' src='http://web.archive.org/web/20220921012354/https://webjson.lingodeer.com/mediaSource/static/images/unitPic/UnitIcons/1/10@2x.png' />
-                                                    </div>
-                                                    <div className='unitName _1'>
-                                                        Question
-                                                    </div>
-                                                    <div className='lessonProgressText'>
-                                                        0 / 3
-                                                    </div>
-                                                    <div className='hrLine'></div>
-                                                </div>
-                                            </div>
-                                        </div>    
-                                    </div>*/}
+                                    
                                 </div> 
                                 <div className='right'>
-                                    <div className='oneUnit alphabet _1' onClick="window.location='/#';" style={{cursor: "pointer"}}>
+                                    <div className='oneUnit alphabet _1' onClick={location} style={{cursor: "pointer"}}>
                                         <div className='rippleOuterCus rippleOuter_1 _1'>
                                             <div className='rippleCus ripple_1 _1'>
                                                 <div>
@@ -190,65 +142,31 @@ export default function Lesson(){
                                             </div>
                                         </div>  
                                     </div>
-                                    {topic[1]?.map?.((item)=>
-                                            (
-                                                <div id={item.id} className='oneUnit _1' onClick="window.location='/#';" style={{cursor: "pointer"}}>
-                                                    <div className='rippleOuterCus rippleOuter_1 _1'>
-                                                        <div className='rippleCus ripple_1'>
-                                                            <div>
-                                                                <div className='imgArea _1'>
-                                                                    <img className='icon' alt='icon' src={item.url} />
-                                                                </div>
-                                                                <div className='unitName _1'>
-                                                                    {item.name}
-                                                                </div>
-                                                                {/* <div className='lessonProgressText'>
-                                                                    "0 / 3"
-                                                                </div> */}
-                                                                <div className='hrLine'></div>
+                                    {topic[1]?.map?.((item,index)=> {
+                                        return (
+                                            <div id={item.id} className='oneUnit _1' onClick={location} style={{cursor: "pointer"}} key={index}>
+                                                <div className='rippleOuterCus rippleOuter_1 _1'>
+                                                    <div className='rippleCus ripple_1'>
+                                                        <div>
+                                                            <div className='imgArea _1'>
+                                                                <img className='icon' alt='icon' src={item.url} />
                                                             </div>
+                                                            <div className='unitName _1'>
+                                                                {item.name}
+                                                            </div>
+                                                            {/* <div className='lessonProgressText'>
+                                                                "0 / 3"
+                                                            </div> */}
+                                                            <div className='hrLine'></div>
                                                         </div>
-                                                    </div>    
-                                                </div>
-                                            )
+                                                    </div>
+                                                </div>    
+                                            </div>
+                                        )
+                                    }    
                                     )}
                                     
-                                    {/* <div id='id_4' className='oneUnit _1' onClick="window.location='/#';" style={{cursor: "pointer"}}>
-                                        <div className='rippleOuterCus rippleOuter_1 _1'>
-                                            <div className='rippleCus ripple_1'>
-                                                <div>
-                                                    <div className='imgArea _1'>
-                                                        <img className='icon' alt='icon' src='http://web.archive.org/web/20220920084301if_/https://webjson.lingodeer.com/mediaSource/static/images/unitPic/UnitIcons/1/45@2x.png' />
-                                                    </div>
-                                                    <div className='unitName _1'>
-                                                        Greetings
-                                                    </div>
-                                                    <div className='lessonProgressText'>
-                                                        "0 / 3"
-                                                    </div>
-                                                    <div className='hrLine'></div>
-                                                </div>
-                                            </div>
-                                        </div>    
-                                    </div>
-                                    <div id='id_6' className='oneUnit _1' onClick="window.location='/#';" style={{cursor: "pointer"}}>
-                                        <div className='rippleOuterCus rippleOuter_1 _1'>
-                                            <div className='rippleCus ripple_1'>
-                                                <div>
-                                                    <div className='imgArea _1'>
-                                                        <img className='icon' alt='icon' src='http://web.archive.org/web/20220920084301if_/https://webjson.lingodeer.com/mediaSource/static/images/unitPic/UnitIcons/1/82@2x.png' />
-                                                    </div>
-                                                    <div className='unitName _1'>
-                                                        Animal
-                                                    </div>
-                                                    <div className='lessonProgressText'>
-                                                        "0 / 3"
-                                                    </div>
-                                                    <div className='hrLine'></div>
-                                                </div>
-                                            </div>
-                                        </div>    
-                                    </div> */}
+                                    
 
                                 </div>
                             </div>
