@@ -8,6 +8,7 @@ import ResetPassword from '../components/ResetPass/ResetPass';
 import Lesson from '../components/Lesson/Lesson';
 import { Navigate } from 'react-router-dom';
 import React from 'react';
+import LessonById from '../components/Lesson/LessonById';
 // import Auth from '../components/Navbar/Navbar';
 // import useFetch from "react-fetch-hook"
 
@@ -21,7 +22,9 @@ export const publicRoutes = [
     { path: '/membership', component: Membership},
     { path: '/forgot-password', component: ForgotPassword},
     { path: '/reset-password/:id/:token', component: ResetPassword},
-    { path: '/lesson', component: Lesson}
+    { path: '/lesson', component: Lesson},
+    { path: '/lesson/:id', component: LessonById}
+
     // { path: '/auth', component: Auth},
 
 ]

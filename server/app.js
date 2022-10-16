@@ -32,7 +32,13 @@ mongoose
     .catch((e)=>console.log(e));
 require("./models/userDetails");
 require("./models/topic");
-
+require("./models/lesson");
+const Lesson = mongoose.model("Lesson");
+app.get("/lesson/:id",async (req, res) => {
+    const {id} = req.params;
+    const lesson = await Lesson.find({topicId: id});
+    res.send(lesson);
+})
 const Topic = mongoose.model("Topic");
 app.get("/lesson",async (req, res)=>{
     const topicL = await Topic.find({id: { $mod: [ 2, 1 ] }});
@@ -214,7 +220,6 @@ app.get('/reset-password/:id/:token', async (req, res) => {
 app.post('/reset-password/:id/:token', async (req, res) => {
     const {id, token} =req.params;
     const {password} = req.body;
-    
     console.log(req.params);
     const oldUser = await User.findOne({_id: id});
     if (!oldUser){

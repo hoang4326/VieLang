@@ -44,6 +44,8 @@ export default function Navbar() {
     //     el.classList.toggle('open-menu');
     // }
 
+
+
     const logOut = () =>{
         localStorage.removeItem('token');
         localStorage.removeItem('role');

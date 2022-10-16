@@ -11,6 +11,11 @@
     cursor: default;
 }
 
+.lesson-link{
+    text-decoration: none;
+
+}
+
 .unitList .sidebarArena{
     float: right;
     width: 300px;

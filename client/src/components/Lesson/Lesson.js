@@ -3,32 +3,33 @@ import './Lesson.css';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import BarChart from './BarChart';
+import {
+    Link,
+} from "react-router-dom";
 
 export default function Lesson(){
-    const percentage = 15;
+    const percentage = 1;
     const [topic, setTopic] = useState([]);
     // const [topic, setTopic] = useState({topicL: [], topicR: []});
 
     // const [topicR, setTopicR] = useState([]);
 
     useEffect(() => {
-    fetch("http://localhost:5000/lesson")
-    .then(res => 
-        res.json()
-    )
-    .then((data)=>{
-        setTopic(data)
-    })
-    // .then((data) => {setTopic({
-    //     topicL: data.topicL,
-    //     topicR: data.topicR
-    // })})
-    .catch((err) => {console.log(err)})
+        fetch("http://localhost:5000/lesson")
+        .then(res => 
+            res.json()
+        )
+        .then((data)=>{
+            setTopic(data)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
     }, [])
 
-    const location = () =>{
-        window.location='/#'
-    }
+
+    
+    
     // console.log(topic)
     // if (Array.isArray(topic)){
     //     console.log("TRue")
@@ -103,8 +104,8 @@ export default function Lesson(){
                                 <div className='left'>
                                 {topic[0]?.map?.((item, index)=>{
                                     return(
-                                    
-                                            <div id={item.id} className='oneUnit _1' onClick={location} style={{cursor: "pointer"}} key={index} >
+                                        <Link className='lesson-link' to= '/lesson/:id'>
+                                            <div id={item.id} className='oneUnit _1' style={{cursor: "pointer"}} key={index} >
                                                 <div className='rippleOuterCus rippleOuter_1 _1'>
                                                     <div className='rippleCus ripple_1'>
                                                         <div >
@@ -122,52 +123,51 @@ export default function Lesson(){
                                                     </div>
                                                 </div>    
                                             </div>
-                                    
+                                        </Link>
                                 )
-                                    })}
-                                    
-                                    
+                                    })}     
                                 </div> 
                                 <div className='right'>
-                                    <div className='oneUnit alphabet _1' onClick={location} style={{cursor: "pointer"}}>
-                                        <div className='rippleOuterCus rippleOuter_1 _1'>
-                                            <div className='rippleCus ripple_1 _1'>
-                                                <div>
-                                                    <div className='unitName active alphabet ripple'>
-                                                        ALPHABET
+                                    <Link className='lesson-link' to='/'>
+                                        <div className='oneUnit alphabet _1'  style={{cursor: "pointer"}}>
+                                            <div className='rippleOuterCus rippleOuter_1 _1'>
+                                                <div className='rippleCus ripple_1 _1'>
+                                                    <div>
+                                                        <div className='unitName active alphabet ripple'>
+                                                            ALPHABET
+                                                        </div>
+                                                        <div className='hrLine'></div>
                                                     </div>
-                                                    <div className='hrLine'></div>
                                                 </div>
-
-                                            </div>
-                                        </div>  
-                                    </div>
+                                            </div>  
+                                        </div>
+                                    </Link>
+                                    
                                     {topic[1]?.map?.((item,index)=> {
                                         return (
-                                            <div id={item.id} className='oneUnit _1' onClick={location} style={{cursor: "pointer"}} key={index}>
-                                                <div className='rippleOuterCus rippleOuter_1 _1'>
-                                                    <div className='rippleCus ripple_1'>
-                                                        <div>
-                                                            <div className='imgArea _1'>
-                                                                <img className='icon' alt='icon' src={item.url} />
+                                            <Link className='lesson-link' to='/lesson/:_id'>
+                                                <div id={item.id} className='oneUnit _1'  style={{cursor: "pointer"}} key={index}>
+                                                    <div className='rippleOuterCus rippleOuter_1 _1'>
+                                                        <div className='rippleCus ripple_1'>
+                                                            <div>
+                                                                <div className='imgArea _1'>
+                                                                    <img className='icon' alt='icon' src={item.url} />
+                                                                </div>
+                                                                <div className='unitName _1'>
+                                                                    {item.name}
+                                                                </div>
+                                                                {/* <div className='lessonProgressText'>
+                                                                    "0 / 3"
+                                                                </div> */}
+                                                                <div className='hrLine'></div>
                                                             </div>
-                                                            <div className='unitName _1'>
-                                                                {item.name}
-                                                            </div>
-                                                            {/* <div className='lessonProgressText'>
-                                                                "0 / 3"
-                                                            </div> */}
-                                                            <div className='hrLine'></div>
                                                         </div>
-                                                    </div>
-                                                </div>    
-                                            </div>
+                                                    </div>    
+                                                </div>
+                                            </Link>
                                         )
                                     }    
                                     )}
-                                    
-                                    
-
                                 </div>
                             </div>
                         </div>
