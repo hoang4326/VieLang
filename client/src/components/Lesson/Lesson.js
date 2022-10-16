@@ -104,7 +104,7 @@ export default function Lesson(){
                                 <div className='left'>
                                 {topic[0]?.map?.((item, index)=>{
                                     return(
-                                        <Link className='lesson-link' to= '/lesson/:id'>
+                                        <Link className='lesson-link' to= {`${item._id}`}>
                                             <div id={item.id} className='oneUnit _1' style={{cursor: "pointer"}} key={index} >
                                                 <div className='rippleOuterCus rippleOuter_1 _1'>
                                                     <div className='rippleCus ripple_1'>
@@ -145,7 +145,7 @@ export default function Lesson(){
                                     
                                     {topic[1]?.map?.((item,index)=> {
                                         return (
-                                            <Link className='lesson-link' to='/lesson/:_id'>
+                                            <Link className='lesson-link' to= {`${item._id}`}>
                                                 <div id={item.id} className='oneUnit _1'  style={{cursor: "pointer"}} key={index}>
                                                     <div className='rippleOuterCus rippleOuter_1 _1'>
                                                         <div className='rippleCus ripple_1'>

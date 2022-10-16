@@ -74,6 +74,7 @@ export default function Navbar() {
             setUserData(data.data);
         });
     },[]);
+    console.log(userData);
     return (
             <div className='Navigation'>
                 <nav className='navbarItems'>

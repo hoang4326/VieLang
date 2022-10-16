@@ -22,7 +22,7 @@ export const publicRoutes = [
     { path: '/membership', component: Membership},
     { path: '/forgot-password', component: ForgotPassword},
     { path: '/reset-password/:id/:token', component: ResetPassword},
-    { path: '/lesson', component: Lesson},
+    { path: '/lesson', component: Lesson},  
     { path: '/lesson/:id', component: LessonById}
 
     // { path: '/auth', component: Auth},

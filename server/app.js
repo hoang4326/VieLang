@@ -81,7 +81,7 @@ app.post("/login",async(req,res)=>{
         return res.json({error:"User not found"});
     }
     if ( await bcrypt.compare(password, user.password) ){
-        const token = jwt.sign({email: user.email}, JWT_SECRET);
+        const token = jwt.sign({email: user.email, role: user.role, _id: user._id}, JWT_SECRET);
         if(res.status(201)){
             return res.json({status : "ok", data : token, role: user.role});
         }else{
@@ -95,6 +95,7 @@ app.post("/userData", async (req, res) => {
     const {token} = req.body;
     try{
         const user = jwt.verify(token, JWT_SECRET);
+        console.log(user);
         const useremail = user.email;
         User.findOne({email:useremail})
         .then((data) =>{

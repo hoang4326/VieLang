@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 
 
 export default function LessonById () {
+    // eslint-disable-next-line
     const param = useParams();
     const [lesson, setLesson] = useState([]);
     useEffect(() => {
