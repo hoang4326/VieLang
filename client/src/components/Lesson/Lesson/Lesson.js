@@ -10,6 +10,25 @@ export default function Lesson () {
     // eslint-disable-next-line
     const param = useParams();
     const [lesson, setLesson] = useState([]);
+
+    const [toggled, setToggled] = useState(false);
+    var style1 = {};
+    var style2 = {};
+
+    const toggleMenu = () =>{
+        setToggled(!toggled);
+    }
+
+    if(!toggled) {
+
+        style1.display = 'block';
+        style2.display = 'none';
+    }else{
+        
+        style1.display = 'none';
+        style2.display = 'block';
+    }
+
     useEffect(() => {
 
         fetch(`http://localhost:5000/topic/${param.id}`)
@@ -31,24 +50,24 @@ export default function Lesson () {
                             <div className='tipsArea'>
                                 <div className="tipsText"> VOCABULARY </div>
                                 <div className="wrap">
-                                    <img className='vocabulary' src={require('../../../assets/image/vocabulary.png')} alt='icon' />
+                                    <img className='vocabulary' src={require('../../../assets/image/vocabulary.png')} alt='icon'  onClick={toggleMenu}/>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className='switchContent' style={{display: 'none'}}>
+                <div className='switchContent' style={style1}>
                     <div className='compContent'>
                         <div className='unitContent'>
                             <div className="unitName">
                                 <Link className='lesson-link' to='/topic'>
                                     <img src={require('../../../assets/image/greyArrow.png')} className="greyArrow" alt='icon'/>
                                 </Link>
-                                {/* {lesson[0]?.map?.((item,index) =>{
+                                {lesson[3]?.map?.((item,index) =>{
                                     return(
-                                    <div key={index}>{item.topic}</div>
+                                    <div key={index}>{item.name}</div>
                                     )
-                                })} */}
-                                <div>Basic 1</div>
+                                })}
+                                {/* <div>Basic 1</div> */}
                             </div>
                             <div className='wrapContent'>                             
                                 {lesson[1]?.map?.((item,index) =>{
@@ -92,10 +111,10 @@ export default function Lesson () {
                         </div>
                     </div>
                 </div>
-                <div className='switchContent'>
+                <div className='switchContent' style={style2}>
                     <div className='switchHead'>
                         <div className='wrapTitle'>
-                            <img className='greyArrow' src={require('../../../assets/image/greyArrow.png')} alt='arrow'/>
+                            <img className='greyArrow' src={require('../../../assets/image/greyArrow.png')} alt='arrow' onClick={toggleMenu}/>
                             <div className='tipsText'>
                                 Vocabulary
                             </div>

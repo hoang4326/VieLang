@@ -42,7 +42,9 @@ app.get("/topic/:id",async (req, res) => {
     const lesson = await Lesson.find({topicId: id});
     const url = await Topic.find({_id:id},{_id: 0,urlLesson: 1});
     const vocab = await Topic.find({_id:id},{_id: 0,vocab: 1 });
-    res.send([lesson, url, vocab]);
+    const topic = await Topic.find({_id:id},{_id: 0,name: 1 });
+
+    res.send([lesson, url, vocab, topic]);
 })
 app.get("/topic",async (req, res)=>{
     const topicL = await Topic.find({id: { $mod: [ 2, 1 ] }});
