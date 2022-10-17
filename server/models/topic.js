@@ -5,6 +5,9 @@ const TopicSchema = new mongoose.Schema({
     url: String,
     id: Number,
     urlLesson: String,
+    vocabVie: Array,
+    vocabEng: Array,
+    vocab: Array
 },{
     collection: "Topic",
 });

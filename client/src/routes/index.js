@@ -7,7 +7,8 @@ import ForgotPassword from '../components/ForgotPass/ForgotPass';
 import ResetPassword from '../components/ResetPass/ResetPass';
 import Topic from '../components/Lesson/Topic/Topic';
 import { Navigate } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import jwt_decode from "jwt-decode";
 import Lesson from '../components/Lesson/Lesson/Lesson';
 // import Auth from '../components/Navbar/Navbar';
 // import useFetch from "react-fetch-hook"
@@ -54,22 +55,9 @@ export const publicRoutes = [
 // }
 
 export const PrivateRoute = ({Component})  => {
-    const role = localStorage.getItem('role');
-    // const [role, setRole] = useState('');
-
-    // useEffect(() => {
-    //     fetch("http://localhost:5000/getRole")
-    //     .then(res => 
-    //         res.json()
-    //     )
-    //     .then((data)=>{
-    //         setRole(data)
-    //     })
-    //     .catch((err) => {
-    //         console.log(err)
-    //     })
-    // }, [])
-    // console.log(role);
+    const token = localStorage.getItem('token');
+    const decoded = jwt_decode(token);
+    const role = decoded.role;
     if (role === 'admin') {
         return <Component/>
     } else {

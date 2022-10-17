@@ -35,12 +35,9 @@ export default function LoginForm() {
                 }).then(()=>{
                     if(data.role === 'admin'){
                         window.localStorage.setItem("token", data.data);
-                        window.localStorage.setItem("role", data.role);
                         window.location.href = "./admin";
                     }else{
                         window.localStorage.setItem("token", data.data);
-                        window.localStorage.setItem("role", data.role);
-
                         window.location.href = "./";
                     }
                 })

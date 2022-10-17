@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import jwt_decode from "jwt-decode";
 
 // import { MenuItems }   from "./Menu";
 import {
@@ -21,15 +20,12 @@ export default function Navbar() {
     const token = localStorage.getItem('token');
     var style1 = {};
     var style2 = {};
-
     if(!token) {
         style1.display = 'none';
     }else{
         style2.display = 'none';
     }
 
-    // const decoded = jwt_decode(token);
-    // console.log(decoded);
     const toggleMenu = () =>{
         setToggled(!toggled);
     }
@@ -42,8 +38,6 @@ export default function Navbar() {
 
     const logOut = () =>{
         localStorage.removeItem('token');
-        localStorage.removeItem('role');
-
     }
 
     const handleClick = () =>{
@@ -60,7 +54,6 @@ export default function Navbar() {
             },
             body: JSON.stringify({
                 token:window.localStorage.getItem("token"),
-                role:window.localStorage.getItem("role"),
             }),
         })
         .then((res)=> res.json())

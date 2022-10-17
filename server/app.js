@@ -41,7 +41,8 @@ app.get("/topic/:id",async (req, res) => {
     const {id} = req.params;
     const lesson = await Lesson.find({topicId: id});
     const url = await Topic.find({_id:id},{_id: 0,urlLesson: 1});
-    res.send([lesson, url]);
+    const vocab = await Topic.find({_id:id},{_id: 0,vocab: 1 });
+    res.send([lesson, url, vocab]);
 })
 app.get("/topic",async (req, res)=>{
     const topicL = await Topic.find({id: { $mod: [ 2, 1 ] }});
@@ -87,7 +88,7 @@ app.post("/login",async(req,res)=>{
             expiresIn: "5h",
         });
         if(res.status(201)){
-            return res.json({status : "ok", data : token, role: user.role});
+            return res.json({status : "ok", data : token});
         }else{
             return res.json({error : "error"});
         }

@@ -7,8 +7,7 @@ const LessonSchema = new mongoose.Schema({
     content1: String,
     content2: String,
     isFinished:Array,
-    vocabVie: Array,
-    vocabEng: Array,
+
 
 },{
     collection: "Lesson",

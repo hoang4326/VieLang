@@ -6,6 +6,8 @@ import BarChart from './BarChart';
 import {
     Link,
 } from "react-router-dom";
+import jwt_decode from "jwt-decode";
+
 
 export default function Topic(){
     const percentage = 1;
@@ -13,6 +15,13 @@ export default function Topic(){
     // const [topic, setTopic] = useState({topicL: [], topicR: []});
 
     // const [topicR, setTopicR] = useState([]);
+    // async function getUserId(){
+    //     const token = await localStorage.getItem('token');
+    //     const decoded = jwt_decode(token);
+    //     const userID = decoded._id;
+    //     return userID;
+    // }
+    // console.log(getUserId());
 
     useEffect(() => {
         fetch("http://localhost:5000/topic")
@@ -104,8 +113,8 @@ export default function Topic(){
                                 <div className='left'>
                                 {topic[0]?.map?.((item, index)=>{
                                     return(
-                                        <Link className='lesson-link' to= {`${item._id}`}>
-                                            <div id={item.id} className='oneUnit _1' style={{cursor: "pointer"}} key={index} >
+                                        <Link className='lesson-link' key={index} to= {`${item._id}`}>
+                                            <div id={item.id} className='oneUnit _1' style={{cursor: "pointer"}}  >
                                                 <div className='rippleOuterCus rippleOuter_1 _1'>
                                                     <div className='rippleCus ripple_1'>
                                                         <div >
@@ -145,8 +154,8 @@ export default function Topic(){
                                     
                                     {topic[1]?.map?.((item,index)=> {
                                         return (
-                                            <Link className='lesson-link' to= {`${item._id}`}>
-                                                <div id={item.id} className='oneUnit _1'  style={{cursor: "pointer"}} key={index}>
+                                            <Link className='lesson-link' key={index} to= {`${item._id}`}>
+                                                <div id={item.id} className='oneUnit _1'  style={{cursor: "pointer"}} >
                                                     <div className='rippleOuterCus rippleOuter_1 _1'>
                                                         <div className='rippleCus ripple_1'>
                                                             <div>
