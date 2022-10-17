@@ -74,7 +74,6 @@ export default function Navbar() {
             setUserData(data.data);
         });
     },[]);
-    console.log(userData);
     return (
             <div className='Navigation'>
                 <nav className='navbarItems'>
@@ -98,7 +97,7 @@ export default function Navbar() {
                             </Link>
                         </li>
                         <li>
-                            <Link className='nav-links' to='/lesson'>
+                            <Link className='nav-links' to='/topic'>
                                 LESSONS
                             </Link>
                         </li>

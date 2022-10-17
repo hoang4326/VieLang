@@ -5,10 +5,10 @@ import Membership from '../components/Membership/Membership';
 import Home from '../components/Home/Home';
 import ForgotPassword from '../components/ForgotPass/ForgotPass';
 import ResetPassword from '../components/ResetPass/ResetPass';
-import Lesson from '../components/Lesson/Lesson';
+import Topic from '../components/Lesson/Topic';
 import { Navigate } from 'react-router-dom';
-import React from 'react';
-import LessonById from '../components/Lesson/LessonById';
+import React, { useState, useEffect } from 'react';
+import Lesson from '../components/Lesson/Lesson';
 // import Auth from '../components/Navbar/Navbar';
 // import useFetch from "react-fetch-hook"
 
@@ -22,8 +22,8 @@ export const publicRoutes = [
     { path: '/membership', component: Membership},
     { path: '/forgot-password', component: ForgotPassword},
     { path: '/reset-password/:id/:token', component: ResetPassword},
-    { path: '/lesson', component: Lesson},  
-    { path: '/lesson/:id', component: LessonById}
+    { path: '/topic', component: Topic},  
+    { path: '/topic/:id', component: Lesson}
 
     // { path: '/auth', component: Auth},
 
@@ -55,7 +55,21 @@ export const publicRoutes = [
 
 export const PrivateRoute = ({Component})  => {
     const role = localStorage.getItem('role');
-    console.log(role);
+    // const [role, setRole] = useState('');
+
+    // useEffect(() => {
+    //     fetch("http://localhost:5000/getRole")
+    //     .then(res => 
+    //         res.json()
+    //     )
+    //     .then((data)=>{
+    //         setRole(data)
+    //     })
+    //     .catch((err) => {
+    //         console.log(err)
+    //     })
+    // }, [])
+    // console.log(role);
     if (role === 'admin') {
         return <Component/>
     } else {

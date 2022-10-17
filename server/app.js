@@ -40,7 +40,7 @@ app.get("/lesson/:id",async (req, res) => {
     res.send(lesson);
 })
 const Topic = mongoose.model("Topic");
-app.get("/lesson",async (req, res)=>{
+app.get("/topic",async (req, res)=>{
     const topicL = await Topic.find({id: { $mod: [ 2, 1 ] }});
     const topicR = await Topic.find({id: { $mod: [ 2, 0 ] }});
     // res.send({topicL: topicL, topicR: topicR} );
@@ -81,7 +81,9 @@ app.post("/login",async(req,res)=>{
         return res.json({error:"User not found"});
     }
     if ( await bcrypt.compare(password, user.password) ){
-        const token = jwt.sign({email: user.email, role: user.role, _id: user._id}, JWT_SECRET);
+        const token = jwt.sign({email: user.email, role: user.role, _id: user._id}, JWT_SECRET, {
+            expiresIn: "5h",
+        });
         if(res.status(201)){
             return res.json({status : "ok", data : token, role: user.role});
         }else{
@@ -90,12 +92,17 @@ app.post("/login",async(req,res)=>{
     }
     res.json({status: "error", error: "Invalid password"});
 })
+app.get("/getRole",async function(req, res) {
+    const {token} = req.body;
+    const user = jwt.verify(token, JWT_SECRET);
+    const userRole = user.role;
+    res.send(userRole);
 
+})
 app.post("/userData", async (req, res) => {
     const {token} = req.body;
     try{
         const user = jwt.verify(token, JWT_SECRET);
-        console.log(user);
         const useremail = user.email;
         User.findOne({email:useremail})
         .then((data) =>{
