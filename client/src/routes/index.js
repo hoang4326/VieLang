@@ -5,10 +5,10 @@ import Membership from '../components/Membership/Membership';
 import Home from '../components/Home/Home';
 import ForgotPassword from '../components/ForgotPass/ForgotPass';
 import ResetPassword from '../components/ResetPass/ResetPass';
-import Topic from '../components/Lesson/Topic';
+import Topic from '../components/Lesson/Topic/Topic';
 import { Navigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-import Lesson from '../components/Lesson/Lesson';
+import Lesson from '../components/Lesson/Lesson/Lesson';
 // import Auth from '../components/Navbar/Navbar';
 // import useFetch from "react-fetch-hook"
 

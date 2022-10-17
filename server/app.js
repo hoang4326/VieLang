@@ -34,12 +34,15 @@ require("./models/userDetails");
 require("./models/topic");
 require("./models/lesson");
 const Lesson = mongoose.model("Lesson");
-app.get("/lesson/:id",async (req, res) => {
+const Topic = mongoose.model("Topic");
+const User = mongoose.model("UserInfo");
+
+app.get("/topic/:id",async (req, res) => {
     const {id} = req.params;
     const lesson = await Lesson.find({topicId: id});
-    res.send(lesson);
+    const url = await Topic.find({_id:id},{_id: 0,urlLesson: 1});
+    res.send([lesson, url]);
 })
-const Topic = mongoose.model("Topic");
 app.get("/topic",async (req, res)=>{
     const topicL = await Topic.find({id: { $mod: [ 2, 1 ] }});
     const topicR = await Topic.find({id: { $mod: [ 2, 0 ] }});
@@ -49,7 +52,6 @@ app.get("/topic",async (req, res)=>{
 
 });
 
-const User = mongoose.model("UserInfo");
 app.post("/signup",async(req,res)=>{
     const {name, email, username, password, role } = req.body;
 

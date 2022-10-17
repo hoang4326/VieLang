@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
+import "./Lesson.css"
 
 
 export default function Lesson () {
@@ -8,7 +9,7 @@ export default function Lesson () {
     const [lesson, setLesson] = useState([]);
     useEffect(() => {
 
-        fetch(`http://localhost:5000/lesson/${param.id}`)
+        fetch(`http://localhost:5000/topic/${param.id}`)
         .then(res => 
             res.json()
         )
@@ -19,10 +20,14 @@ export default function Lesson () {
             console.log(err)
         })
     }, [])
+    console.log(lesson)
     return(
         <div>
-            {lesson.map((item)=>
+            {lesson[0]?.map?.((item)=>
                 <li>{item.topic}</li>
+            )}
+            {lesson[1]?.map?.((item)=>
+                <li>{item.urlLesson}</li>
             )}
         </div>
     )

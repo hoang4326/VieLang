@@ -4,7 +4,7 @@ const TopicSchema = new mongoose.Schema({
     name: String,
     url: String,
     id: Number,
-
+    urlLesson: String,
 },{
     collection: "Topic",
 });
