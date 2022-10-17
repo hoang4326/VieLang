@@ -1,15 +1,7 @@
 import React, { useState, useEffect } from 'react';
-// import { MenuItems }   from "./Menu";
-// import LoginForm from '../LoginForm/LoginForm';
-// import SignupForm from '../SignupForm/SignupForm';
-// import Support from '../Support/Support';
-// import Membership from '../Membership/Membership';
-// import Home from '../Home/Home';
-// import Manage from '../admin';
-// import Auth from './authProvider';
-// import ForgotPassword from '../ForgotPass/ForgotPass';
-// import ResetPassword from '../ResetPass/ResetPass';
+import jwt_decode from "jwt-decode";
 
+// import { MenuItems }   from "./Menu";
 import {
     // Routes,
     // Route,
@@ -36,6 +28,8 @@ export default function Navbar() {
         style2.display = 'none';
     }
 
+    // const decoded = jwt_decode(token);
+    // console.log(decoded);
     const toggleMenu = () =>{
         setToggled(!toggled);
     }

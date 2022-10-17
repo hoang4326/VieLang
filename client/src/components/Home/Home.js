@@ -109,17 +109,20 @@ export default function Home(){
             <h2 className='slider-title'>What learners like you are saying about VieLang</h2>
             <div className='slider-card'>
                 <Slider {...settings}>
-                {dataFeedback.map((item) =>(
-                    <div className='card'>
-                        <div className='card-top'>
-                            <img src={item.img} alt={item.name} className='card-img'/>
-                            <h1>{item.name}</h1>
+                {dataFeedback.map((item, index) =>{
+                    return(
+                        <div className='card' key={index}>
+                            <div className='card-top'>
+                                <img src={item.img} alt={item.name} className='card-img'/>
+                                <h1>{item.name}</h1>
+                            </div>
+                            <div className='card-bottom'>
+                                <i><p>{item.content}</p></i>
+                            </div>
                         </div>
-                        <div className='card-bottom'>
-                            <i><p>{item.content}</p></i>
-                        </div>
-                    </div>
-                ))}
+                
+                    )
+                })}
                 </Slider>
                 
             </div>
