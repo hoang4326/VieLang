@@ -29,6 +29,10 @@ export default function Lesson () {
         style2.display = 'block';
     }
 
+    // const array = lesson[0]?.map?.((item) => item);
+    // const lessonId = array?.[0]?._id;
+    // console.log(lessonId);
+
     useEffect(() => {
 
         fetch(`http://localhost:5000/topic/${param.id}`)
@@ -41,6 +45,7 @@ export default function Lesson () {
         .catch((err) => {
             console.log(err)
         })
+           // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return(
         <div className='mainContent'>

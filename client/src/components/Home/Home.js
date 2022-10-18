@@ -4,6 +4,7 @@ import './Home.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import {dataFeedback} from './Feedback';
+import {Link} from 'react-router-dom'
 
 export default function Home(){
     const settings = {
@@ -48,7 +49,7 @@ export default function Home(){
                 <h3 className='home'>Take the first step to learn with us </h3>
                 <p className='home'>Learn language with VietLang.</p>
                 <p className='home'>It's easy and convenient!</p>
-                <a href='/#' className='btn'>Learn now</a>
+                <Link to='/topic' className='btn'>Learn now</Link>
             </div>
             <div className='image'>
                 <img src='https://preview.colorlib.com/theme/eclipse/img/xheader-img.png.pagespeed.ic.ungsFL0Q2L.webp' alt='description '/>

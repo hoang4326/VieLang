@@ -55,8 +55,57 @@ app.get("/topic",async (req, res)=>{
 
 });
 
-app.post("/do-post", async (req, res)=>{
-    
+app.post("/do-post", async (request, result)=>{
+    const {token} = request.body;
+    const {lessonId} = request.body
+    const decodeToken = jwt.verify(token, JWT_SECRET);
+    const userId = decodeToken._id;
+    await Lesson.findOne({
+        "_id" : ObjectId(lessonId)
+    }, function (error, item){
+        if(item.isFinished === null || item.isFinished === undefined){
+            Lesson.findOneAndUpdate({
+                "_id" : ObjectId(lessonId),
+            },{
+                $set: {
+                    isFinished: [
+                        {"_id": userId}
+                    ]
+                }
+            },{
+                new: true
+            },function (error, data){
+                console.log(data);
+                return result.json({
+                    "status": "success",
+                    "message": "UserId has been inserted",
+                });
+            });
+        }else if (item.isFinished.find(e => e._id.toString() === userId)){
+            return result.json({
+                "status": "error",
+                "message": "Already had this UserId"
+            });
+        }else{
+            Lesson.findOneAndUpdate({
+                "_id" : ObjectId(lessonId),
+            },{
+                $push: {
+                    isFinished: [
+                        {"_id": userId}
+                    ]
+                }
+            },{
+                new: true
+            },function (error, data){
+                console.log(data);
+                return result.json({
+                    "status": "success",
+                    "message": "UserId has been inserted",
+                });
+            });  
+        }
+    })
 })
 
 app.post("/signup",async(req,res)=>{

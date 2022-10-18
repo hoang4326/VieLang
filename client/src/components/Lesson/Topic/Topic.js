@@ -10,7 +10,7 @@ import {
 
 
 export default function Topic(){
-    const percentage = 1;
+    const percentage = 50;
     const [topic, setTopic] = useState([]);
     // const [role, setRole] = useState('');
     // useEffect(()=>{
