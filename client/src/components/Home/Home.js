@@ -5,7 +5,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import {dataFeedback} from './Feedback';
 
-
 export default function Home(){
     const settings = {
         dots: true,

@@ -1,0 +1,124 @@
+.mainContentQ,
+.mainContentQ * {
+    box-sizing: content-box;
+}
+
+.mainCourse .mainContentQ {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    background-color: #f4f5f7;
+}
+.mainCourse .mainContentQ .switchCourse {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+.mainCourse .mainContentQ .switchCourse .switchContent {
+    height: calc(100% - 16vh);
+}
+.mainCourse .mainContentQ .switchCourse .switchBottom {
+    margin: auto;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 16vh;
+    background-color: #eee;
+    min-height: 160px;
+}
+.mainCourse .mainContentQ .switchCourse .switchBottom .wrapQuestion {
+    margin: auto;
+    max-width: 1000px;
+    height: 100%;
+    position: relative;
+}
+.mainCourse .mainContentQ .switchCourse .switchBottom .wrapQuestion .wrapInnerQuestion {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: 200;
+    background-color: #eee;
+}
+.mainCourse .mainContentQ .switchCourse .switchBottom .wrapQuestion .wrapInnerQuestion .checkPanelQuestion {
+    justify-content: space-between;
+}
+.mainCourse .mainContentQ .switchCourse .switchBottom .wrapQuestion .wrapInnerQuestion>div {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.mainCourse .mainContentQ .switchCourse .switchBottom .wrapQuestion .wrapInnerQuestion .checkPanelQuestion .modelTipArea {
+    position: relative;
+    display: flex;
+}
+.mainCourse .mainContentQ .switchCourse .switchBottom .wrapQuestion .wrapInnerQuestion .checkFlag {
+    width: 90px;
+    height: 90px;
+    border-radius: 45px;
+    background-color: #e1e1e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.mainCourse .mainContentQ .switchCourse .switchBottom .wrapQuestion .wrapInnerQuestion .checkFlag img.default {
+    width: 100px;
+    height: auto;
+    position: relative;
+    left: 1px;
+}
+.mainCourse .mainContentQ .switchCourse .switchBottom .wrapQuestion .wrapInnerQuestion .checkFlag img {
+    width: 74.7px;
+    height: auto;
+    position: relative;
+    top: -5px;
+}
+.mainCourse .mainContentQ .switchCourse .switchBottom .wrapQuestion .wrapInnerQuestion .checkPanelQuestion .checkBtn {
+    float: right;
+    background-color: #e1e1e1;
+    padding: 14px 50px;
+    border-radius: 50px;
+    border-color: silver;
+    color: #fff;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: default;
+}
+.mainCourse .rippleQuestion {
+    height: auto;
+}
+.rippleQuestion {
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+}
+.mainCourse .mainContentQ .switchCourse .switchBottom .wrapQuestion .wrapInnerQuestion .checkPanelQuestion .checkBtn.active{
+    background-color: #6a82fb;
+    color: #fff;
+    cursor: pointer;
+    transition: 150ms ease;
+}
+.mainCourse .mainContentQ .switchCourse .switchBottom .wrapQuestion .wrapInnerQuestion .checkPanelQuestion .checkBtn.active:hover{
+    opacity: .8;
+}
+.mainCourse .mainContentQ .switchCourse .switchBottom .wrapQuestion .wrapInnerQuestion .checkPanelQuestion .modelTipArea .textCheckFlag {
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    padding: 7px 16px;
+    padding-left: 25px;
+    background-color: #e1e1e1;
+    font-size: 17px;
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 86px;
+    z-index: -1;
+    word-break: keep-all;
+    white-space: nowrap;
+    min-width: 170px;
+}
+

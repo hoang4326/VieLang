@@ -10,6 +10,8 @@ import { Navigate } from 'react-router-dom';
 import React from 'react';
 import jwt_decode from "jwt-decode";
 import Lesson from '../components/Lesson/Lesson/Lesson';
+import Question from '../components/Lesson/Question/Question';
+
 // import Auth from '../components/Navbar/Navbar';
 // import useFetch from "react-fetch-hook"
 
@@ -24,7 +26,9 @@ export const publicRoutes = [
     { path: '/forgot-password', component: ForgotPassword},
     { path: '/reset-password/:id/:token', component: ResetPassword},
     { path: '/topic', component: Topic},  
-    { path: '/topic/:id', component: Lesson}
+    { path: '/topic/:id', component: Lesson},
+    { path: '/question', component: Question},  
+
 
     // { path: '/auth', component: Auth},
 
@@ -58,6 +62,7 @@ export const PrivateRoute = ({Component})  => {
     const token = localStorage.getItem('token');
     const decoded = jwt_decode(token);
     const role = decoded.role;
+    console.log(role);
     if (role === 'admin') {
         return <Component/>
     } else {

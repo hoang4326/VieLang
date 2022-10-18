@@ -90,7 +90,7 @@ app.post("/login",async(req,res)=>{
             expiresIn: "5h",
         });
         if(res.status(201)){
-            return res.json({status : "ok", data : token});
+            return res.json({status : "ok", data : token, role: user.role});
         }else{
             return res.json({error : "error"});
         }

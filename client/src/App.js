@@ -23,7 +23,6 @@ function App() {
                     })}
                     <Route path='/admin' element={
                         <PrivateRoute Component={Manage}/>
-
                     } />
                 </Routes>
             < Footer />
