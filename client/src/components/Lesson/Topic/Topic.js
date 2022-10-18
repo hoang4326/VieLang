@@ -6,23 +6,26 @@ import BarChart from './BarChart';
 import {
     Link,
 } from "react-router-dom";
-import jwt_decode from "jwt-decode";
+// import jwt_decode from "jwt-decode";
 
 
 export default function Topic(){
     const percentage = 1;
     const [topic, setTopic] = useState([]);
-    // const [topic, setTopic] = useState({topicL: [], topicR: []});
-
-    // const [topicR, setTopicR] = useState([]);
-    // async function getUserId(){
-    //     const token = await localStorage.getItem('token');
-    //     const decoded = jwt_decode(token);
-    //     const userID = decoded._id;
-    //     return userID;
-    // }
-    // console.log(getUserId());
-
+    // const [role, setRole] = useState('');
+    // useEffect(()=>{
+    //     function getRole(){
+    //         try {
+    //             const token =  localStorage.getItem('token');
+    //             const decoded = jwt_decode(token);
+    //             const userID = decoded._id;
+    //             setRole(userID);
+    //         } catch(error) {
+    //             console.log(error);
+    //         }
+    //     } ;
+    //     getRole();
+    // }, [])
     useEffect(() => {
         fetch("http://localhost:5000/topic")
         .then(res => 

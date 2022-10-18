@@ -55,6 +55,10 @@ app.get("/topic",async (req, res)=>{
 
 });
 
+app.post("/do-post", async (req, res)=>{
+    
+})
+
 app.post("/signup",async(req,res)=>{
     const {name, email, username, password, role } = req.body;
 
