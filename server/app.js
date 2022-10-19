@@ -71,7 +71,7 @@ app.post("/do-post", async function (request, result){
                 $set: {
                     isFinished: 
                         {"_id": userId}
-                    
+                        
                 }
             },{
                 new: true

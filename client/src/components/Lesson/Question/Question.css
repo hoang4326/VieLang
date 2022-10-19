@@ -121,4 +121,91 @@
     white-space: nowrap;
     min-width: 170px;
 }
+.mainCourse .mainContentQ .switchCourse .switchContentQ {
+    height: calc(100% - 16vh);
+}
+.mainCourse .mainContentQ .switchCourse .switchContentQ .dyComponent {
+    height: calc(100% - 80px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.mainCourse .mainContentQ .switchCourse .switchContentQ .dyComponent .modelContainer.rankA {
+    max-height: 350px;
+}
+.mainCourse .mainContentQ .switchCourse .switchContentQ .dyComponent .modelContainer {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    max-height: 350px;
+    max-width: 660px;
+    position: relative;
+}
+.modelContainerWord {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin: auto;
+    flex-direction: column;
+    position: absolute;
+}
+.modelContainerWord .wordTitle {
+    width: 100%;
+    text-align: center;
+}
+.modelContainerWord .wordTitleTranslation {
+    font-size: 24px;
+    text-align: center;
+    margin: auto;
+}
+.modelContainerWord.wordModel1 .optionsArea {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: 100%;
+}
+.modelContainerWord.wordModel1 .optionsArea .option {
+    width: 145px;
+    margin: 0 7px;
+    display: inline-block;
+    box-shadow: 0 0 1px 0 #999;
+    border-radius: 9px;
+    position: relative;
+    height: 184px;
+    overflow: hidden;
+    cursor: pointer;
+    margin-top: 1.6rem;
+}
+.modelContainerWord.wordModel1 .optionsArea .option.active {
+    box-shadow: 0 0 0 2px #1caff6;
+}
 
+.modelContainerWord.wordModel1 .optionsArea .option .item {
+    width: 100%;
+    height: 100%;
+}
+.modelContainerWord.wordModel1 .optionsArea .option .item img {
+    width: 100%;
+    min-width: 145px;
+    height: auto;
+    border-top-left-radius: 9px;
+    border-top-right-radius: 9px;
+}
+.modelContainerWord.wordModel1 .optionsArea .option .item .tip.other {
+    height: 45px;
+    font-size: 2px;
+    bottom: 0;
+}
+.modelContainerWord.wordModel1 .optionsArea .option .item .tip {
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+.modelContainerWord.wordModel1 .optionsArea .option .item .tip.other .rankC {
+    font-size: 19px;
+    line-height: 50px;
+}
