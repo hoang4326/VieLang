@@ -55,22 +55,23 @@ app.get("/topic",async (req, res)=>{
 
 });
 
-app.post("/do-post", async (request, result)=>{
-    const {token} = request.body;
+app.post("/do-post", async function (request, result){
     const {lessonId} = request.body
+    const {token} = request.body;
     const decodeToken = jwt.verify(token, JWT_SECRET);
     const userId = decodeToken._id;
+    // const {userId} = request.body;
     await Lesson.findOne({
-        "_id" : ObjectId(lessonId)
+        "_id" : mongoose.Types.ObjectId(lessonId)
     }, function (error, item){
         if(item.isFinished === null || item.isFinished === undefined){
             Lesson.findOneAndUpdate({
-                "_id" : ObjectId(lessonId),
+                "_id" : mongoose.Types.ObjectId(lessonId),
             },{
                 $set: {
-                    isFinished: [
+                    isFinished: 
                         {"_id": userId}
-                    ]
+                    
                 }
             },{
                 new: true
@@ -88,12 +89,12 @@ app.post("/do-post", async (request, result)=>{
             });
         }else{
             Lesson.findOneAndUpdate({
-                "_id" : ObjectId(lessonId),
+                "_id" : mongoose.Types.ObjectId(lessonId),
             },{
                 $push: {
-                    isFinished: [
+                    isFinished: 
                         {"_id": userId}
-                    ]
+                    
                 }
             },{
                 new: true
@@ -110,7 +111,6 @@ app.post("/do-post", async (request, result)=>{
 
 app.post("/signup",async(req,res)=>{
     const {name, email, username, password, role } = req.body;
-
     const encryptedPassword = await bcrypt.hash(password, 10);
     try{
         const oldUser = await User.findOne({email});
