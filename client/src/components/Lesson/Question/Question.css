@@ -122,7 +122,7 @@
     min-width: 170px;
 }
 .mainCourse .mainContentQ .switchCourse .switchContentQ {
-    height: calc(100% - 16vh);
+    height: calc(100% - 14vh);
 }
 .mainCourse .mainContentQ .switchCourse .switchContentQ .dyComponent {
     height: calc(100% - 80px);
