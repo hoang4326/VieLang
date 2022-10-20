@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 
 const QuestionSchema = new mongoose.Schema({
-    name: String,
-    url: String,
-    id: Number,
-    urlLesson: String,
+    topic: String,
+    lesson: String,
+    question: String,
+    answer: Array,
+    answerCorrect: String
+
 },{
     collection: "Question",
 });

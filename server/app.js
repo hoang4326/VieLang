@@ -6,8 +6,9 @@ const cors = require('cors');
 app.use(cors());
 const bcrypt = require('bcryptjs');
 app.set("view engine", "ejs");
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({extended:false}));
 const hbs = require('nodemailer-express-handlebars');
+const multer = require('multer');
 // const path = require("path");
 // const viewpath = path.join(__dirname, "../views");
 
@@ -33,9 +34,43 @@ mongoose
 require("./models/userDetails");
 require("./models/topic");
 require("./models/lesson");
+
 const Lesson = mongoose.model("Lesson");
 const Topic = mongoose.model("Topic");
 const User = mongoose.model("UserInfo");
+
+app.post("/addTopic", async (req, res) => {
+    const vocab = [];
+    const countTopic = await Topic.countDocuments({});
+    const id = countTopic + 1;
+    const {name, url, urlLesson } =  req.body;
+    const data = url['base64'];
+    const split = data.split(',');
+    const base64string = split[1];
+
+    const buffer = Buffer.from(base64string, "base64");
+    const imageTopic = buffer;
+    console.log(split);
+
+    try{
+        await Topic.create({
+            name: name,
+            url: {
+                data: imageTopic,
+                contentType: 'image/png'
+            },
+            id: id,
+            urlLesson: urlLesson,
+            vocab: vocab,
+        })
+    res.send({status:"ok"});
+    console.log("ok");
+    }catch(error){
+        res.send({status:"error"});
+        console.log("error");
+
+    }
+})
 
 app.get("/topic/:id",async (req, res) => {
     const {id} = req.params;
@@ -140,7 +175,7 @@ app.post("/login",async(req,res)=>{
     }
     if ( await bcrypt.compare(password, user.password) ){
         const token = jwt.sign({email: user.email, role: user.role, _id: user._id}, JWT_SECRET, {
-            expiresIn: "5h",
+            expiresIn: "5h"
         });
         if(res.status(201)){
             return res.json({status : "ok", data : token, role: user.role});

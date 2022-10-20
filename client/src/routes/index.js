@@ -11,10 +11,7 @@ import React from 'react';
 import jwt_decode from "jwt-decode";
 import Lesson from '../components/Lesson/Lesson/Lesson';
 import Question from '../components/Lesson/Question/Question';
-
-// import Auth from '../components/Navbar/Navbar';
-// import useFetch from "react-fetch-hook"
-
+import AddTopic from '../components/addTopic';
 
 //Public routes
 export const publicRoutes = [
@@ -26,38 +23,11 @@ export const publicRoutes = [
     { path: '/forgot-password', component: ForgotPassword},
     { path: '/reset-password/:id/:token', component: ResetPassword},
     { path: '/topic', component: Topic},  
-    { path: '/topic/:id', component: Lesson},
-    { path: '/question', component: Question},  
-
-
-    // { path: '/auth', component: Auth},
+    { path: '/topic/:name/:id', component: Lesson},
+    { path: '/question', component: Question},
+    { path: '/addTopic', component: AddTopic}
 
 ]
-
-// export default function Role(){
-//     const [userData, setUserData] = useState("");
-//     useEffect(() => {
-//         fetch("http://localhost:5000/userData",{
-//             method: "POST",
-//             crossDomain: true,
-//             headers: {
-//                 "Content-Type": "application/json",
-//                 Accept: "application/json",
-//                 "Access-Control-Allow-Origin":"*",
-//             },
-//             body: JSON.stringify({
-//                 token:window.localStorage.getItem("token"),
-//             }),
-//         })
-//         .then((res)=> res.json())
-//         .then((data)=>{
-//             setUserData(data.data); 
-//         });
-//     },[]);
-//     console.log(userData);
-//     return userData;
-// }
-
 export const PrivateRoute = ({Component})  => {
     const token = localStorage.getItem('token');
     const decoded = jwt_decode(token);

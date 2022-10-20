@@ -33,16 +33,22 @@ export default function Navbar() {
     //     const el = ref.current;
     //     el.classList.toggle('open-menu');
     // }
-
-
-
     const logOut = () =>{
         localStorage.removeItem('token');
     }
-
     const handleClick = () =>{
         setClicked(!clicked);
     }
+
+    const isExpired = (token) => {        
+        const decode = JSON.parse(atob(token?.split('.')[1]));
+        if (decode.exp * 1000 < new Date().getTime()) {
+            localStorage.clear();
+            console.log('Time Expired');
+            window.location.href = "./login";
+        }
+    };
+    
     useEffect(() => {
         fetch("http://localhost:5000/userData",{
             method: "POST",
@@ -61,6 +67,11 @@ export default function Navbar() {
             setUserData(data.data);
         });
     },[]);
+    if(!token){
+        console.log("No token found");
+    }else{
+        isExpired(token);
+    }
     return (
             <div className='Navigation'>
                 <nav className='navbarItems'>

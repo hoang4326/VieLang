@@ -16,7 +16,7 @@ export default function Question(){
                                     <div className='optionsArea'>
                                             <div className='option'>
                                                 <div className='item'>
-                                                    <img src='https://d27hu3tsvatwlt.cloudfront.net/mfsource/vt/main/lesson_png/vt-p-1-120003326522064.png' alt='image' />
+                                                    <img src='https://d27hu3tsvatwlt.cloudfront.net/mfsource/vt/main/lesson_png/vt-p-1-120003326522064.png' alt='option' />
                                                     <div className='tip other'>
                                                         <div className='rankC'>
                                                             <span className='spanQuestion'>Việt Nam</span>

@@ -134,7 +134,7 @@ export default function Topic(){
                                 <div className='left'>
                                 {topic[0]?.map?.((item, index)=>{
                                     return(
-                                        <Link className='lesson-link' key={index} to= {`${item._id}`}>
+                                        <Link className='lesson-link' key={index} to= {`${item.name}/${item._id}`}>
                                             <div id={item.id} className='oneUnit _1' style={{cursor: "pointer"}}  >
                                                 <div className='rippleOuterCus rippleOuter_1 _1'>
                                                     <div className='rippleCus ripple_1'>
