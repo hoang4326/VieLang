@@ -140,7 +140,8 @@ export default function Topic(){
                                                     <div className='rippleCus ripple_1'>
                                                         <div >
                                                             <div className='imgArea _1'>
-                                                                <img className='icon' alt='icon' src={item.url} />
+                                                                <img className='icon' alt='icon'
+                                                                src={item?.topicImg[0]?.urlImage} />
                                                             </div>
                                                             <div className='unitName _1'>
                                                                 {item.name}
@@ -175,13 +176,13 @@ export default function Topic(){
                                     
                                     {topic[1]?.map?.((item,index)=> {
                                         return (
-                                            <Link className='lesson-link' key={index} to= {`${item._id}`}>
+                                            <Link className='lesson-link' key={index} to= {`${item.name}/${item._id}`}>
                                                 <div id={item.id} className='oneUnit _1'  style={{cursor: "pointer"}} >
                                                     <div className='rippleOuterCus rippleOuter_1 _1'>
                                                         <div className='rippleCus ripple_1'>
                                                             <div>
                                                                 <div className='imgArea _1'>
-                                                                    <img className='icon' alt='icon' src={item.url} />
+                                                                    <img className='icon' alt='icon' src={item?.topicImg[0]?.urlImage} />
                                                                 </div>
                                                                 <div className='unitName _1'>
                                                                     {item.name}

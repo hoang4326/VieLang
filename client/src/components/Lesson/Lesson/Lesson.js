@@ -78,7 +78,7 @@ export default function Lesson () {
                                 {lesson[1]?.map?.((item,index) =>{
                                     return(
                                         <div className="unitPicArea" key={index}>
-                                            <img className='imageLesson' src={item.urlLesson} alt='icon'/>
+                                            <img className='imageLesson' src={item?.lessonImg[0]?.urlImage} alt='icon'/>
                                         </div>
                                         )
                                 })}

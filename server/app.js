@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 app.use(express.json());
 const cors = require('cors');
 app.use(cors());
+const uuidv4 = require('uuid/v4');
 const bcrypt = require('bcryptjs');
 app.set("view engine", "ejs");
 app.use(express.urlencoded({extended:false}));
@@ -11,8 +12,8 @@ const hbs = require('nodemailer-express-handlebars');
 const multer = require('multer');
 // const path = require("path");
 // const viewpath = path.join(__dirname, "../views");
-
-
+app.use('/public', express.static('public'));
+const DIR = './public/';
 
 const jwt = require('jsonwebtoken');
 var nodemailer = require('nodemailer');
@@ -39,35 +40,62 @@ const Lesson = mongoose.model("Lesson");
 const Topic = mongoose.model("Topic");
 const User = mongoose.model("UserInfo");
 
-app.post("/addTopic", async (req, res) => {
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, DIR);
+    },
+    filename: (req, file, cb) => {
+        const fileName  = file.originalname.toLowerCase().split(' ').join('-');
+        cb(null, uuidv4() + '-' + fileName )
+    }
+});
+
+var upload = multer({
+    storage: storage,
+    filename: (req, file, cb) => {
+        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+            cb(null, true);
+        } else {
+            cb(null, false);
+            return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+        }
+    }
+});
+
+var uploadMultiple = upload.fields([{name: 'imgTopic'},{name: 'imgLesson'} ])
+
+app.post("/addTopic",uploadMultiple, async (req, res, next) => {
+    const url = req.protocol + '://' + req.get('host');
     const vocab = [];
     const countTopic = await Topic.countDocuments({});
     const id = countTopic + 1;
-    const {name, url, urlLesson } =  req.body;
-    const data = url['base64'];
-    const split = data.split(',');
-    const base64string = split[1];
-
-    const buffer = Buffer.from(base64string, "base64");
-    const imageTopic = buffer;
-    console.log(split);
-
+    const name =  req.body.name;
+    //Add to array imgTopic
+    imgTopic = req.files.imgTopic;
+    let fileTopic = imgTopic[0].filename;
+    imgTopic.forEach((item) => item.urlImage = url + '/public/' + fileTopic);
+    console.log(imgTopic);
+    //Add to array imgLesson
+    imgLesson = req.files.imgLesson;
+    let fileLesson = imgLesson[0].filename;
+    imgLesson.forEach((item) => item.urlImage = url + '/public/' + fileLesson);
+    console.log(imgLesson);
     try{
+        const oldTopic = await Topic.findOne({name});
+        if(oldTopic){
+            return res.send({status:"Topic exits"});
+        }
         await Topic.create({
             name: name,
-            url: {
-                data: imageTopic,
-                contentType: 'image/png'
-            },
+            topicImg: imgTopic,
+            lessonImg: imgLesson,
             id: id,
-            urlLesson: urlLesson,
             vocab: vocab,
         })
     res.send({status:"ok"});
-    console.log("ok");
     }catch(error){
         res.send({status:"error"});
-        console.log("error");
+        console.log(error);
 
     }
 })
@@ -75,7 +103,7 @@ app.post("/addTopic", async (req, res) => {
 app.get("/topic/:id",async (req, res) => {
     const {id} = req.params;
     const lesson = await Lesson.find({topicId: id});
-    const url = await Topic.find({_id:id},{_id: 0,urlLesson: 1});
+    const url = await Topic.find({_id:id},{_id: 0,lessonImg: 1});
     const vocab = await Topic.find({_id:id},{_id: 0,vocab: 1 });
     const topic = await Topic.find({_id:id},{_id: 0,name: 1 });
 
@@ -150,7 +178,7 @@ app.post("/signup",async(req,res)=>{
     try{
         const oldUser = await User.findOne({email});
         if(oldUser){
-            return res.send({error:"User exits"});
+            return res.send({status:"User exits"});
         }
         await User.create({
             name,

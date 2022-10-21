@@ -11,7 +11,7 @@ import React from 'react';
 import jwt_decode from "jwt-decode";
 import Lesson from '../components/Lesson/Lesson/Lesson';
 import Question from '../components/Lesson/Question/Question';
-import AddTopic from '../components/addTopic';
+import AddTopic from '../components/Admin/Lesson/addTopic';
 
 //Public routes
 export const publicRoutes = [

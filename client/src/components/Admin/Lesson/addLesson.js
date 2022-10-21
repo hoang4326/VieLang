@@ -1,32 +1,27 @@
 import React, { useState } from "react";
-// import FileBase64 from 'react-file-base64';
 
 
-export default function AddTopic() {
-    const [name,setName] = useState();
-    const [url,setUrl] = useState();
-    const [urlLesson,setUrlLesson] = useState();
-
-
+export default function AddLesson() {
+    const [name,setName] = useState('');
+    const [imgTopic,setImgTopic] = useState('');
+    const [imgLesson,setImgLesson] = useState('');
 
     const handleSubmit = event => {
         event.preventDefault();
         const data = new FormData();
-        data.append("name", name);
-        data.append("url", url);
-        data.append("url_lesson", urlLesson);
+        data.append("imgTopic", imgTopic);
+        data.append("imgLesson", imgLesson);
 
+        data.append("name", name);
+        console.log(data);
         fetch("http://localhost:5000/addTopic",{
             method: "POST",
             crossDomain: true,
             headers: {
-                "Content-Type": "application/json",
                 Accept: "application/json",
                 "Access-Control-Allow-Origin":"*",
             },
-            body: JSON.stringify({
-                data
-            }),
+            body: data
         })
         .then((res)=> res.json())
         .then((data)=>{
@@ -52,13 +47,13 @@ export default function AddTopic() {
             <label htmlFor="name" className="name">Select image of Topic:</label>
             <input type='file' accept=".png" onChange={event =>{
                 const file = event.target.files[0];
-                setUrl(file)
+                setImgTopic(file)
             }}></input>
 
             <label htmlFor="name" className="name">Select image of Lesson:</label>
             <input type='file' accept=".png" onChange={event =>{
                 const file = event.target.files[0];
-                setUrlLesson(file)
+                setImgLesson(file)
             }}></input>
 
             <button type="submit">Submit</button>

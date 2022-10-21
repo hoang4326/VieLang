@@ -42,15 +42,21 @@ export default function SignupForm() {
         })
         .then((res)=> res.json())
         .then((data)=>{
-            console.log(data, "userRegister");
-            MySwal.fire({
-                title: <strong>Success!</strong>,
-                html: <i>Registered successfully!</i>,
-                icon: 'success'
-            }).then(() =>{
-                window.location.href = "./login";
-
-            })
+            if(data.status === 'User exits'){
+                MySwal.fire({
+                    title: <strong>Try again!</strong>,
+                    html: <i>Your email already exists !</i>,
+                    icon: 'warning'
+                })
+            }else{
+                MySwal.fire({
+                    title: <strong>Success!</strong>,
+                    html: <i>Registered successfully!</i>,
+                    icon: 'success'
+                }).then(() =>{
+                    window.location.href = "./login";
+                })
+            }         
         });
     }
     }
