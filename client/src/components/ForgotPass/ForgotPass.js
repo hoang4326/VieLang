@@ -1,9 +1,12 @@
 import React,{ useState} from 'react';
 import './ForgotPass.css';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 export default function ForgotPassword(){
     const [email,setEmail] = useState("")
+    const MySwal = withReactContent(Swal);
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -22,8 +25,19 @@ export default function ForgotPassword(){
         })
         .then((res)=> res.json())
         .then((data)=>{
-            console.log(data, "userRegister");
-            alert(data.status);
+            if(data.status === 'User not exist!!'){
+                MySwal.fire({
+                    title: <strong>Try again!</strong>,
+                    html: <i>Your email does not exist !</i>,
+                    icon: 'warning'
+                })
+            }else{
+                MySwal.fire({
+                    title: <strong>Success!</strong>,
+                    html: <i>Please check your email to change your password!</i>,
+                    icon: 'success'
+                })
+            } 
         });
     }
 
@@ -32,12 +46,9 @@ export default function ForgotPassword(){
         <form className="ForgotPassword" onSubmit={handleSubmit} >
             <h1 className='ForgotPassword'>Forgot Password</h1>
             <br />
-            {/* <p>Nhập email mà bạn đã đăng ký trước đây và bấm khôi phục. Bạn sẽ nhận được 1 email bao gồm tên đăng nhập và
-            1 đường link để đặt mật khẩu mới cho tài khoản của bạn.
-            Ai quên tên đăng nhập cũng có thể dùng chức năng này để lấy lại tên đăng nhập</p> */}
             <label htmlFor="name" className="name">Email:</label>
             <input 
-                type="text"
+                type="email"
                 name="email"
                 placeholder="Enter email"
                 className="ForgotPassForm"

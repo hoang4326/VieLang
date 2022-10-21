@@ -1,24 +1,106 @@
-const express = require('express'),
-    mongoose = require('mongoose'),
-    router = express.Router();
-
-
+const express = require('express');
+const app = express();
+const mongoose = require('mongoose');
+app.use(express.json());
+const cors = require('cors');
+app.use(cors());
+const uuidv4 = require('uuid/v4');
 const bcrypt = require('bcryptjs');
+const path = require("path");
+// app.set("view engine", "ejs");
+app.use(express.urlencoded({extended:false}));
+const hbs = require('nodemailer-express-handlebars');
+const multer = require('multer');
+
+app.use('/public', express.static('public'));
+const DIR = './public/';
+
 const jwt = require('jsonwebtoken');
 var nodemailer = require('nodemailer');
-const hbs = require('nodemailer-express-handlebars');
-const path = require('path');
+
 const JWT_SECRET ="fafsfafw4124wrwqr#@#fasfasfsafasfsffa4%$@%@%";
 
-require("../models/userDetails");
-require("../models/topic");
-require("../models/lesson");
+const mongoUrl = 
+    "mongodb://hoang4326:hoang190506@ac-ibx7lch-shard-00-00.jh8v5og.mongodb.net:27017,ac-ibx7lch-shard-00-01.jh8v5og.mongodb.net:27017,ac-ibx7lch-shard-00-02.jh8v5og.mongodb.net:27017/vielangDatabase?replicaSet=atlas-1mz6xt-shard-0&ssl=true&authSource=admin"
+
+mongoose
+    .connect(mongoUrl,{
+        useNewUrlParser: true,
+    })
+    .then(()=>{
+        console.log("Connect to database");
+    })
+    .catch((e)=>console.log(e));
+require("./models/userDetails");
+require("./models/topic");
+require("./models/lesson");
 
 const Lesson = mongoose.model("Lesson");
 const Topic = mongoose.model("Topic");
 const User = mongoose.model("UserInfo");
 
-router.get("/topic/:id",async (req, res) => {
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, DIR);
+    },
+    filename: (req, file, cb) => {
+        const fileName  = file.originalname.toLowerCase().split(' ').join('-');
+        cb(null, uuidv4() + '-' + fileName )
+    }
+});
+
+var upload = multer({
+    storage: storage,
+    filename: (req, file, cb) => {
+        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+            cb(null, true);
+        } else {
+            cb(null, false);
+            return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+        }
+    }
+});
+
+var uploadMultiple = upload.fields([{name: 'imgTopic'},{name: 'imgLesson'} ])
+
+app.post("/addTopic",uploadMultiple, async (req, res, next) => {
+    const url = req.protocol + '://' + req.get('host');
+    const vocab = [];
+    const countTopic = await Topic.countDocuments({});
+    const id = countTopic + 1;
+    const name =  req.body.name;
+    //Add to array imgTopic
+    imgTopic = req.files.imgTopic;
+    let fileTopic = imgTopic[0].filename;
+    imgTopic.forEach((item) => item.urlImage = url + '/public/' + fileTopic);
+    console.log(imgTopic);
+    //Add to array imgLesson
+    imgLesson = req.files.imgLesson;
+    let fileLesson = imgLesson[0].filename;
+    imgLesson.forEach((item) => item.urlImage = url + '/public/' + fileLesson);
+    console.log(imgLesson);
+    try{
+        const oldTopic = await Topic.findOne({name});
+        if(oldTopic){
+            return res.send({status:"Topic exits"});
+        }
+        await Topic.create({
+            name: name,
+            topicImg: imgTopic,
+            lessonImg: imgLesson,
+            id: id,
+            vocab: vocab,
+        })
+    res.send({status:"ok"});
+    }catch(error){
+        res.send({status:"error"});
+        console.log(error);
+
+    }
+})
+
+app.get("/topic/:id",async (req, res) => {
     const {id} = req.params;
     const lesson = await Lesson.find({topicId: id});
     const url = await Topic.find({_id:id},{_id: 0,lessonImg: 1});
@@ -27,7 +109,7 @@ router.get("/topic/:id",async (req, res) => {
 
     res.send([lesson, url, vocab, topic]);
 })
-router.get("/topic",async (req, res)=>{
+app.get("/topic",async (req, res)=>{
     const topicL = await Topic.find({id: { $mod: [ 2, 1 ] }});
     const topicR = await Topic.find({id: { $mod: [ 2, 0 ] }});
     // res.send({topicL: topicL, topicR: topicR} );
@@ -36,7 +118,7 @@ router.get("/topic",async (req, res)=>{
 
 });
 
-router.post("/do-post", async function (request, result){
+app.post("/do-post", async function (request, result){
     const {lessonId} = request.body
     const {token} = request.body;
     const decodeToken = jwt.verify(token, JWT_SECRET);
@@ -90,7 +172,7 @@ router.post("/do-post", async function (request, result){
     })
 })
 
-router.post("/signup",async(req,res)=>{
+app.post("/signup",async(req,res)=>{
     const {name, email, username, password, role } = req.body;
     const encryptedPassword = await bcrypt.hash(password, 10);
     try{
@@ -112,7 +194,7 @@ router.post("/signup",async(req,res)=>{
     }
 });
 
-router.post("/login",async(req,res)=>{
+app.post("/login",async(req,res)=>{
     const {email, password} = req.body;
 
     const user = await User.findOne({email});
@@ -131,14 +213,14 @@ router.post("/login",async(req,res)=>{
     }
     res.json({status: "error", error: "Invalid password"});
 })
-router.get("/getRole",async function(req, res) {
+app.get("/getRole",async function(req, res) {
     const {token} = req.body;
     const user = jwt.verify(token, JWT_SECRET);
     const userRole = user.role;
     res.send(userRole);
 
 })
-router.post("/userData", async (req, res) => {
+app.post("/userData", async (req, res) => {
     const {token} = req.body;
     try{
         const user = jwt.verify(token, JWT_SECRET);
@@ -156,7 +238,7 @@ router.post("/userData", async (req, res) => {
     }
 });
 
-router.post('/forgot-password',async (req, res) => {
+app.post('/forgot-password',async (req, res) => {
     const {email} = req.body;
     try{
         const oldUser = await User.findOne({email});
@@ -181,7 +263,7 @@ router.post('/forgot-password',async (req, res) => {
             viewEngine: {
                 defaultLayout: false,
             },
-            viewPath:  path.resolve(__dirname,'../views')
+            viewPath: path.resolve(__dirname, "views")
         }));
 
     
@@ -195,32 +277,32 @@ router.post('/forgot-password',async (req, res) => {
             },
             attachments:[{
                 filename: 'image-2.png',
-                path:  path.resolve(__dirname,'../views/images/image-2.png'),
+                path:  './views/images/image-2.png',
                 cid: 'image-2'
             },
             {
                 filename: 'email.png',
-                path:   path.resolve(__dirname,'../views/images/email.png'),
+                path:   './views/images/email.png',
                 cid: 'email'
             },
             {
                 filename: 'image-3.png',
-                path: path.resolve(__dirname,'../views/images/image-3.png'),
+                path: './views/images/image-3.png',
                 cid: 'image-3'
             },
             {
                 filename: 'image-1.png',
-                path:  path.resolve(__dirname,'../views/images/image-1.png'),
+                path:  './views/images/image-1.png',
                 cid: 'image-1'
             },
             {
                 filename: 'image-4.png',
-                path:  path.resolve(__dirname,'../views/images/image-4.png'),
+                path:  './views/images/image-4.png',
                 cid: 'image-4'
             },
             {
                 filename: 'image-6.png',
-                path:  path.resolve(__dirname,'../views/images/image-6.png'),
+                path:  './views/images/image-6.png',
                 cid: 'image-6'
             },
 
@@ -235,11 +317,11 @@ router.post('/forgot-password',async (req, res) => {
             console.log('Email sent: ' + info.response);
             }
         });
-        res.send({status: 'success'});
-    return 
+        
+    console.log(link);
     }catch(error){}
 });
-// router.get('/userRole/:id', async (req, res) =>{
+// app.get('/userRole/:id', async (req, res) =>{
 //     const {id} = req.params;
 //     const oldUser = await User.findOne({_id: id});
 //     if (!oldUser){
@@ -248,7 +330,7 @@ router.post('/forgot-password',async (req, res) => {
 //     res.send({role: oldUser.role});
 // })
 
-router.get('/reset-password/:id/:token', async (req, res) => {
+app.get('/reset-password/:id/:token', async (req, res) => {
     const {id, token} =req.params;
     console.log(req.params);
     const oldUser = await User.findOne({_id: id});
@@ -264,7 +346,7 @@ router.get('/reset-password/:id/:token', async (req, res) => {
     }
 })
 
-router.post('/reset-password/:id/:token', async (req, res) => {
+app.post('/reset-password/:id/:token', async (req, res) => {
     const {id, token} =req.params;
     const {password} = req.body;
     console.log(req.params);
@@ -293,4 +375,7 @@ router.post('/reset-password/:id/:token', async (req, res) => {
         res.send("Not Verrifed")
     }
 })
-module.exports = router;
+    
+app.listen(5000, ()=>{
+        console.log("Server started");
+    })

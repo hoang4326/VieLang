@@ -16,7 +16,7 @@ export default function AddTopic() {
 
         data.append("name", name);
         console.log(data);
-        fetch("http://localhost:5000/addTopic",{
+        fetch("http://localhost:5000/admin/addTopic",{
             method: "POST",
             crossDomain: true,
             headers: {
