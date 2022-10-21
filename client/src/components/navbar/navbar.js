@@ -75,7 +75,7 @@ export default function Navbar() {
     return (
             <div className='Navigation'>
                 <nav className='navbarItems'>
-                    <h1 className='navbar-logo'> VIELANG</h1>
+                    <Link to='/' className='lesson-link'><h1 className='navbar-logo'> VIELANG</h1></Link>
                     <div className='menu-icon' onClick={handleClick}>
                             <i className={clicked ? 'fas fa-times': 'fa fa-bars'}></i>
                     </div>
