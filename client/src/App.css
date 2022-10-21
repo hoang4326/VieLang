@@ -4,6 +4,13 @@
   padding: 0;
   font-family: montserrat,sans-serif;
 }
+input{
+  margin: normal !important;
+}
+
 /* *:not(.mainContent){
   box-sizing: border-box;
+} */
+/* h1 h2 h3 h4{
+
 } */

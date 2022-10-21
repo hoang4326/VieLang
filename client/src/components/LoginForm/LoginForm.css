@@ -11,6 +11,7 @@
 form.login {
     width: 100%;
     margin: 0 auto;
+    line-height: normal !important;
 }
 
 form.login input.loginform {
@@ -19,7 +20,7 @@ form.login input.loginform {
 }
 
 input.loginform,
-button {
+button.submitLogin {
     display: block;
     padding: 0.8rem;
     outline: none;
@@ -39,7 +40,7 @@ ul {
     list-style-position: inside;
     color: lightcoral;
 }
-button {
+button.submitLogin {
     text-transform: uppercase;
     background-color: #7577fa;
     border: none;
@@ -48,8 +49,16 @@ button {
     font-weight: bold;
     cursor: pointer;
     }
-button:hover{
+button.submitLogin:hover{
     background: #0674ec;
+}
+button.submitLogin{
+    margin: none !important;
+}
+h1.signIn{
+    font-size: 32px !important;
+    margin-bottom: none !important;
+    font-weight: 1000 !important;
 }
 @media screen and (max-width: 960px) {
     .loginForm {

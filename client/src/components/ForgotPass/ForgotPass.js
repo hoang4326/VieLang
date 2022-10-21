@@ -54,8 +54,8 @@ export default function ForgotPassword(){
                 className="ForgotPassForm"
                 onChange={event => setEmail(event.target.value)}
                 />
-            <button type="submit">Submit</button>
-            <label htmlFor="name">Already have an account? ? <Link to="/signup">Sign in</Link></label>
+            <button type="submit" className='forgotPass'>Submit</button>
+            <label htmlFor="name">Already have an account ? <Link to="/signup">Sign in</Link></label>
         </form>
     </div>
     )

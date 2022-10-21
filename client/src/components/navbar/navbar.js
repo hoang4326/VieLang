@@ -6,6 +6,7 @@ import {
     // Route,
     Link,
 } from "react-router-dom";
+
 import './Navbar.css';
 
 export default function Navbar() {
@@ -127,12 +128,12 @@ export default function Navbar() {
 
                             <Link to='/#' className='sub-menu-link'>
                                 <img src={require('../../assets/image/profile.png')} alt='profile' />
-                                <p>Edit profile</p>
+                                <p className='profileNav'>Edit profile</p>
                                 {/* <span>{'>'}</span> */}
                             </Link>
                             <a href='/' className='sub-menu-link' onClick={logOut}>
                                 <img src={require('../../assets/image/logout.png')} alt='profile' />
-                                <p>Logout</p>
+                                <p className='profileNav'>Logout</p>
                                 {/* <span>{'>'}</span> */}
                             </a>
 

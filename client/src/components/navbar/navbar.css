@@ -24,7 +24,9 @@
     justify-content: end;
     margin-right: 2rem;
 }
-
+.profileNav{
+    margin-bottom: 0 !important;
+}
 /* .nav-links {
     color: white;
     text-decoration: none;
@@ -56,6 +58,10 @@
 }
 .nav-links:hover.nav-links::after{
     width: 100%;
+}
+.nav-links:hover{
+    color: white !important;
+
 }
 
 

@@ -49,7 +49,7 @@ export default function Home(){
                 <h3 className='home'>Take the first step to learn with us </h3>
                 <p className='home'>Learn language with VietLang.</p>
                 <p className='home'>It's easy and convenient!</p>
-                <Link to='/topic' className='btn'>Learn now</Link>
+                <Link to='/topic' className='btnHome'>Learn now</Link>
             </div>
             <div className='image'>
                 <img src='https://preview.colorlib.com/theme/eclipse/img/xheader-img.png.pagespeed.ic.ungsFL0Q2L.webp' alt='description '/>
@@ -111,13 +111,13 @@ export default function Home(){
                 <Slider {...settings}>
                 {dataFeedback.map((item, index) =>{
                     return(
-                        <div className='card' key={index}>
+                        <div className='card1' key={index}>
                             <div className='card-top'>
-                                <img src={item.img} alt={item.name} className='card-img'/>
+                                <img src={item.img} alt={item.name} className='card-img1'/>
                                 <h1>{item.name}</h1>
                             </div>
                             <div className='card-bottom'>
-                                <i><p>{item.content}</p></i>
+                                <i><p className='pHome'>{item.content}</p></i>
                             </div>
                         </div>
                 

@@ -10,14 +10,18 @@
 }
 h1.ForgotPassword{
     text-align: center;
-
+    font-size: 32px !important;
+    line-height: normal !important;
+    font-weight: 1000 !important;
 }
 form.ForgotPassword {
     width: 100%;
     margin: 0 auto;
     
 }
-
+button.forgotPass{
+    margin-bottom: 20px !important;
+}
 
 
 form.ForgotPassword input.ForgotPassForm {

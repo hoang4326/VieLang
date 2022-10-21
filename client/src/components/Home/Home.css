@@ -39,7 +39,7 @@ section.home{
     font-size: 1.7rem;
     color:#666;
   }
-  .btn{
+  .btnHome{
     display: inline-block;
     margin-top: 1rem;
     padding:.8rem 3rem;
@@ -51,7 +51,7 @@ section.home{
     text-decoration: none;
   }
   
-  .btn:hover{
+  .btnHome:hover{
     background:var(--gradient);
   }
 /* end landpage */
@@ -179,7 +179,7 @@ section.home{
 .slick-list {
   margin: 0 -10px;
 }
-.card{
+.card1{
   border: 1px solid #fff;
   background: white;
   border-radius: 8px;
@@ -192,7 +192,7 @@ section.home{
 .card-top{
   text-align: center;
 }
-.card-img{
+.card-img1{
   margin: 0 auto;
   vertical-align: middle;
   width: 100px;
@@ -220,7 +220,37 @@ section.home{
 .slick-arrow.slick-prev::before{
   color: black !important;
 }
+.pHome{
+  line-height: normal;
+}
+p.home{
+  margin-bottom: 0;
+}
+h3{
+  margin-bottom: 0 !important;
+  font-weight: normal !important;
+  line-height: normal !important;;
+}
+h3.description-item-title{
+  font-size: 18.72px !important;
 
+}
+img{
+  vertical-align: 0 !important;
+}
+div.content{
+  line-height: normal !important;
+}
+h1.navbar-logo{
+  font-size: 24px !important;
+  margin-bottom: 0 !important;
+  line-height: normal!important;
+  font-weight: 1000 !important;
+}
+
+ul.nav-menu{
+  margin-bottom: 0 !important;
+}
 /* Responsive */
 @media (max-width: 991px){
     .homePage .page-description .description-wrap{

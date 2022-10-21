@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
 
+
 export default function LoginForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -53,7 +54,7 @@ export default function LoginForm() {
     return (
     <div className="loginForm">
         <form className="login" onSubmit={handleSubmit}>
-            <h1>Sign in <br /> Access your account</h1>
+            <h1 className="signIn">Sign in <br /> Access your account</h1>
             <br />
             <br />
             <label htmlFor="name" className="email">Email:</label>
@@ -79,7 +80,7 @@ export default function LoginForm() {
                 <li>Name is required</li>
             </ul> */}
 
-            <button type="submit">Sign in</button>
+            <button type="submit" className="submitLogin">Sign in</button>
             <label htmlFor="name">Don't have an account ? <Link to="/signup">Create your account here.</Link></label>
             <br/>
             <label htmlFor="name"><Link to="/forgot-password" >Forgot password?</Link></label>
