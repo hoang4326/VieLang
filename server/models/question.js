@@ -2,11 +2,29 @@ const mongoose = require('mongoose');
 
 const QuestionSchema = new mongoose.Schema({
     topic: String,
-    lesson: String,
-    question: String,
-    answer: Array,
-    answerCorrect: String
-
+    lesson: Number,
+    questions: [
+        {
+            _id: false,
+            questionText: {
+                type: String,
+            },
+            answerOptions:[
+                {
+                    _id: false,
+                    answerText: {
+                        type: String,
+                    },
+                    isCorrect: {
+                        type: Boolean,
+                    },
+                    answerImg:{
+                        type: String,
+                    }
+                }
+            ]
+        }
+    ],
 },{
     collection: "Question",
 });

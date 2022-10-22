@@ -53,6 +53,7 @@ section.home{
   
   .btnHome:hover{
     background:var(--gradient);
+    color:#fff !important;
   }
 /* end landpage */
 /* Start why page */

@@ -1,6 +1,7 @@
 import React, { useState} from 'react';
 import { useParams } from "react-router-dom";
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 import withReactContent from 'sweetalert2-react-content';
 import './ResetPass.css'
 
@@ -9,6 +10,7 @@ export default function ResetPassword(){
     const [cpassword,setCpassword] = useState("");
     const param = useParams();
     const MySwal = withReactContent(Swal);
+    let navigate = useNavigate();
 
 
     const handleSubmit = event => {
@@ -39,6 +41,8 @@ export default function ResetPassword(){
                 title: <strong>Password Changed!</strong>,
                 html: <i>Your password has been changed successfully</i>,
                 icon: 'success'
+            }).then(()=>{
+                navigate("/login")
             })
         });
     }
@@ -66,7 +70,7 @@ export default function ResetPassword(){
                 onChange={event => setCpassword(event.target.value)}
                 required='required'
                 />
-            <button type="submit">Reset</button>
+            <button type="submit" className='resetButton'>Reset</button>
         </form>
     </div>
     )

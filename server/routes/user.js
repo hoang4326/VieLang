@@ -11,17 +11,27 @@ const JWT_SECRET ="fafsfafw4124wrwqr#@#fasfasfsafasfsffa4%$@%@%";
 require("../models/userDetails");
 require("../models/topic");
 require("../models/lesson");
+require("../models/question");
 
 const Lesson = mongoose.model("Lesson");
 const Topic = mongoose.model("Topic");
 const User = mongoose.model("UserInfo");
+const Question = mongoose.model("Question");
 
-router.get("/topic/:id",async (req, res) => {
+router.get("/topic/:name/:id", async (req, res) =>{
     const {id} = req.params;
-    const lesson = await Lesson.find({topicId: id});
-    const url = await Topic.find({_id:id},{_id: 0,lessonImg: 1});
-    const vocab = await Topic.find({_id:id},{_id: 0,vocab: 1 });
-    const topic = await Topic.find({_id:id},{_id: 0,name: 1 });
+    const {name} = req.params;
+    const data = await Question.find({topic: name, lesson: id},{_id: 0, questions: 1});
+    const question = data[0].questions;
+    res.send(question);
+})
+
+router.get("/topic/:name",async (req, res) => {
+    const {name} = req.params;
+    const lesson = await Lesson.find({topic: name});
+    const url = await Topic.find({name:name},{_id: 0,lessonImg: 1});
+    const vocab = await Topic.find({name:name},{_id: 0,vocab: 1 });
+    const topic = await Topic.find({name:name},{_id: 0,name: 1 });
 
     res.send([lesson, url, vocab, topic]);
 })
@@ -35,17 +45,16 @@ router.get("/topic",async (req, res)=>{
 });
 
 router.post("/do-post", async function (request, result){
-    const {lessonId} = request.body
-    const {token} = request.body;
+    const {topic,lessonId,token } = request.body;
     const decodeToken = jwt.verify(token, JWT_SECRET);
     const userId = decodeToken._id;
     // const {userId} = request.body;
     await Lesson.findOne({
-        "_id" : mongoose.Types.ObjectId(lessonId)
+        "topic" : topic, "id": lessonId
     }, function (error, item){
         if(item.isFinished === null || item.isFinished === undefined){
             Lesson.findOneAndUpdate({
-                "_id" : mongoose.Types.ObjectId(lessonId),
+                "topic" : topic, "id": lessonId,
             },{
                 $set: {
                     isFinished: 
@@ -68,7 +77,7 @@ router.post("/do-post", async function (request, result){
             });
         }else{
             Lesson.findOneAndUpdate({
-                "_id" : mongoose.Types.ObjectId(lessonId),
+                "topic" : topic, "id": lessonId,
             },{
                 $push: {
                     isFinished: 

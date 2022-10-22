@@ -35,7 +35,7 @@ export default function Lesson () {
 
     useEffect(() => {
 
-        fetch(`http://localhost:5000/topic/${param.id}`)
+        fetch(`http://localhost:5000/topic/${param.name}`)
         .then(res => 
             res.json()
         )
@@ -93,14 +93,16 @@ export default function Lesson () {
                                                             {item.id}
                                                         </span>
                                                     </div>
-                                                    <div className='buttonArea'>
-                                                        <div className='btnLesson ripple start'>
-                                                            <div>
-                                                                Start
+                                                    <Link to = {`${item.id}`} className='lesson-link'>
+                                                        <div className='buttonArea'>
+                                                            <div className='btnLesson ripple start'>
+                                                                <div>
+                                                                    Start
+                                                                </div>
+                                                                <img src={require('../../../assets/image/start.png')} alt='start'/>
                                                             </div>
-                                                            <img src={require('../../../assets/image/start.png')} alt='start'/>
                                                         </div>
-                                                    </div>
+                                                    </Link>
                                                     <div className='subDescArea'>
                                                         {item.content1}
                                                         <br/>

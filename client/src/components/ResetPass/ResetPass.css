@@ -26,7 +26,7 @@ form.ResetPassword input.ResetPassForm {
 }
 
 input.ResetPassForm,
-button {
+button.resetButton {
     display: block;
     padding: 0.8rem;
     outline: none;
@@ -46,7 +46,7 @@ ul {
     list-style-position: inside;
     color: lightcoral;
 }
-button {
+button.resetButton {
     text-transform: uppercase;
     background-color: #7577fa;
     border: none;
@@ -57,7 +57,7 @@ button {
     margin-bottom: 25px;
 
     }
-button:hover{
+button.resetButton:hover{
     background: #0674ec;
 }
 @media screen and (max-width: 960px) {

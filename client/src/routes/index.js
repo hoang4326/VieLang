@@ -23,8 +23,8 @@ export const publicRoutes = [
     { path: '/forgot-password', component: ForgotPassword},
     { path: '/reset-password/:id/:token', component: ResetPassword},
     { path: '/topic', component: Topic},  
-    { path: '/topic/:name/:id', component: Lesson},
-    { path: '/question', component: Question},
+    { path: '/topic/:name', component: Lesson},
+    { path: '/topic/:name/:id', component: Question},
     { path: '/addTopic', component: AddTopic}
 
 ]

@@ -114,7 +114,7 @@ export default function SignupForm() {
                 required='required'
             />
 
-            <button type="submit">Sign up</button>
+            <button type="submit" className="signupButton">Sign up</button>
         </form>
     </div>
 );
