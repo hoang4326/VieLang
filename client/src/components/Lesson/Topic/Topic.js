@@ -6,7 +6,6 @@ import BarChart from './BarChart';
 import {
     Link,
 } from "react-router-dom";
-// import jwt_decode from "jwt-decode";
 
 
 export default function Topic(){
@@ -56,31 +55,6 @@ export default function Topic(){
             console.log(err)
         })
     }, [])
-    
-    // console.log(topic)
-    // if (Array.isArray(topic)){
-    //     console.log("TRue")
-    // }else{
-    //     console.log("False")
-    // }
-    // function isJson(item) {
-    //     item = typeof item !== "string"
-    //         ? JSON.stringify(item)
-    //         : item;
-    
-    //     try {
-    //         item = JSON.parse(item);
-    //     } catch (e) {
-    //         return false;
-    //     }
-    
-    //     if (typeof item === "object" && item !== null) {
-    //         return true;
-    //     }
-    
-    //     return false;
-    // }
-    // console.log(isJson(topic));
     return (
         <div className='lesson'>
             <div className='mainContent'>

@@ -17,6 +17,9 @@ export default function Question(){
     const [show, setShow] = useState(false);
     let navigate = useNavigate();
 
+    var today = new Date();
+    const time1 = today.getTime();
+    console.log(time1);
     const handlePost =  () => {
         if(score === questions.length){
             fetch("http://localhost:5000/do-post",{
@@ -51,6 +54,7 @@ export default function Question(){
 		if (nextQuestion < questions.length) {
 			setCurrentQuestion(nextQuestion);
 		} else {
+            var time2 = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
             setShow(true);
 		}
 	};
@@ -71,7 +75,7 @@ export default function Question(){
     return (
         <div className='mainCourse'>
             <Modal show={show} >
-                <Modal.Header closeButton>
+                <Modal.Header >
                     <Modal.Title>Final Results</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -80,12 +84,12 @@ export default function Question(){
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handlePost}>
-                        Close
+                        Done
                     </Button>
                 </Modal.Footer>
             </Modal>
             <div className='mainContentQ'>
-                <ProgressBar variant='progress-flat' now={(currentQuestion / questions?.length) * 100} />
+                <ProgressBar variant='progress-flat' now={((currentQuestion + 1) / questions?.length) * 100} />
                 <div className='switchCourse'>
                     <div className='switchContentQ'>
                         <div className='dyComponent'>
