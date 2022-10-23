@@ -11,15 +11,15 @@ import './Question.css'
 export default function Question(){
     const param = useParams();
     const [questions, setQuestions] =useState();
+    const [timeStart, setTimeStart] =useState();
     const [currentQuestion, setCurrentQuestion] = useState(0);
     // const [showScore, setShowScore] = useState(false);
 	const [score, setScore] = useState(0);
     const [show, setShow] = useState(false);
+    const [duration, setDuration] = useState(0);
     let navigate = useNavigate();
 
     var today = new Date();
-    const time1 = today.getTime();
-    console.log(time1);
     const handlePost =  () => {
         if(score === questions.length){
             fetch("http://localhost:5000/do-post",{
@@ -33,7 +33,8 @@ export default function Question(){
             body: JSON.stringify({
                 topic: param.name,
                 lessonId: param.id,
-                token: localStorage.getItem("token")
+                token: localStorage.getItem("token"),
+                duration: duration
             }),
         }).then((res)=> res.json())
         .then((data)=>{
@@ -54,7 +55,10 @@ export default function Question(){
 		if (nextQuestion < questions.length) {
 			setCurrentQuestion(nextQuestion);
 		} else {
-            var time2 = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+            var time2 = today.getTime();
+            const duration = time2 - timeStart
+            setDuration(duration);
+            console.log(duration);
             setShow(true);
 		}
 	};
@@ -65,7 +69,12 @@ export default function Question(){
             res.json()
         )
         .then((data)=>{
-            setQuestions(data)
+                const questionArray = data.slice(0,1);
+                const questions = Array.from(questionArray[0]);
+                const timeStartArray = data.slice(1);
+                const timeStart = parseInt((timeStartArray.toString()));
+                setQuestions(questions);
+                setTimeStart(timeStart);
         })
         .catch((err) => {
             console.log(err)

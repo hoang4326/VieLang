@@ -13,17 +13,21 @@ require("../models/topic");
 require("../models/lesson");
 require("../models/question");
 
+
 const Lesson = mongoose.model("Lesson");
 const Topic = mongoose.model("Topic");
 const User = mongoose.model("UserInfo");
 const Question = mongoose.model("Question");
+const Achievement = mongoose.model("Achievement");
+
 
 router.get("/topic/:name/:id", async (req, res) =>{
     const {id} = req.params;
     const {name} = req.params;
     const data = await Question.find({topic: name, lesson: id},{_id: 0, questions: 1});
     const question = data[0].questions;
-    res.send(question);
+    const timeStart =  (new Date).getTime();
+    res.send([question, timeStart]);
 })
 
 router.get("/topic/:name",async (req, res) => {
@@ -45,10 +49,29 @@ router.get("/topic",async (req, res)=>{
 });
 
 router.post("/do-post", async function (request, result){
-    const {topic,lessonId,token } = request.body;
+    const {topic,lessonId,token, duration } = request.body;
     const decodeToken = jwt.verify(token, JWT_SECRET);
     const userId = decodeToken._id;
     // const {userId} = request.body;
+    const time = await  Achievement.find({userId: mongoose.Types.ObjectId(userId)},{_id: 0, totalTime:1});
+    let timeArray = time.map(a => a.totalTime);
+    const totalTimeBefore = parseInt((timeArray.toString()));
+    const totalTime = totalTimeBefore + duration;
+
+    const data = await  Achievement.find({userId: mongoose.Types.ObjectId(userId)},{_id: 0, exp:1});
+    let expArray = data.map(a => a.exp);
+    const expBefore = parseInt((expArray.toString()));
+    const exp = expBefore + 5;
+
+    function getLevel(exp) {
+        var level = 0;
+        [5, 15, 25, 35, 45, 55, 65, 75, 85, 95, 100].some(function(v, i) {
+            level = i;        
+            return v > exp; 
+        });
+        return level;
+    }
+
     await Lesson.findOne({
         "topic" : topic, "id": lessonId
     }, function (error, item){
@@ -58,13 +81,13 @@ router.post("/do-post", async function (request, result){
             },{
                 $set: {
                     isFinished: 
-                        {"_id": userId}
-                        
+                        {
+                            "_id": userId,
+                        },                        
                 }
             },{
                 new: true
-            },function (error, data){
-                console.log(data);
+            },function (error){
                 return result.json({
                     "status": "success",
                     "message": "UserId has been inserted",
@@ -81,38 +104,74 @@ router.post("/do-post", async function (request, result){
             },{
                 $push: {
                     isFinished: 
-                        {"_id": userId}
+                    {
+                        "_id": userId,
+                    },
                     
                 }
             },{
                 new: true
-            },function (error, data){
-                console.log(data);
+            },function (error){
                 return result.json({
                     "status": "success",
                     "message": "UserId has been inserted",
                 });
             });  
         }
+    }).clone();
+    
+    await Achievement.findOneAndUpdate({
+        "userId": mongoose.Types.ObjectId(userId)
+    },{
+        $set:{
+            "totalTime": totalTime,
+            "exp": exp,
+            "level": getLevel(exp)
+        }
     })
 })
 
 router.post("/signup",async(req,res)=>{
     const {name, email, username, password, role } = req.body;
+    const totalTime = 0;
+    const exp = 0;
+    const level = 0;
     const encryptedPassword = await bcrypt.hash(password, 10);
+    const user = new User({
+        _id: new mongoose.Types.ObjectId(),
+        name: name,
+        email: email,
+        username: username,
+        password: encryptedPassword,
+        role: role
+    })
     try{
         const oldUser = await User.findOne({email});
         if(oldUser){
             return res.send({status:"User exits"});
         }
-        await User.create({
-            name,
-            email,
-            username,
-            password:encryptedPassword,
-            role
+        await user.save( function(err){
+            if (err) return handleError(err);
+
+            const achievement = new Achievement({
+                _id: new mongoose.Types.ObjectId(),
+                userId: user._id,
+                totalTime: totalTime,
+                exp: exp,
+                level: level,
+            });
+            achievement.save(function(err){
+                if (err) return handleError(err);
+            })
+        })
+        // await User.create({
+        //     name,
+        //     email,
+        //     username,
+        //     password:encryptedPassword,
+        //     role
             
-        });
+        // });
     res.send({status:"ok"});
     }catch(error){
         res.send({status:"error"});
