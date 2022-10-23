@@ -52,7 +52,11 @@ router.post("/do-post", async function (request, result){
     const {topic,lessonId,token, duration } = request.body;
     const decodeToken = jwt.verify(token, JWT_SECRET);
     const userId = decodeToken._id;
-    // const {userId} = request.body;
+
+    const lesson = await  Lesson.find({topic: topic, id: lessonId},{_id: 1});
+    let lessonArray = lesson.map(a => a._id);
+    const lessonID = lessonArray.toString();
+
     const time = await  Achievement.find({userId: mongoose.Types.ObjectId(userId)},{_id: 0, totalTime:1});
     let timeArray = time.map(a => a.totalTime);
     const totalTimeBefore = parseInt((timeArray.toString()));
@@ -71,6 +75,57 @@ router.post("/do-post", async function (request, result){
         });
         return level;
     }
+        await User.findOne({
+            "_id" : userId
+        }, function (error, item){
+            if(item.lessonDone === null || item.lessonDone === undefined){
+                User.findOneAndUpdate({
+                    "_id" : userId
+                },{
+                    $set: {
+                        lessonDone: 
+                            {
+                                "_id": lessonID,
+                            },                        
+                    }
+                }
+                ,{
+                    new: true
+                },function (error){
+                    return result.json({
+                        "status": "success",
+                        "message": "LessonId has been inserted",
+                    });
+                }
+                );
+            }else if (item.lessonDone.find(e => e._id.toString() === lessonID)){
+                return result.json({
+                    "status": "error",
+                    "message": "Already had this LessonId"
+                });
+            }else{
+                User.findOneAndUpdate({
+                    "_id" : userId
+                },{
+                    $push: {
+                        lessonDone: 
+                        {
+                            "_id": lessonID,
+                        },
+                        
+                    }
+                }
+                ,{
+                    new: true
+                },function (error){
+                    return result.json({
+                        "status": "success",
+                        "message": "LessonId has been inserted",
+                    });
+                }
+                );  
+            }
+        }).clone().catch(function(err){ console.log(err)});
 
     await Lesson.findOne({
         "topic" : topic, "id": lessonId
@@ -119,7 +174,7 @@ router.post("/do-post", async function (request, result){
             });  
         }
     }).clone();
-    
+
     await Achievement.findOneAndUpdate({
         "userId": mongoose.Types.ObjectId(userId)
     },{
@@ -137,13 +192,15 @@ router.post("/signup",async(req,res)=>{
     const exp = 0;
     const level = 0;
     const encryptedPassword = await bcrypt.hash(password, 10);
+    const lessonDone = [];
     const user = new User({
         _id: new mongoose.Types.ObjectId(),
         name: name,
         email: email,
         username: username,
         password: encryptedPassword,
-        role: role
+        role: role,
+        lessonDone: lessonDone
     })
     try{
         const oldUser = await User.findOne({email});
