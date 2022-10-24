@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import jwt_decode from "jwt-decode";
 
 // import { MenuItems }   from "./Menu";
 import {
@@ -13,19 +12,10 @@ import './Navbar.css';
 export default function Navbar() {
     const [userData, setUserData] = useState("");
     const [clicked, setClicked] = useState(false);
-    const [userId, setUserId] = useState();
 
     // const ref = useRef(null);
     const [toggled, setToggled] = useState(false);
     const token = localStorage.getItem('token');
-
-    if(token === null || token === undefined){
-        console.log(token);
-    }else{
-        const decoded = jwt_decode(token);
-        const userID = decoded._id;
-        setUserId(userId);
-    }
 
     var style1 = {};
     var style2 = {};

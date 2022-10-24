@@ -41,16 +41,11 @@ router.get("/topic/:name",async (req, res) => {
     res.send([lesson, url, vocab, topic]);
 })
 router.get("/topic",async (req, res)=>{
-    const {token} = req.body;
-    console.log(token);
-    const decodeToken = jwt.verify(token, JWT_SECRET);
-    const userId = decodeToken._id;
-    const percentLessonArray = await Achievement({userId: userId},{_id: 0, percentLessonDone: 1});
-    const percentLesson = percentLessonArray[0];
+    const percentLesson = await Achievement.find({},{_id: 1, percentLessonDone: 1});
     const topicL = await Topic.find({id: { $mod: [ 2, 1 ] }});
     const topicR = await Topic.find({id: { $mod: [ 2, 0 ] }});
     
-    res.send([ topicL, topicR, percentLesson] );
+    res.send([ topicL, topicR, percentLesson ] );
 
 });
 
@@ -235,14 +230,6 @@ router.post("/signup",async(req,res)=>{
                 if (err) return handleError(err);
             })
         })
-        // await User.create({
-        //     name,
-        //     email,
-        //     username,
-        //     password:encryptedPassword,
-        //     role
-            
-        // });
     res.send({status:"ok"});
     }catch(error){
         res.send({status:"error"});

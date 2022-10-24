@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Topic.css';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import jwt_decode from "jwt-decode";
 import BarChart from './BarChart';
 import {
     Link,
@@ -9,21 +10,20 @@ import {
 
 
 export default function Topic(){
-    const percentage = 50;
+    // const percentage = 50;
     const [topic, setTopic] = useState([]);
-    // useEffect(()=>{
-    //     function getRole(){
-    //         try {
-    //             const token =  localStorage.getItem('token');
-    //             const decoded = jwt_decode(token);
-    //             const userID = decoded._id;
-    //             setRole(userID);
-    //         } catch(error) {
-    //             console.log(error);
-    //         }
-    //     } ;
-    //     getRole();
-    // }, [])
+    // const [userId, setUserId] = useState('');
+    const [percentLessonDone, setPercentLessonDone] = useState(0);
+
+    const token = localStorage.getItem('token');
+
+    // if(token === null || token === undefined){
+    //     token === null
+    // }else{
+    //     const decoded = jwt_decode(token);
+    //     const userID = decoded._id;
+    //     setUserId(userID);
+    // }
     
     useEffect(() => {
         fetch("http://localhost:5000/topic")
@@ -31,12 +31,25 @@ export default function Topic(){
             res.json()
         )
         .then((data)=>{
+            const decoded = jwt_decode(token);
+            const userId = decoded._id;
+            let hello = 0;
+            // let percent = data[2].find( a => a._id === userId );
+            const arr = data[2].map(item => {
+                if (item._id === userId){
+                    hello = item.percentLessonDone;
+                }
+                return hello
+            })
+            console.log(data[2])
+            // const percentLessonDone = percent.percentLessonDone;
+            setPercentLessonDone(hello);
             setTopic(data)
         })
         .catch((err) => {
             console.log(err)
         })
-    }, [])
+    }, [token])
     return (
         <div className='lesson'>
             <div className='mainContent'>
@@ -51,7 +64,7 @@ export default function Topic(){
                                 </div>
                                 <div className='progressArea'>
                                     <div className='circleBar' style={{ width: 145, height: 145 }} >
-                                        <CircularProgressbar value={percentage} text={`${percentage}%`} />
+                                        <CircularProgressbar value={percentLessonDone} text={`${percentLessonDone}%`} />
                                     </div>
                                 </div>
                                 <div className='vLine'></div>
