@@ -10,20 +10,11 @@ import {
 
 
 export default function Topic(){
-    // const percentage = 50;
     const [topic, setTopic] = useState([]);
     // const [userId, setUserId] = useState('');
     const [percentLessonDone, setPercentLessonDone] = useState(0);
 
     const token = localStorage.getItem('token');
-
-    // if(token === null || token === undefined){
-    //     token === null
-    // }else{
-    //     const decoded = jwt_decode(token);
-    //     const userID = decoded._id;
-    //     setUserId(userID);
-    // }
     
     useEffect(() => {
         fetch("http://localhost:5000/topic")
@@ -31,19 +22,13 @@ export default function Topic(){
             res.json()
         )
         .then((data)=>{
-            const decoded = jwt_decode(token);
-            const userId = decoded._id;
-            let hello = 0;
-            // let percent = data[2].find( a => a._id === userId );
-            const arr = data[2].map(item => {
-                if (item._id === userId){
-                    hello = item.percentLessonDone;
-                }
-                return hello
-            })
-            console.log(data[2])
-            // const percentLessonDone = percent.percentLessonDone;
-            setPercentLessonDone(hello);
+            if(token){
+                const decoded = jwt_decode(token);
+                const userId = decoded._id;
+                let percent = data[2].find( a => a.userId === userId );
+                const percentLessonDone = percent.percentLessonDone;
+                setPercentLessonDone(percentLessonDone);
+            }
             setTopic(data)
         })
         .catch((err) => {

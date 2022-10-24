@@ -28,6 +28,7 @@ router.get("/topic/:name/:id", async (req, res) =>{
     const data = await Question.find({topic: name, lesson: id},{_id: 0, questions: 1});
     const question = data[0].questions;
     const timeStart =  (new Date).getTime();
+    console.log(timeStart);
     res.send([question, timeStart]);
 })
 
@@ -41,7 +42,7 @@ router.get("/topic/:name",async (req, res) => {
     res.send([lesson, url, vocab, topic]);
 })
 router.get("/topic",async (req, res)=>{
-    const percentLesson = await Achievement.find({},{_id: 1, percentLessonDone: 1});
+    const percentLesson = await Achievement.find({},{_id: 0, userId: 1, percentLessonDone: 1});
     const topicL = await Topic.find({id: { $mod: [ 2, 1 ] }});
     const topicR = await Topic.find({id: { $mod: [ 2, 0 ] }});
     
@@ -77,6 +78,23 @@ router.post("/do-post", async function (request, result){
         });
         return level;
     }
+
+    function getAchievementByLevel(level) {
+        var achievement = 0;
+        [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].some(function(v, i) {
+            achievement = i;        
+            return v > level; 
+        });
+        return achievement;
+    }
+
+    function getAchievementByHour(hour) {
+        var achievement = 0;
+        [1, 5, 10, 50, 70, 100, 101].some(function(v, i) {
+            achievement = i;        
+            return v > hour;});
+        return achievement;}
+
         await User.findOne({
             "_id" : userId
         }, function (error, item){
@@ -185,6 +203,18 @@ router.post("/do-post", async function (request, result){
     const totalLessonArray = totalLesson.map(a => a.lessonDone);
     const totalLessonSub = totalLessonArray[0];
     const percentLessonDone = (totalLessonSub.length / totalLessonDB.length) * 100;
+
+    function getAchievementByLesson(percent) {
+        var achievement = 0;
+        [25, 50, 75, 100, 110].some(function(v, i) {
+            achievement = i ;        
+            return v > percent; 
+        });
+        return achievement;
+    }
+    const achievement = getAchievementByLevel(getLevel(exp)) + getAchievementByLesson(percentLessonDone) + getAchievementByHour(totalTime/1000/60/60);
+    console.log(achievement)
+
     await Achievement.findOneAndUpdate({
         "userId": mongoose.Types.ObjectId(userId)
     },{
@@ -192,7 +222,8 @@ router.post("/do-post", async function (request, result){
             "totalTime": totalTime,
             "exp": exp,
             "level": getLevel(exp),
-            "percentLessonDone": percentLessonDone
+            "percentLessonDone": percentLessonDone,
+            "achievement": achievement
         }
     })
 })
@@ -224,7 +255,8 @@ router.post("/signup",async(req,res)=>{
                 totalTime: 0,
                 exp: 0,
                 level: 0,
-                totalLessonDone: 0
+                percentLessonDone: 0,
+                achievement: 0
             });
             achievement.save(function(err){
                 if (err) return handleError(err);

@@ -56,9 +56,9 @@ export default function Question(){
 			setCurrentQuestion(nextQuestion);
 		} else {
             var time2 = today.getTime();
-            const duration = time2 - timeStart
+            const duration = time2 - timeStart;
+            console.log(time2);
             setDuration(duration);
-            console.log(duration);
             setShow(true);
 		}
 	};
