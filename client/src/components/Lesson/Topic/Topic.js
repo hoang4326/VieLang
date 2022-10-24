@@ -11,10 +11,6 @@ import {
 export default function Topic(){
     const percentage = 50;
     const [topic, setTopic] = useState([]);
-    // const [currentTime, setCurrentTime] = useState('')
-    // const [duration, setDuration] = useState('')
-
-    // const [role, setRole] = useState('');
     // useEffect(()=>{
     //     function getRole(){
     //         try {
@@ -28,21 +24,7 @@ export default function Topic(){
     //     } ;
     //     getRole();
     // }, [])
-    //     useEffect(()=>{
-    //     function getTime(){
-    //         try {
-    //             var today = new Date();
-    //             var time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
-    //             setCurrentTime(time);
-    //         } catch(error) {
-    //             console.log(error);
-    //         }
-    //     } ;
-    //     getTime();
-    // }, [])
-    // const totalTime = currentTime 
-    // console.log( duration);
-
+    
     useEffect(() => {
         fetch("http://localhost:5000/topic")
         .then(res => 

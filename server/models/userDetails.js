@@ -22,6 +22,7 @@ const AchievementSchema = new mongoose.Schema({
     totalTime: Number,
     exp: Number,
     level:Number,
+    percentLessonDone: Number
 },{
     collection: "Achievement",
 });
