@@ -21,26 +21,24 @@ router.get("/topic", async (req, res)=>{
 });
 
 router.post("/addVocab", async (req, res)=>{
-    const {topic, vocabEng, vocabVie} = req.body;
-    await Topic.findOneAndUpdate({
-        'name': topic
-    },{
-        $push:{
-            vocab:
-            {
-                "vocabVie": vocabVie,
-                "vocabEng": vocabEng
+    const {select, vocabEng, vocabVie} = req.body;
+    try{
+        await Topic.updateOne({
+            name: select
+        },{
+            $push:{
+                vocab:
+                {
+                    "vocabVie": vocabVie,
+                    "vocabEng": vocabEng
+                }
             }
-        }
-    },{
-        new: true
-    }
-    ,function(error){
-        res.status(400).json({
-            "message": "success"
         })
+        res.status(200).json({status: "Sucess"});
+    }catch(error){
+        res.status(500).json({status:'Error'})
     }
-    )
+
 })  
 
 const storage = multer.diskStorage({

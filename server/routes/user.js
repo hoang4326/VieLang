@@ -28,7 +28,6 @@ router.get("/topic/:name/:id", async (req, res) =>{
     const data = await Question.find({topic: name, lesson: id},{_id: 0, questions: 1});
     const question = data[0].questions;
     const timeStart =  (new Date).getTime();
-    console.log(timeStart);
     res.send([question, timeStart]);
 })
 
