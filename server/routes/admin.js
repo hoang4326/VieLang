@@ -22,6 +22,7 @@ router.get("/topic", async (req, res)=>{
 
 router.post("/addVocab", async (req, res)=>{
     const {select, vocabEng, vocabVie} = req.body;
+    console.log(select, vocabEng, vocabVie);
     try{
         await Topic.updateOne({
             name: select

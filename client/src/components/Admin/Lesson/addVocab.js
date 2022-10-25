@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
 export default function AddVocab(){
     const [topic, setTopic] = useState();
-    const [select, setSelect] = useState();
-    const [vocabEng, setVocabEng] = useState();
-    const [vocabVie, setVocabVie] = useState();
+    const [select, setSelect] = useState("");
+    const [vocabEng, setVocabEng] = useState("");
+    const [vocabVie, setVocabVie] = useState("");
     const MySwal = withReactContent(Swal);
 
-    
-    fetch('http://localhost:5000/admin/topic')
+    useEffect(()=>{
+        fetch("http://localhost:5000/admin/topic")
         .then(res => 
             res.json()
         )
@@ -21,7 +21,7 @@ export default function AddVocab(){
         .catch((err) => {
             console.log(err)
         });
-    
+    })
 
     const handleSubmit = event =>{
         event.preventDefault();
@@ -59,7 +59,6 @@ export default function AddVocab(){
     }
     return (
         <Form onSubmit={handleSubmit} >
-            <h1>{select}, {vocabEng}, {vocabVie}</h1>
             <Form.Group className="mb-4">
                 <Form.Label>Select the topic you need to add: </Form.Label>
                 <Form.Select aria-label="Default select example" onChange={e => setSelect(e.target.value)} required>
