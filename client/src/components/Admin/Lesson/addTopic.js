@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import { Form, Button } from "react-bootstrap"
+import { Button } from "react-bootstrap";
+import AddVocab from "./addVocab";
 import Modal from 'react-bootstrap/Modal';
 
 export default function AddTopic() {
@@ -60,42 +61,7 @@ export default function AddTopic() {
                 <Modal.Title>Add Vocabulary</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form onSubmit={handleSubmit}>
-                        <Form.Group className="mb-4">
-                            <Form.Label>Select the topic you need to add: </Form.Label>
-                            <Form.Select aria-label="Default select example">
-                                <option>Open this select menu</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </Form.Select>
-                        </Form.Group>
-                        <Form.Group className="mb-4">
-                            <Form.Label>English vocabulary: </Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Enter english vocabulary *"
-                                name="name"
-                                // value={name}
-                                // onChange = { (e) => onInputChange(e)}
-                                required
-                            />
-                        </Form.Group>
-                        <Form.Group className="mb-4">
-                            <Form.Label>Vietnamese vocabulary: </Form.Label>
-                            <Form.Control
-                                type="email"
-                                placeholder="Enter vietnamese vocabulary *"
-                                name="email"
-                                // value={email}
-                                // onChange = { (e) => onInputChange(e)}
-                                required
-                            />
-                        </Form.Group>
-                        <Button variant="success" type="submit" >
-                            Add New Vocabulary
-                        </Button>
-                    </Form>
+                    <AddVocab/>
                 </Modal.Body>
                 <Modal.Footer>
                 </Modal.Footer>
