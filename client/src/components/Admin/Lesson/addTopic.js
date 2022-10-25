@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import Button from 'react-bootstrap/Button';
+import { Form, Button } from "react-bootstrap"
 import Modal from 'react-bootstrap/Modal';
 
 export default function AddTopic() {
@@ -10,6 +10,7 @@ export default function AddTopic() {
     const [imgLesson,setImgLesson] = useState('');
     const MySwal = withReactContent(Swal);
     const [show, setShow] = useState(false);
+    
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -56,20 +57,51 @@ export default function AddTopic() {
         </Button>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                <Modal.Title>Modal heading</Modal.Title>
+                <Modal.Title>Add Vocabulary</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                <Modal.Body>
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group className="mb-4">
+                            <Form.Label>Select the topic you need to add: </Form.Label>
+                            <Form.Select aria-label="Default select example">
+                                <option>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </Form.Select>
+                        </Form.Group>
+                        <Form.Group className="mb-4">
+                            <Form.Label>English vocabulary: </Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="Enter english vocabulary *"
+                                name="name"
+                                // value={name}
+                                // onChange = { (e) => onInputChange(e)}
+                                required
+                            />
+                        </Form.Group>
+                        <Form.Group className="mb-4">
+                            <Form.Label>Vietnamese vocabulary: </Form.Label>
+                            <Form.Control
+                                type="email"
+                                placeholder="Enter vietnamese vocabulary *"
+                                name="email"
+                                // value={email}
+                                // onChange = { (e) => onInputChange(e)}
+                                required
+                            />
+                        </Form.Group>
+                        <Button variant="success" type="submit" >
+                            Add New Vocabulary
+                        </Button>
+                    </Form>
+                </Modal.Body>
                 <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                    Close
-                </Button>
-                <Button variant="primary" onClick={handleClose}>
-                    Save Changes
-                </Button>
                 </Modal.Footer>
             </Modal>
         <form className="signup" onSubmit={handleSubmit}>
-            <h1 className="signIn">Sign up</h1>
+            <h1 className="signIn">Add Topic</h1>
             <br />
             <label htmlFor="name" className="name">Name topic:</label>
             <input 
@@ -92,7 +124,7 @@ export default function AddTopic() {
                 setImgLesson(file)
             }}></input>
 
-            <button type="submit">Submit</button>
+            <button type="submit" className="btn btn-primary" >Submit</button>
         </form>
     </div>
 );

@@ -4,13 +4,34 @@
   padding: 0;
   font-family: montserrat,sans-serif;
 }
-input{
-  margin: normal !important;
+
+.modal .modal-dialog {
+	max-width: 400px;
 }
-
-/* *:not(.mainContent){
-  box-sizing: border-box;
+.modal .modal-header, .modal .modal-body, .modal .modal-footer {
+	padding: 20px 30px;
+}
+/* .modal .modal-content {
+	border-radius: 3px;
+	font-size: 14px;
 } */
-/* h1 h2 h3 h4{
-
+.modal .modal-footer {
+	background: #ecf0f1;
+	border-radius: 0 0 3px 3px;
+}
+.modal .modal-title {
+	display: inline-block;
+}
+/* .modal .form-control {
+	border-radius: 2px;
+	box-shadow: none;
+	border-color: #dddddd;
 } */
+
+.modal .btn {
+	border-radius: 2px;
+	min-width: 100px;
+}	
+.modal form label {
+	font-weight: normal;
+}
