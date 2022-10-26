@@ -1,17 +1,19 @@
 const express = require('express'),
     multer = require('multer'),
     mongoose = require('mongoose'),
-    uuidv4 = require('uuid/v4'),
+    { v4: uuidv4 } = require('uuid'),
     router = express.Router();
 
 require("../models/userDetails");
 require("../models/topic");
 require("../models/lesson");
+require("../models/question");
 
 const Lesson = mongoose.model("Lesson");
 const Topic = mongoose.model("Topic");
 const User = mongoose.model("UserInfo");
-    
+const Question = mongoose.model("Question");
+
 const DIR = './public/';
 
 
@@ -20,9 +22,35 @@ router.get("/topic", async (req, res)=>{
     res.send(topic);
 });
 
+router.get("/topicList", async (req, res)=>{
+    const topic = await Topic.find({},{"_id": 1, "name": 1, "topicImg.urlImage": 1,"topicImg.originalname" : 1, "lessonImg.urlImage": 1,"lessonImg.originalname" : 1, "vocab": 1});
+    res.send(topic);
+});
+
+router.post("/deleteVocabulary", async (req, res) => {
+    const {id, name} = req.body;
+    const vocab = await Topic.find({name: name},{_id: 0, vocab: 1});
+})
+
+router.get("/getVocabulary", async (req, res) => {
+    const vocabArr = await Topic.find({name: "Basic 1"},{_id: 0, vocab: 1});
+    const vocab = vocabArr[0].vocab;
+    const vocabNew = vocab.splice(0, 1);
+    res.send(vocab);
+})
+
+router.post("/deleteTopic", async (req, res)=>{
+    const {name} = req.body;
+    await Topic.deleteOne({name: name});
+    await Lesson.deleteMany({topic: name});
+    await Question.deleteMany({topic: name});
+    const topic = await Topic.find({},{"_id": 1, "name": 1, "topicImg.urlImage": 1, "lessonImg.urlImage": 1, "vocab": 1});
+
+    res.send({status: "success", data: topic})
+})
+
 router.post("/addVocab", async (req, res)=>{
     const {select, vocabEng, vocabVie} = req.body;
-    console.log(select, vocabEng, vocabVie);
     try{
         await Topic.updateOne({
             name: select
@@ -76,12 +104,10 @@ router.post("/addTopic",uploadMultiple, async (req, res, next) => {
     imgTopic = req.files.imgTopic;
     let fileTopic = imgTopic[0].filename;
     imgTopic.forEach((item) => item.urlImage = url + '/public/' + fileTopic);
-    console.log(imgTopic);
     //Add to array imgLesson
     imgLesson = req.files.imgLesson;
     let fileLesson = imgLesson[0].filename;
     imgLesson.forEach((item) => item.urlImage = url + '/public/' + fileLesson);
-    console.log(imgLesson);
     try{
         const oldTopic = await Topic.findOne({name});
         if(oldTopic){

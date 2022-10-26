@@ -21,7 +21,7 @@ export default function AddVocab(){
         .catch((err) => {
             console.log(err)
         });
-    })
+    }, [])
 
     const handleSubmit = event =>{
         event.preventDefault();

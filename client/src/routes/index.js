@@ -11,7 +11,8 @@ import React from 'react';
 import jwt_decode from "jwt-decode";
 import Lesson from '../components/Lesson/Lesson/Lesson';
 import Question from '../components/Lesson/Question/Question';
-import AddTopic from '../components/Admin/Lesson/addTopic';
+import AddTopic from '../components/Admin/Topic/addTopic';
+import TopicList from '../components/Admin/Topic/topicList';
 
 //Public routes
 export const publicRoutes = [
@@ -25,7 +26,8 @@ export const publicRoutes = [
     { path: '/topic', component: Topic},  
     { path: '/topic/:name', component: Lesson},
     { path: '/topic/:name/:id', component: Question},
-    { path: '/addTopic', component: AddTopic}
+    { path: '/admin/addTopic', component: AddTopic},
+    { path: '/admin/topicList', component: TopicList}
 
 ]
 export const PrivateRoute = ({Component})  => {

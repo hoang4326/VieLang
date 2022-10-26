@@ -47,7 +47,9 @@ export default function Navbar() {
             window.location.href = "./login";
         }
     };
-    
+    if(token){
+        isExpired(token);
+    }
     useEffect(() => {
         fetch("http://localhost:5000/userData",{
             method: "POST",
@@ -66,11 +68,7 @@ export default function Navbar() {
             setUserData(data.data);
         });
     },[]);
-    if(!token){
-        console.log("No token found");
-    }else{
-        isExpired(token);
-    }
+
     return (
             <div className='Navigation'>
                 <nav className='navbarItems'>

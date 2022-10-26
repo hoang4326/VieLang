@@ -77,18 +77,18 @@ export default function AddTopic() {
                 id="name"
                 placeholder="Your name"
                 onChange= {event => setName(event.target.value)}
-                required='required'/>
+                required/>
             <label htmlFor="name" className="name">Select image of Topic:</label>
-            <input type='file' className="signup" accept=".png" onChange={event =>{
+            <input type='file' className="signup" accept=".png, .jpeg, .jpg" onChange={event =>{
                 const file = event.target.files[0];
                 setImgTopic(file)
-            }}></input>
+            }} required />
 
             <label htmlFor="name" className="name">Select image of Lesson:</label>
-            <input type='file' className="signup" accept=".png" onChange={event =>{
+            <input type='file' className="signup" accept=".png, .jpeg, .jpg" onChange={event =>{
                 const file = event.target.files[0];
                 setImgLesson(file)
-            }}></input>
+            }} required />
 
             <button type="submit" className="btn btn-primary" >Submit</button>
         </form>
