@@ -45,11 +45,47 @@ var uploadMultiple = upload.fields([{name: 'imgTopic'},{name: 'imgLesson'} ]);
 
 //lesson
 
+router.post("/updateLesson", async (req, res) => {
+    const {topic, id, content1, content2} =  req.body;
+    await Lesson.updateOne({_id: id},{
+        $set:{
+            topic: topic,
+            content1: content1,
+            content2: content2
+        }
+    })
+    res.send({status: 'success'})
+})
+
 router.get("/lessonList", async (req, res)=>{
-    const lesson = await Lesson.find({},{_id: 1, topic: 1, content1 :1, content2 : 1});
+    const lesson = await Lesson.find({},{_id: 1, topic: 1, content1 :1, content2 : 1, id: 1});
+
     res.send(lesson);
 });
 
+router.post("/deleteLesson", async (req, res)=>{
+    const {name, id} = req.body;
+    await Lesson.deleteOne({topic: name, id: id});
+    await Question.deleteMany({topic: name, lesson: id});
+    res.send({status: "success"})
+})
+
+router.post("/addLesson", async (req, res)=>{
+    const {name, content1, content2} = req.body;
+    const topic = await Lesson.find({topic: name},{_id: 0, topic: 1});
+    try{
+        await Lesson.create({
+            topic: name,
+            id: topic.length + 1,
+            content1: content1,
+            content2: content2,
+        })
+        res.status(200).json({status: "Sucess"});
+    }catch(error){
+        res.status(500).json({status:'Error'})
+    }
+
+}) 
 // topic
 router.get("/topic", async (req, res)=>{
     const topic = await Topic.find({},{_id: 0, name: 1});

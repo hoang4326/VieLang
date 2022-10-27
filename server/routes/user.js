@@ -286,13 +286,13 @@ router.post("/login",async(req,res)=>{
     }
     res.json({status: "error", error: "Invalid password"});
 })
-router.get("/getRole",async function(req, res) {
-    const {token} = req.body;
-    const user = jwt.verify(token, JWT_SECRET);
-    const userRole = user.role;
-    res.send(userRole);
+// router.get("/getRole",async function(req, res) {
+//     const {token} = req.body;
+//     const user = jwt.verify(token, JWT_SECRET);
+//     const userRole = user.role;
+//     res.send(userRole);
 
-})
+// })
 router.post("/userData", async (req, res) => {
     const {token} = req.body;
     try{

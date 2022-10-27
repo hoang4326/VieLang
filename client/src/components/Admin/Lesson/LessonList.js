@@ -4,11 +4,14 @@ import '../Topic/Topic.css';
 import { Button} from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import LessonView from './LessonView'
-
+import AddLesson from './AddLesson';
 
 export default function LessonList (){
     const [data, setData] = useState();
+    const [show, setShow] = useState(false);
 
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     useEffect(()=>{
         fetch("http://localhost:5000/admin/lessonList")
         .then(res => 
@@ -33,17 +36,17 @@ export default function LessonList (){
                 </Modal.Body>
                 <Modal.Footer>
                 </Modal.Footer>
-            </Modal>
-            <Modal show={show2} onHide={handleClose2}>
+            </Modal> */}
+            <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                <Modal.Title>Add Topic</Modal.Title>
+                <Modal.Title>Add Lesson</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <AddTopic/>
+                    <AddLesson/>
                 </Modal.Body>
                 <Modal.Footer>
                 </Modal.Footer>
-            </Modal> */}
+            </Modal>
             <div className="table-responsive">
                 <div className="table-wrapper">
                     <div className="table-title">
@@ -52,7 +55,7 @@ export default function LessonList (){
                                     <h2>Manage <b>Lesson</b></h2>
                                 </div>
                                 <div className="col-sm-6">
-                                    <Button  className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New Lesson</span></Button>					
+                                    <Button onClick={handleShow} className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New Lesson</span></Button>					
                                 </div>
                         </div>
                     </div>
