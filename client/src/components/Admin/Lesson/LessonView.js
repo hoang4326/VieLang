@@ -3,13 +3,12 @@ import Modal from 'react-bootstrap/Modal';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 // import { Button} from 'react-bootstrap';
-import EditTopic from './EditTopic';
 
-const TopicView = ({topic, chooseMessage}) =>{
-    const [show, setShow] = useState(false);
+const LessonView = ({lesson}) =>{
+    // const [show, setShow] = useState(false);
     const MySwal = withReactContent(Swal);
-    const handleShow = () => setShow(true);
-    const handleClose = () => setShow(false);
+    // const handleShow = () => setShow(true);
+    // const handleClose = () => setShow(false);
     const handleDelete =  (name) => {
             MySwal.fire({
             title: <strong>Are you sure ?</strong>,
@@ -37,7 +36,6 @@ const TopicView = ({topic, chooseMessage}) =>{
                     html: <i>Delete topic successfully !</i>,
                     icon: 'success'
                 });
-                chooseMessage("True");
             }else{
                 MySwal.fire({
                     title: <strong>Try again!!</strong>,
@@ -52,46 +50,28 @@ const TopicView = ({topic, chooseMessage}) =>{
 
     return (
         <>
-            <td>{topic.name}</td>
-                <td>{topic.topicImg?.map?.((item, id)=>{
-                    return (
-                        <img className='topicImg' src={item.urlImage} alt="Topic" key={id}/>
-                    )
-                    })}
-                </td>
-                <td>{topic.lessonImg?.map?.((item, id)=>{
-                    return (
-                        <img className='lessonImg' src={item.urlImage} alt="Lesson" key={id} />
-                    )
-                    })}
-                </td>
-                <td>{topic.vocab?.map?.((item, id)=>{
-                    return (
-                        <div key={id}>
-                            {item.vocabEng} - {item.vocabVie} <br/>
-                        </div>
-                    )
-                    })}
-                </td>
+                <td>{lesson.topic}</td>
+                <td>{lesson.content1}</td>
+                <td>{lesson.content2}</td>
                 <td>
-                    <button onClick={handleShow} className="btn text-warning btn-act" data-toggle="modal"><i className="material-icons">&#xE254;</i></button>
-                    <button onClick={() => handleDelete(topic.name)}  className="btn text-danger btn-act" data-toggle="modal"><i className="material-icons">&#xE872;</i></button>
+                    <button className="btn text-warning btn-act" data-toggle="modal"><i className="material-icons">&#xE254;</i></button>
+                    <button className="btn text-danger btn-act" data-toggle="modal"><i className="material-icons">&#xE872;</i></button>
                 </td>
                 
-                <Modal show={show} onHide={handleClose} dialogClassName="info-modal">
+                {/* <Modal show={show} onHide={handleClose} dialogClassName="info-modal">
                         <Modal.Header closeButton>
                                 <Modal.Title>
                                     Edit Topic
                                 </Modal.Title>
                             </Modal.Header>
                             <Modal.Body >
-                                <EditTopic topic = {topic} />
+                                <EditLesson lesson = {lesson} />
                             </Modal.Body>
                             <Modal.Footer>
                             </Modal.Footer>
-                </Modal>
+                </Modal> */}
         </>
     )
 }
 
-export default  TopicView
+export default LessonView

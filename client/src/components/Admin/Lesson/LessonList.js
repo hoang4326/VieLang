@@ -1,28 +1,16 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import './Topic.css';
+import '../Topic/Topic.css';
 import { Button} from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
-import TopicView from './TopicView';
-import AddVocab from "./AddVocab";
-import AddTopic from "./AddTopic";
+import LessonView from './LessonView'
 
-export default function TopicList (){
+
+export default function LessonList (){
     const [data, setData] = useState();
-    const [message, setMessage] = useState('');
-    const [show1, setShow1] = useState(false);
-    const [show2, setShow2] = useState(false);
 
-    const handleClose1 = () => setShow1(false);
-    const handleShow1 = () => setShow1(true);
-    const handleClose2 = () => setShow2(false);
-    const handleShow2 = () => setShow2(true);
-
-    const chooseMessage = (message) => {
-        setMessage(message);
-    };
     useEffect(()=>{
-        fetch("http://localhost:5000/admin/topicList")
+        fetch("http://localhost:5000/admin/lessonList")
         .then(res => 
             res.json()
         )
@@ -30,13 +18,13 @@ export default function TopicList (){
             setData(data);
         })
         .catch((err) => {
-            console.log(err)
+            console.log(err)    
         });
     }, [])
 
     return (
         <div className="container-xl">
-            <Modal show={show1} onHide={handleClose1}>
+            {/* <Modal show={show1} onHide={handleClose1}>
                 <Modal.Header closeButton>
                 <Modal.Title>Add Vocabulary</Modal.Title>
                 </Modal.Header>
@@ -55,35 +43,33 @@ export default function TopicList (){
                 </Modal.Body>
                 <Modal.Footer>
                 </Modal.Footer>
-            </Modal>
+            </Modal> */}
             <div className="table-responsive">
                 <div className="table-wrapper">
                     <div className="table-title">
                             <div className="row">
                                 <div className="col-sm-6">
-                                    <h2>Manage <b>Topic</b></h2>
+                                    <h2>Manage <b>Lesson</b></h2>
                                 </div>
                                 <div className="col-sm-6">
-                                    <Button onClick={handleShow2}  className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New Topic</span></Button>					
-                                    <Button onClick={handleShow1} className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New Vocabulary</span></Button>					
+                                    <Button  className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New Lesson</span></Button>					
                                 </div>
                         </div>
                     </div>
                     <table className="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Topic Image</th>
-                                <th>Lesson Image</th>
-                                <th>Vocabulary</th>
+                                <th>Topic</th>
+                                <th>Content 1</th>
+                                <th>Content 2</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {data?.map?.((topic, index)=>{
+                            {data?.map?.((lesson, index)=>{
                                 return(
                                     <tr key={index}>
-                                        <TopicView topic = {topic} chooseMessage = {chooseMessage} />
+                                        <LessonView lesson = {lesson} />
                                     </tr>
                                 )
                             })}

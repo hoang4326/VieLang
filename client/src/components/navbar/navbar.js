@@ -136,17 +136,6 @@ export default function Navbar() {
                         </div>
                     </div>
                 </nav>
-                {/* <Routes>
-                    <Route path="/" element={<Home/>} />
-                    <Route path='/login' element={<LoginForm/>}/>
-                    <Route path='/signup' element={<SignupForm/>}/>
-                    <Route path='/support' element={<Support/>}/>
-                    <Route path='/membership' element={<Membership/>}/>
-                    <Route path='/admin' element={<Manage/>}/>
-                    <Route path='/forgot-password' element={<ForgotPassword/>}/>
-                    <Route path='/reset-password/:id/:token' element={<ResetPassword/>}/>
-                    <Route path='/auth' element={<Auth/>}/>
-                </Routes> */}
             </div>
 
         )

@@ -54,8 +54,6 @@ export default function AddVocab(){
             })
         }
     });
-    setVocabEng("");
-    setVocabVie("");
     }
     return (
         <Form onSubmit={handleSubmit} >

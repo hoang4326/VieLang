@@ -3,7 +3,7 @@ import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import { publicRoutes } from './routes/index';
 import { PrivateRoute } from './routes/index';
-import  Manage  from './components/Admin/admin';
+import  Manage  from './components/Admin/Admin';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
