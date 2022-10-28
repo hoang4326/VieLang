@@ -13,6 +13,7 @@ import Lesson from '../components/Lesson/Lesson/Lesson';
 import Question from '../components/Lesson/Question/Question';
 import TopicList from '../components/Admin/Topic/TopicList';
 import LessonList from '../components/Admin/Lesson/LessonList';
+import Manage from '../components/Admin/Admin';
 
 //Public routes
 export const publicRoutes = [
@@ -26,10 +27,18 @@ export const publicRoutes = [
     { path: '/topic', component: Topic},  
     { path: '/topic/:name', component: Lesson},
     { path: '/topic/:name/:id', component: Question},
-    { path: '/admin/topicList', component: TopicList},
-    { path: '/admin/lessonList', component: LessonList}
+
 
 ]
+
+export const privateRoutes = [
+    { path: '/login', component: LoginForm},
+    { path: '/admin', component: Manage},
+    { path: '/admin/topicList', component: TopicList},
+    { path: '/admin/lessonList', component: LessonList}
+]
+
+
 export const PrivateRoute = ({Component})  => {
     const token = localStorage.getItem('token');
     let navigate = useNavigate();

@@ -127,11 +127,11 @@ export default function Navbar() {
                                 <p className='profileNav'>Edit profile</p>
                                 {/* <span>{'>'}</span> */}
                             </Link>
-                            <a href='/' className='sub-menu-link' onClick={logOut}>
+                            <Link to='/#' className='sub-menu-link' onClick={logOut}>
                                 <img src={require('../../../../assets/image/logout.png')} alt='profile' />
                                 <p className='profileNav'>Logout</p>
                                 {/* <span>{'>'}</span> */}
-                            </a>
+                            </Link>
 
                         </div>
                     </div>

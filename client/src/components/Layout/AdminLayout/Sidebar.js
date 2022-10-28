@@ -1,90 +1,66 @@
-import { useEffect, useRef, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, {useState} from 'react';
+import { Link } from 'react-router-dom';
 import './sidebar.css';
 
-const sidebarNavItems = [
-    {
-        display: 'Dashboard',
-        icon: <i className='bx bx-home'></i>,
-        to: '/',
-        section: ''
-    },
-    {
-        display: 'Getting Started',
-        icon: <i className='bx bx-star'></i>,
-        to: '/started',
-        section: 'started'
-    },
-    {
-        display: 'Calendar',
-        icon: <i className='bx bx-calendar'></i>,
-        to: '/calendar',
-        section: 'calendar'
-    },
-    {
-        display: 'User',
-        icon: <i className='bx bx-user'></i>,
-        to: '/user',
-        section: 'user'
-    },
-    {
-        display: 'Orders',
-        icon: <i className='bx bx-receipt'></i>,
-        to: '/order',
-        section: 'order'
-    },
-]
+export default function AdminLayout({children}){
+    const [toggled, setToggled] = useState(false);
+    const toggleMenu = () =>{
+        setToggled(!toggled);
+    }
 
-const Sidebar = () => {
-    const [activeIndex, setActiveIndex] = useState(0);
-    const [stepHeight, setStepHeight] = useState(0);
-    const sidebarRef = useRef();
-    const indicatorRef = useRef();
-    const location = useLocation();
-
-    useEffect(() => {
-        setTimeout(() => {
-            const sidebarItem = sidebarRef.current.querySelector('.sidebar__menu__item');
-            indicatorRef.current.style.height = `${sidebarItem.clientHeight}px`;
-            setStepHeight(sidebarItem.clientHeight);
-        }, 50);
-    }, []);
-
-    // change active index
-    useEffect(() => {
-        const curPath = window.location.pathname.split('/')[1];
-        const activeItem = sidebarNavItems.findIndex(item => item.section === curPath);
-        setActiveIndex(curPath.length === 0 ? 0 : activeItem);
-    }, [location]);
-
-    return <div className='sidebar'>
-        <div className="sidebar__logo">
-            Animate
-        </div>
-        <div ref={sidebarRef} className="sidebar__menu">
-            <div
-                ref={indicatorRef}
-                className="sidebar__menu__indicator"
-                style={{
-                    transform: `translateX(-50%) translateY(${activeIndex * stepHeight}px)`
-                }}
-            ></div>
-            {
-                sidebarNavItems.map((item, index) => (
-                    <Link to={item.to} key={index} classNam="sidebarA">
-                        <div className={`sidebar__menu__item ${activeIndex === index ? 'active' : ''}`}>
-                            <div className="sidebar__menu__item__icon">
-                                {item.icon}
-                            </div>
-                            <div className="sidebar__menu__item__text">
-                                {item.display}
-                            </div>
+    const logOut = () =>{
+        localStorage.removeItem('token');
+    }
+    return (
+        <div className={toggled ? 'snippet-body' : 'snippet-body body-pd'} >
+            <header className={toggled ? 'header' : 'header body-pd'} >
+                <div className="header_toggle">
+                    <i className={toggled ? 'bx bx-menu' : 'bx bx-menu bx-x'} id="header-toggle" onClick={toggleMenu}></i>
+                </div>
+                <div className="header_img">
+                    <img src={require('../../../assets/image/user.png')} alt=""/>
+                </div>
+            </header>
+            <div className={toggled ? 'l-navbar' : 'l-navbar show'} id="nav-bar">
+                <nav className="nav">
+                    <div>
+                        <Link to="/" className="nav_logo">
+                            <i className='bx bx-layer nav_logo-icon'></i>
+                            <span className="nav_logo-name">VieLang</span>
+                        </Link>
+                        <div className="nav_list">
+                            <Link to="/admin/topicList" className="nav_link ">
+                                <i className='bx bx-grid-alt nav_icon'></i>
+                                <span className="nav_name">Topic</span>
+                            </Link>
+                            <Link to="/admin/lessonList" className="nav_link">
+                                <i className='bx bx-user nav_icon'></i>
+                                <span className="nav_name">Lesson</span>
+                            </Link>
+                            <Link to="/#" className="nav_link">
+                                <i className='bx bx-message-square-detail nav_icon'></i>
+                                <span className="nav_name">Question</span>
+                            </Link>
+                            <Link to="/#" className="nav_link">
+                                <i className='bx bx-bookmark nav_icon'></i>
+                                <span className="nav_name">Messages</span>
+                            </Link>
+                            <Link to="/#" className="nav_link">
+                                <i className='bx bx-folder nav_icon'></i>
+                                <span className="nav_name">User</span>
+                            </Link> 
                         </div>
-                    </Link>
-                ))
-            }
+                    </div>
+                        <Link to="/login" className="nav_link" onClick={logOut}>
+                            <i className='bx bx-log-out nav_icon'></i>
+                            <span className="nav_name">SignOut</span>
+                        </Link>
+                </nav>
+            </div>
+            {/* Container Main start */}
+            <div className="height-100 bg-light">
+                <div>{children}</div>
+            </div>
         </div>
-    </div>;
-};
-
-export default Sidebar;
+    )
+}
