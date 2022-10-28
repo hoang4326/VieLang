@@ -1,5 +1,5 @@
 import React from 'react';
-import './Membership.css';
+import './membership.css';
 
 export default function Membership(){
     const mystyle = {

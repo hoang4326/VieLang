@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Topic.css';
+import './topic.css';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import jwt_decode from "jwt-decode";

@@ -7,18 +7,17 @@ import {
     Link,
 } from "react-router-dom";
 
-import './Navbar.css';
+import './navbar.css';
 
 export default function Navbar() {
     const [userData, setUserData] = useState("");
     const [clicked, setClicked] = useState(false);
-
-    // const ref = useRef(null);
     const [toggled, setToggled] = useState(false);
     const token = localStorage.getItem('token');
 
     var style1 = {};
     var style2 = {};
+
     if(!token) {
         style1.display = 'none';
     }else{
@@ -28,10 +27,7 @@ export default function Navbar() {
     const toggleMenu = () =>{
         setToggled(!toggled);
     }
-    // const toggleMenu = () => {
-    //     const el = ref.current;
-    //     el.classList.toggle('open-menu');
-    // }
+
     const logOut = () =>{
         localStorage.removeItem('token');
     }

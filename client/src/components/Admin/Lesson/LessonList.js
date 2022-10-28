@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import '../Topic/Topic.css';
+import '../Topic/topic.css';
 import { Button} from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import LessonView from './LessonView'

@@ -1,44 +1,45 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from "react-router-dom";
-// import jwt_decode from "jwt-decode";
+import { useParams, useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import {
     Link,
 } from "react-router-dom";
-import "./Lesson.css"
+import "./lesson.css"
 
 
 export default function Lesson () {
-    // eslint-disable-next-line
+    // eslint-disable-next-line 
     const param = useParams();
     const [lesson, setLesson] = useState([]);
     const [showLesson, setShowLesson] = useState(false);
     const [toggled, setToggled] = useState(false);
     const MySwal = withReactContent(Swal);
-    var style1 = {};
-    var style2 = {};
+    const style1 = {};
+    const style2 = {};
+    let navigate = useNavigate();
+    const token = localStorage.getItem('token');
+
+        if(!toggled) {
+            style1.display = 'block';
+            style2.display = 'none';
+        }else{
+            
+            style1.display = 'none';
+            style2.display = 'block';
+        }
 
     const toggleMenu = () =>{
         setToggled(!toggled);
     }
 
-    if(!toggled) {
-
-        style1.display = 'block';
-        style2.display = 'none';
-    }else{
-        
-        style1.display = 'none';
-        style2.display = 'block';
-    }
-    const token = localStorage.getItem('token');
 
     useEffect(() =>{
         if(token){
-            // const decoded = jwt_decode(token);
-            // const userId = decoded._id;
-            // console.log(userId);
+            // eslint-disable-next-line
+            const decoded = jwt_decode(token);
+            // eslint-disable-next-line
             setShowLesson(true);
         }else{
             setShowLesson(false);
@@ -50,6 +51,8 @@ export default function Lesson () {
             title: <strong>Cannot access !</strong>,
             html: <i>You need to be logged in to be able to take the lesson</i>,
             icon: 'warning'
+        }).then(()=>{
+            navigate("/login")
         })
     }
 

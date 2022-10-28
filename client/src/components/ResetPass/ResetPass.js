@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import withReactContent from 'sweetalert2-react-content';
-import './ResetPass.css'
+import './resetPass.css'
 
 export default function ResetPassword(){
     const [password,setPassword] = useState("");

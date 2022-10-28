@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
-import "./SignupForm.css";
+import "./signupForm.css";
 
 export default function SignupForm() {
     const [name,setName] = useState("");

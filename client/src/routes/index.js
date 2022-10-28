@@ -1,7 +1,7 @@
 import LoginForm from '../components/LoginForm/LoginForm';
 import SignupForm from '../components/SignupForm/SignupForm';
 import Support from '../components/Support/Support';
-import Membership from '../components/Membership/Membership';
+// import Membership from '../components/Membership/Membership';
 import Home from '../components/Home/Home';
 import ForgotPassword from '../components/ForgotPass/ForgotPass';
 import ResetPassword from '../components/ResetPass/ResetPass';
@@ -20,7 +20,7 @@ export const publicRoutes = [
     { path: '/login', component: LoginForm},
     { path: '/signup', component: SignupForm},
     { path: '/support', component: Support},
-    { path: '/membership', component: Membership},
+    // { path: '/membership', component: Membership},
     { path: '/forgot-password', component: ForgotPassword},
     { path: '/reset-password/:id/:token', component: ResetPassword},
     { path: '/topic', component: Topic},  

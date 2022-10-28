@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {Link} from "react-router-dom";
-import "./LoginForm.css";
+import "./loginForm.css";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 

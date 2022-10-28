@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import './Topic.css';
+import './topic.css';
 import { Button} from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import TopicView from './TopicView';
@@ -9,7 +9,9 @@ import AddTopic from "./AddTopic";
 
 export default function TopicList (){
     const [data, setData] = useState();
+        // eslint-disable-next-line
     const [message, setMessage] = useState('');
+        // eslint-disable-next-line
     const [show1, setShow1] = useState(false);
     const [show2, setShow2] = useState(false);
 

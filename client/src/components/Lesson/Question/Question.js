@@ -6,7 +6,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import { useNavigate } from 'react-router-dom';
 
 
-import './Question.css'
+import './question.css'
 
 export default function Question(){
     const param = useParams();
