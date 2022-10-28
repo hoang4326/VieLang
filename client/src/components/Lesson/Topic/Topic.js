@@ -3,7 +3,6 @@ import './Topic.css';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import jwt_decode from "jwt-decode";
-import BarChart from './BarChart';
 import {
     Link,
 } from "react-router-dom";
@@ -57,14 +56,11 @@ export default function Topic(){
                                     <div className='dayGoalArea'>
                                         <div>DAILY GOAL</div>
                                     </div>
-                                    <div className='chart'>
-                                        <BarChart/>
-                                    </div>
                                     <div className='scoreCard'>
                                         <div className='cardLesson'>
                                             <div className='cardInner'>
                                                 <div >1</div>
-                                                <div >Day Streak</div>
+                                                <div >Level</div>
                                             </div>
                                         </div>
                                         <div className='vLine'></div>
@@ -110,20 +106,17 @@ export default function Topic(){
                                     })}     
                                 </div> 
                                 <div className='right'>
-                                    <Link className='lesson-link' to='/'>
+                                    <div >
                                         <div className='oneUnit alphabet _1'  style={{cursor: "pointer"}}>
                                             <div className='rippleOuterCus rippleOuter_1 _1'>
                                                 <div className='rippleCus ripple_1 _1'>
                                                     <div>
-                                                        <div className='unitName active alphabet ripple'>
-                                                            ALPHABET
-                                                        </div>
                                                         <div className='hrLine'></div>
                                                     </div>
                                                 </div>
                                             </div>  
                                         </div>
-                                    </Link>
+                                    </div>
                                     
                                     {topic[1]?.map?.((item,index)=> {
                                         return (

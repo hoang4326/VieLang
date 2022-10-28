@@ -41,7 +41,6 @@ export const PrivateRoute = ({Component})  => {
     if(token) {
         const decoded = jwt_decode(token);
         const role = decoded.role;
-        console.log(role);
         if (role === 'admin') {
             return <Component/>
         } else {

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
+// import jwt_decode from "jwt-decode";
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 import {
     Link,
 } from "react-router-dom";
@@ -10,8 +13,9 @@ export default function Lesson () {
     // eslint-disable-next-line
     const param = useParams();
     const [lesson, setLesson] = useState([]);
-
+    const [showLesson, setShowLesson] = useState(false);
     const [toggled, setToggled] = useState(false);
+    const MySwal = withReactContent(Swal);
     var style1 = {};
     var style2 = {};
 
@@ -28,13 +32,28 @@ export default function Lesson () {
         style1.display = 'none';
         style2.display = 'block';
     }
+    const token = localStorage.getItem('token');
 
-    // const array = lesson[0]?.map?.((item) => item);
-    // const lessonId = array?.[0]?._id;
-    // console.log(lessonId);
+    useEffect(() =>{
+        if(token){
+            // const decoded = jwt_decode(token);
+            // const userId = decoded._id;
+            // console.log(userId);
+            setShowLesson(true);
+        }else{
+            setShowLesson(false);
+        }
+    },[token])
+
+    const handleClick = () =>{
+        MySwal.fire({
+            title: <strong>Cannot access !</strong>,
+            html: <i>You need to be logged in to be able to take the lesson</i>,
+            icon: 'warning'
+        })
+    }
 
     useEffect(() => {
-
         fetch(`http://localhost:5000/topic/${param.name}`)
         .then(res => 
             res.json()
@@ -90,19 +109,33 @@ export default function Lesson () {
                                                     <div className='iconArea'>
                                                         <img src={require('../../../assets/image/lightIcon.png')} className="flagIcon" alt='icon'/>
                                                         <span className='lessonSortIndex'>
-                                                            {item.id}
+                                                            {index + 1}
                                                         </span>
                                                     </div>
-                                                    <Link to = {`${item.id}`} className='lesson-link'>
-                                                        <div className='buttonArea'>
-                                                            <div className='btnLesson ripple start'>
-                                                                <div>
-                                                                    Start
+
+                                                    {showLesson ? (
+                                                        <Link to = {`${item.id}`} className='lesson-link'>
+                                                            <div className='buttonArea'>
+                                                                <div className='btnLesson ripple start'>
+                                                                    <div>
+                                                                        Start
+                                                                    </div>
+                                                                    <img src={require('../../../assets/image/start.png')} alt='start'/>
                                                                 </div>
-                                                                <img src={require('../../../assets/image/start.png')} alt='start'/>
                                                             </div>
-                                                        </div>
-                                                    </Link>
+                                                        </Link>
+                                                    ):(
+                                                        <button className='lesson-link' onClick={handleClick}>
+                                                            <div className='buttonArea'>
+                                                                <div className='btnLesson ripple start'>
+                                                                    <div>
+                                                                        Start
+                                                                    </div>
+                                                                    <img src={require('../../../assets/image/start.png')} alt='start'/>
+                                                                </div>
+                                                            </div>
+                                                        </button>
+                                                    )}
                                                     <div className='subDescArea'>
                                                         {item.content1}
                                                         <br/>
@@ -144,9 +177,7 @@ export default function Lesson () {
                                                                 </div>
                                                     </div>
                                                 )}
-
                                             </div>
-
                                         )
                                     })}
                                 </div>

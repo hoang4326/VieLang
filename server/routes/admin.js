@@ -58,7 +58,7 @@ router.post("/updateLesson", async (req, res) => {
 })
 
 router.get("/lessonList", async (req, res)=>{
-    const lesson = await Lesson.find({},{_id: 1, topic: 1, content1 :1, content2 : 1, id: 1});
+    const lesson = await Lesson.find({},{_id: 1, topic: 1, content1 :1, content2 : 1, id: 1}).sort({topic:1});
 
     res.send(lesson);
 });
@@ -67,6 +67,8 @@ router.post("/deleteLesson", async (req, res)=>{
     const {name, id} = req.body;
     await Lesson.deleteOne({topic: name, id: id});
     await Question.deleteMany({topic: name, lesson: id});
+    await Lesson.updateMany({topic: name, id: {$gte: id}},{$inc: {id: -1}});
+    await Question.updateMany({topic: name, lesson: {$gte: id}},{$inc: {lesson: -1}});
     res.send({status: "success"})
 })
 
@@ -88,12 +90,12 @@ router.post("/addLesson", async (req, res)=>{
 }) 
 // topic
 router.get("/topic", async (req, res)=>{
-    const topic = await Topic.find({},{_id: 0, name: 1});
+    const topic = await Topic.find({},{_id: 0, name: 1}).sort({id: 1});
     res.send(topic);
 });
 
 router.get("/topicList", async (req, res)=>{
-    const topic = await Topic.find({},{"_id": 1, "name": 1, "topicImg.urlImage": 1,"topicImg.originalname" : 1, "lessonImg.urlImage": 1,"lessonImg.originalname" : 1, "vocab": 1});
+    const topic = await Topic.find({},{"_id": 1,"id":1, "name": 1, "topicImg.urlImage": 1,"topicImg.originalname" : 1, "lessonImg.urlImage": 1,"lessonImg.originalname" : 1, "vocab": 1}).sort({id:1});
     res.send(topic);
 });
 
@@ -159,9 +161,7 @@ router.post("/updateTopicImg",upload.single('topicImg'),  async (req, res) => {
 
 router.post("/updateTopic", async (req, res) => {
     const {name, id} =  req.body;
-    console.log(name);
     const {vocab} = req.body;
-    console.log(vocab);
     await Topic.updateOne({_id: id},{
         $set:{
             name: name,
@@ -206,14 +206,16 @@ router.post("/updateImg",uploadMultiple, async (req, res) => {
 })
 
 router.post("/deleteTopic", async (req, res)=>{
-    const {name} = req.body;
+    const {name, id} = req.body;
     await Topic.deleteOne({name: name});
     await Lesson.deleteMany({topic: name});
     await Question.deleteMany({topic: name});
+    await Topic.updateMany({id: {$gte: id}},{$inc: {id: -1}});
     const topic = await Topic.find({name: name},{"_id": 1, "name": 1, "topicImg.urlImage": 1, "lessonImg.urlImage": 1, "vocab": 1});
 
     res.send({status: "success", data: topic})
 })
+
 
 router.post("/addVocab", async (req, res)=>{
     const {select, vocabEng, vocabVie} = req.body;

@@ -16,7 +16,6 @@ function App() {
             // eslint-disable-next-line
 
     <Router>
-        <div className="App">
             < Navbar />
             <Routes>
                 {publicRoutes.map((route, index) =>{
@@ -28,8 +27,6 @@ function App() {
                 } />
             </Routes>
             < Footer />
-
-        </div>
     </Router>
     
 );

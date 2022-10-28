@@ -25,7 +25,24 @@ export default function AddLesson() {
                 content1: content1,
                 content2: content2
             })
-        })
+        }).then((res)=> res.json())
+        .then((data)=>{
+            if(data.status === 'Error'){
+                MySwal.fire({
+                    title: <strong>Try again!</strong>,
+                    html: <i>Cannot add lesson</i>,
+                    icon: 'warning'
+                })
+            }else{
+                MySwal.fire({
+                    title: <strong>Success!</strong>,
+                    html: <i>New lesson has been added!</i>,
+                    icon: 'success'
+                })
+                setContent1('');
+                setContent2('');
+            }
+        });
     }
     useEffect(()=>{
         fetch("http://localhost:5000/admin/topic")
@@ -60,6 +77,7 @@ export default function AddLesson() {
                 type="text"
                 placeholder="Enter content 1:"
                 name="content1"
+                value ={content1}
                 onChange = { e => setContent1(e.target.value)}
                 required
             />
@@ -70,6 +88,7 @@ export default function AddLesson() {
                 type="text"
                 placeholder="Enter content 2: *"
                 name="content2"
+                value ={content2}
                 onChange = { e => setContent2(e.target.value)}
                 required
             />

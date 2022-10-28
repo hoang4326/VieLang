@@ -18,7 +18,7 @@ const LessonView = ({lesson}) =>{
             confirmButtonText: 'Delete',
         }).then((result) => {
         if (result.isConfirmed) {
-            fetch("http://localhost:5000/admin/deleteTopic",{
+            fetch("http://localhost:5000/admin/deleteLesson",{
             method: "POST",
             crossDomain: true,
             headers: {

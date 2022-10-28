@@ -86,9 +86,6 @@
     color: #4a4a4a;
     font-weight: bold;
 }
-.sidebar .section .recordContent .chart {
-    padding-top: 20px;
-}
 .sidebar .section .recordContent .scoreCard {
     display: flex;
     justify-content: space-around;
@@ -249,7 +246,7 @@
 }
 .unitList .skilltree .wrap .wrapInner .oneUnit.alphabet {
     display: none;
-    height: 94px;
+    height: 88px;
 }
 .unitList .skilltree .wrap .wrapInner .oneUnit.alphabet .unitName {
     font-size: 14px;

@@ -47,9 +47,13 @@ export default function Navbar() {
             window.location.href = "./login";
         }
     };
-    if(token){
-        isExpired(token);
-    }
+
+    useEffect(() =>{
+        if(token){
+            isExpired(token);
+        }
+    },[token])
+
     useEffect(() => {
         fetch("http://localhost:5000/userData",{
             method: "POST",

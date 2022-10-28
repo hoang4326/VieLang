@@ -228,4 +228,6 @@
 .vacabulary .vocabContent .vocList .voc .english {
     font-size: 24px;
     color: #999;
+}button.lesson-link{
+    border: none;
 }

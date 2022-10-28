@@ -10,7 +10,7 @@ const TopicView = ({topic, chooseMessage}) =>{
     const MySwal = withReactContent(Swal);
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
-    const handleDelete =  (name) => {
+    const handleDelete =  (name, id) => {
             MySwal.fire({
             title: <strong>Are you sure ?</strong>,
             icon: 'warning',
@@ -27,7 +27,7 @@ const TopicView = ({topic, chooseMessage}) =>{
                 "Access-Control-Allow-Origin":"*",
             },
             body: JSON.stringify({
-                name
+                name, id
             }),
         }).then((res)=> res.json())
         .then((data)=>{
@@ -75,7 +75,7 @@ const TopicView = ({topic, chooseMessage}) =>{
                 </td>
                 <td>
                     <button onClick={handleShow} className="btn text-warning btn-act" data-toggle="modal"><i className="material-icons">&#xE254;</i></button>
-                    <button onClick={() => handleDelete(topic.name)}  className="btn text-danger btn-act" data-toggle="modal"><i className="material-icons">&#xE872;</i></button>
+                    <button onClick={() => handleDelete(topic.name, topic.id)}  className="btn text-danger btn-act" data-toggle="modal"><i className="material-icons">&#xE872;</i></button>
                 </td>
                 
                 <Modal show={show} onHide={handleClose} dialogClassName="info-modal">

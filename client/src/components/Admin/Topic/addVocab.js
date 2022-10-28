@@ -52,9 +52,12 @@ export default function AddVocab(){
                 html: <i>New vocabulary has been added!</i>,
                 icon: 'success'
             })
+            setVocabEng('');
+            setVocabVie('')
         }
     });
     }
+    
     return (
         <Form onSubmit={handleSubmit} >
             <Form.Group className="mb-4">
