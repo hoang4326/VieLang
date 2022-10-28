@@ -1,32 +1,38 @@
 import React from 'react';
-import Navbar from './components/Navbar/Navbar';
-import Footer from './components/Footer/Footer';
 import { publicRoutes } from './routes/index';
 import { PrivateRoute } from './routes/index';
 import  Manage  from './components/Admin/Admin';
-
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import DefaultLayout from './components/Layout/DefaultLayout';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import './App.css';
-
-
 function App() {
     return (
-            // eslint-disable-next-line
-
     <Router>
-            < Navbar />
+        {/* <Navbar /> */}
+        <div className='App'>
             <Routes>
                 {publicRoutes.map((route, index) =>{
+                    const Layout = route.layout || DefaultLayout
                     const Page = route.component
-                    return <Route key={index} path={route.path} element={<Page />} />
+                    return (
+                        <Route
+                            key={index}
+                            path={route.path}
+                            element={
+                                <Layout>
+                                    <Page />
+                                </Layout>
+                            } />
+                            )
                 })}
                 <Route path='/admin' element={
                     <PrivateRoute Component={Manage}/>
                 } />
             </Routes>
-            < Footer />
+        </div>
+        {/* <Footer /> */}
     </Router>
     
 );

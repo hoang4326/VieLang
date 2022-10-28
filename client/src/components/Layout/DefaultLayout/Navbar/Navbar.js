@@ -112,23 +112,23 @@ export default function Navbar() {
                             </Link>
                         </li>
                     </ul>
-                    <img src={require('../../assets/image/user.png')} className='user-pic' alt='profile' onClick={toggleMenu} style={style1}/>
+                    <img src={require('../../../../assets/image/user.png')} className='user-pic' alt='profile' onClick={toggleMenu} style={style1}/>
                     <div className={ toggled ? 'sub-menu-wrap open-menu' : 'sub-menu-wrap' } style={style1} >
                     {/* <div className='sub-menu-wrap' style={style1} id='subMenu' ref={ref}> */}
                         <div className='sub-menu'>
                             <div className='user-info'>
-                                <img src={require('../../assets/image/user.png')}  alt='profile' />
+                                <img src={require('../../../../assets/image/user.png')}  alt='profile' />
                                 <h2>{userData.name}</h2>
                             </div>
                             <hr/>
 
                             <Link to='/#' className='sub-menu-link'>
-                                <img src={require('../../assets/image/profile.png')} alt='profile' />
+                                <img src={require('../../../../assets/image/profile.png')} alt='profile' />
                                 <p className='profileNav'>Edit profile</p>
                                 {/* <span>{'>'}</span> */}
                             </Link>
                             <a href='/' className='sub-menu-link' onClick={logOut}>
-                                <img src={require('../../assets/image/logout.png')} alt='profile' />
+                                <img src={require('../../../../assets/image/logout.png')} alt='profile' />
                                 <p className='profileNav'>Logout</p>
                                 {/* <span>{'>'}</span> */}
                             </a>

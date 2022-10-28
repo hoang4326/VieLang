@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import './sidebar.scss';
+import './sidebar.css';
 
 const sidebarNavItems = [
     {
@@ -71,7 +71,7 @@ const Sidebar = () => {
             ></div>
             {
                 sidebarNavItems.map((item, index) => (
-                    <Link to={item.to} key={index}>
+                    <Link to={item.to} key={index} classNam="sidebarA">
                         <div className={`sidebar__menu__item ${activeIndex === index ? 'active' : ''}`}>
                             <div className="sidebar__menu__item__icon">
                                 {item.icon}
