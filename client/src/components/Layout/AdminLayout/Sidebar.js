@@ -1,13 +1,27 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import './sidebar.css';
 
 export default function AdminLayout({children}){
     const [toggled, setToggled] = useState(false);
+    const token = localStorage.getItem('token');
     const toggleMenu = () =>{
         setToggled(!toggled);
     }
+    const isExpired = (token) => {        
+        const decode = JSON.parse(atob(token?.split('.')[1]));
+        if (decode.exp * 1000 < new Date().getTime()) {
+            localStorage.clear();
+            console.log('Time Expired');
+            window.location.href = "./login";
+        }
+    };
 
+    useEffect(() =>{
+        if(token){
+            isExpired(token);
+        }
+    },[token])
     const logOut = () =>{
         localStorage.removeItem('token');
     }
