@@ -3,7 +3,7 @@ import { Form, Button } from "react-bootstrap";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
-const EditTopic = ({lesson}) =>{
+const EditTopic = ({lesson, chooseMessage}) =>{
     const MySwal = withReactContent(Swal);
     const [topic,setTopic] = useState(lesson.topic);
     const [content1,setContent1] = useState(lesson.content1);
@@ -28,7 +28,29 @@ const EditTopic = ({lesson}) =>{
             }),
         }).then((res)=> res.json())
         .then((data)=>{
-            setData(data);
+            if(data.status === 'success'){
+                MySwal.fire({
+                    title: <strong>Success!</strong>,
+                    html: <i>Update successfully !</i>,
+                    icon: 'success'
+                })
+                fetch("http://localhost:5000/admin/lessonList")
+                    .then(res => 
+                        res.json()
+                    )
+                    .then((data)=>{
+                        chooseMessage(data);
+                    })
+                    .catch((err) => {
+                        console.log(err)    
+                    });
+            }else{
+                MySwal.fire({
+                    title: <strong>Try again!!</strong>,
+                    html: <i>Cannot update</i>,
+                    icon: 'warning'
+                })
+            }
         });
         
     }
@@ -38,18 +60,20 @@ const EditTopic = ({lesson}) =>{
             res.json()
         )
         .then((data)=>{
-            setData(data);
+            const topicNew = data.filter(e => e.name !== topic);
+            setData(topicNew);
         })
         .catch((err) => {
             console.log(err)    
         });
-    }, [])
+    }, [topic])
     return(
         <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-4">
                 <Form.Label>Select the topic you need to add: </Form.Label>
                     <Form.Select aria-label="Default select example" defaultValue={topic} onChange={e => setTopic(e.target.value)} required>
-                        <option value=''>Open this select menu</option>
+                        <option value={topic} >{topic}</option>
+                        {/* <option value=''>Open this select menu</option> */}
                         {data?.map?.((item,index) =>{
                             return (
                                 <option value={item.name} key={index}>{item.name}</option>

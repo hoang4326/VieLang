@@ -5,7 +5,7 @@ import withReactContent from 'sweetalert2-react-content';
 // import { Button} from 'react-bootstrap';
 import LessonEdit from './LessonEdit';
 
-const LessonView = ({lesson}) =>{
+const LessonView = ({lesson, chooseMessage}) =>{
     const [show, setShow] = useState(false);
     const MySwal = withReactContent(Swal);
     const handleShow = () => setShow(true);
@@ -36,7 +36,17 @@ const LessonView = ({lesson}) =>{
                     title: <strong>Success!</strong>,
                     html: <i>Delete lesson successfully !</i>,
                     icon: 'success'
-                });
+                })
+                fetch("http://localhost:5000/admin/lessonList")
+                    .then(res => 
+                        res.json()
+                    )
+                    .then((data)=>{
+                        chooseMessage(data);
+                    })
+                    .catch((err) => {
+                        console.log(err)    
+                    });
             }else{
                 MySwal.fire({
                     title: <strong>Try again!!</strong>,
@@ -66,7 +76,7 @@ const LessonView = ({lesson}) =>{
                                 </Modal.Title>
                             </Modal.Header>
                             <Modal.Body >
-                                <LessonEdit lesson = {lesson} />
+                                <LessonEdit lesson = {lesson} chooseMessage= {chooseMessage} />
                             </Modal.Body>
                             <Modal.Footer>
                             </Modal.Footer>

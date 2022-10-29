@@ -3,7 +3,7 @@ import { Form, Button } from "react-bootstrap";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
-export default function AddLesson() {
+export default function AddLesson({chooseMessage}) {
     const [name,setName] = useState('');
     const [content1,setContent1] = useState('');
     const [content2,setContent2] = useState('');
@@ -39,6 +39,16 @@ export default function AddLesson() {
                     html: <i>New lesson has been added!</i>,
                     icon: 'success'
                 })
+                fetch("http://localhost:5000/admin/lessonList")
+                    .then(res => 
+                        res.json()
+                    )
+                    .then((data)=>{
+                        chooseMessage(data);
+                    })
+                    .catch((err) => {
+                        console.log(err)    
+                    });
                 setContent1('');
                 setContent2('');
             }

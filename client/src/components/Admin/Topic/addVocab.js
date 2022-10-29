@@ -3,7 +3,7 @@ import { Form, Button } from "react-bootstrap";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
-export default function AddVocab(){
+export default function AddVocab({chooseMessage}){
     const [topic, setTopic] = useState();
     const [select, setSelect] = useState("");
     const [vocabEng, setVocabEng] = useState("");
@@ -46,12 +46,23 @@ export default function AddVocab(){
                 html: <i>Cannot add vocabulary</i>,
                 icon: 'warning'
             })
+            
         }else{
             MySwal.fire({
                 title: <strong>Success!</strong>,
                 html: <i>New vocabulary has been added!</i>,
                 icon: 'success'
-            })
+            });
+            fetch("http://localhost:5000/admin/topicList")
+                    .then(res => 
+                        res.json()
+                    )
+                    .then((data)=>{
+                        chooseMessage(data)
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    });
             setVocabEng('');
             setVocabVie('')
         }

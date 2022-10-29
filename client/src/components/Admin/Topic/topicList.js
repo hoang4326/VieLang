@@ -21,7 +21,7 @@ export default function TopicList (){
     const handleShow2 = () => setShow2(true);
 
     const chooseMessage = (message) => {
-        setMessage(message);
+        setData(message);
     };
     useEffect(()=>{
         fetch("http://localhost:5000/admin/topicList")
@@ -43,7 +43,7 @@ export default function TopicList (){
                 <Modal.Title>Add Vocabulary</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <AddVocab/>
+                    <AddVocab chooseMessage = {chooseMessage}/>
                 </Modal.Body>
                 <Modal.Footer>
                 </Modal.Footer>
@@ -53,7 +53,7 @@ export default function TopicList (){
                 <Modal.Title>Add Topic</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <AddTopic/>
+                    <AddTopic chooseMessage = {chooseMessage} />
                 </Modal.Body>
                 <Modal.Footer>
                 </Modal.Footer>

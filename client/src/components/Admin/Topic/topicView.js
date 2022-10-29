@@ -36,8 +36,17 @@ const TopicView = ({topic, chooseMessage}) =>{
                     title: <strong>Success!</strong>,
                     html: <i>Delete topic successfully !</i>,
                     icon: 'success'
-                });
-                chooseMessage("True");
+                })
+                fetch("http://localhost:5000/admin/topicList")
+                    .then(res => 
+                        res.json()
+                    )
+                    .then((data)=>{
+                        chooseMessage(data)
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    });
             }else{
                 MySwal.fire({
                     title: <strong>Try again!!</strong>,
@@ -85,7 +94,7 @@ const TopicView = ({topic, chooseMessage}) =>{
                                 </Modal.Title>
                             </Modal.Header>
                             <Modal.Body >
-                                <EditTopic topic = {topic} />
+                                <EditTopic topic = {topic} chooseMessage= {chooseMessage}/>
                             </Modal.Body>
                             <Modal.Footer>
                             </Modal.Footer>

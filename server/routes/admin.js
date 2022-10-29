@@ -129,6 +129,7 @@ router.post("/updateLessonImg",upload.single('lessonImg'),  async (req, res) => 
                 vocab: vocab
             }
         })
+        res.send({status:"success"});
     }catch(error){
         res.send({status:"error"});
         console.log(error);
@@ -152,6 +153,7 @@ router.post("/updateTopicImg",upload.single('topicImg'),  async (req, res) => {
                 vocab: vocab
             }
         })
+        res.send({status:"success"});
     }catch(error){
         res.send({status:"error"});
         console.log(error);
@@ -211,9 +213,8 @@ router.post("/deleteTopic", async (req, res)=>{
     await Lesson.deleteMany({topic: name});
     await Question.deleteMany({topic: name});
     await Topic.updateMany({id: {$gte: id}},{$inc: {id: -1}});
-    const topic = await Topic.find({name: name},{"_id": 1, "name": 1, "topicImg.urlImage": 1, "lessonImg.urlImage": 1, "vocab": 1});
 
-    res.send({status: "success", data: topic})
+    res.send({status: "success"})
 })
 
 

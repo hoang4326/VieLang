@@ -12,6 +12,11 @@ export default function LessonList (){
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const chooseMessage = (message) => {
+        setData(message);
+    };
+
     useEffect(()=>{
         fetch("http://localhost:5000/admin/lessonList")
         .then(res => 
@@ -42,7 +47,7 @@ export default function LessonList (){
                 <Modal.Title>Add Lesson</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <AddLesson/>
+                    <AddLesson chooseMessage = {chooseMessage}/>
                 </Modal.Body>
                 <Modal.Footer>
                 </Modal.Footer>
@@ -72,7 +77,7 @@ export default function LessonList (){
                             {data?.map?.((lesson, index)=>{
                                 return(
                                     <tr key={index}>
-                                        <LessonView lesson = {lesson} />
+                                        <LessonView lesson = {lesson} chooseMessage = {chooseMessage}/>
                                     </tr>
                                 )
                             })}

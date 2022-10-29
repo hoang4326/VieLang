@@ -3,7 +3,7 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { Button, Form } from "react-bootstrap";
 
-export default function AddTopic() {
+export default function AddTopic({chooseMessage}) {
     const [name,setName] = useState('');
     const [imgTopic,setImgTopic] = useState('');
     const [imgLesson,setImgLesson] = useState('');
@@ -11,7 +11,6 @@ export default function AddTopic() {
 
     const handleSubmit = event => {
         event.preventDefault();
-        console.log(imgTopic);
         const data = new FormData();
         data.append("imgTopic", imgTopic);
         data.append("imgLesson", imgLesson);
@@ -39,6 +38,16 @@ export default function AddTopic() {
                     html: <i>Add topic successfully!</i>,
                     icon: 'success'
                 })
+                fetch("http://localhost:5000/admin/topicList")
+                    .then(res => 
+                        res.json()
+                    )
+                    .then((data)=>{
+                        chooseMessage(data)
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    });
             } 
         });
     }

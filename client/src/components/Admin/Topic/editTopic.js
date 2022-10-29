@@ -3,9 +3,8 @@ import { Form, Button } from "react-bootstrap";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
-const EditTopic = ({topic}) =>{
+const EditTopic = ({topic, chooseMessage}) =>{
     const MySwal = withReactContent(Swal);
-    const [data, setData] = useState('');
     const [name,setName] = useState(topic.name);
     const [imgTopic,setImgTopic] = useState('');
     const [imgLesson,setImgLesson] = useState('');
@@ -40,7 +39,33 @@ const EditTopic = ({topic}) =>{
                         "Access-Control-Allow-Origin":"*",
                     },
                     body: data
-            })}
+            }).then((res)=> res.json())
+            .then((data)=>{
+                if(data.status === 'success'){
+                    MySwal.fire({
+                        title: <strong>Success!</strong>,
+                        html: <i>Update successfully !</i>,
+                        icon: 'success'
+                    });
+                    fetch("http://localhost:5000/admin/topicList")
+                        .then(res => 
+                            res.json()
+                        )
+                        .then((data)=>{
+                            chooseMessage(data)
+                        })
+                        .catch((err) => {
+                            console.log(err)
+                        });
+                }else{
+                    MySwal.fire({
+                        title: <strong>Try again!!</strong>,
+                        html: <i>Cannot update</i>,
+                        icon: 'warning'
+                    })
+                }
+            });
+        }
                 const data = new FormData();
                 data.append("vocab", JSON.stringify(vocab));
                 data.append("name", name);
@@ -54,9 +79,32 @@ const EditTopic = ({topic}) =>{
                         "Access-Control-Allow-Origin":"*",
                     },
                     body: data
-                })
-            
-
+                }).then((res)=> res.json())
+                .then((data)=>{
+                    if(data.status === 'success'){
+                        MySwal.fire({
+                            title: <strong>Success!</strong>,
+                            html: <i>Update successfully !</i>,
+                            icon: 'success'
+                        });
+                        fetch("http://localhost:5000/admin/topicList")
+                            .then(res => 
+                                res.json()
+                            )
+                            .then((data)=>{
+                                chooseMessage(data)
+                            })
+                            .catch((err) => {
+                                console.log(err)
+                            });
+                    }else{
+                        MySwal.fire({
+                            title: <strong>Try again!!</strong>,
+                            html: <i>Cannot update</i>,
+                            icon: 'warning'
+                        })
+                    }
+                });
         }else if(imgTopic !== '' && imgLesson !== ''){
             const data = new FormData();
             data.append("vocab", JSON.stringify(vocab));
@@ -72,8 +120,32 @@ const EditTopic = ({topic}) =>{
                     "Access-Control-Allow-Origin":"*",
                 },
                 body: data
-                
-            })
+            }).then((res)=> res.json())
+            .then((data)=>{
+                if(data.status === 'success'){
+                    MySwal.fire({
+                        title: <strong>Success!</strong>,
+                        html: <i>Update successfully !</i>,
+                        icon: 'success'
+                    });
+                    fetch("http://localhost:5000/admin/topicList")
+                        .then(res => 
+                            res.json()
+                        )
+                        .then((data)=>{
+                            chooseMessage(data)
+                        })
+                        .catch((err) => {
+                            console.log(err)
+                        });
+                }else{
+                    MySwal.fire({
+                        title: <strong>Try again!!</strong>,
+                        html: <i>Cannot update</i>,
+                        icon: 'warning'
+                    })
+                }
+            });
         }else{
             fetch("http://localhost:5000/admin/updateTopic",{
                 method: "POST",
@@ -90,7 +162,29 @@ const EditTopic = ({topic}) =>{
                 }),
             }).then((res)=> res.json())
             .then((data)=>{
-                setData(data);
+                if(data.status === 'success'){
+                    MySwal.fire({
+                        title: <strong>Success!</strong>,
+                        html: <i>Update successfully !</i>,
+                        icon: 'success'
+                    });
+                    fetch("http://localhost:5000/admin/topicList")
+                        .then(res => 
+                            res.json()
+                        )
+                        .then((data)=>{
+                            chooseMessage(data)
+                        })
+                        .catch((err) => {
+                            console.log(err)
+                        });
+                }else{
+                    MySwal.fire({
+                        title: <strong>Try again!!</strong>,
+                        html: <i>Cannot update</i>,
+                        icon: 'warning'
+                    })
+                }
             });
         }
     }
@@ -115,7 +209,16 @@ const EditTopic = ({topic}) =>{
                     html: <i>Delete vocabulary successfully !</i>,
                     icon: 'success'
                 });
-                setData(data.data);
+                fetch("http://localhost:5000/admin/topicList")
+                    .then(res => 
+                        res.json()
+                    )
+                    .then((data)=>{
+                        chooseMessage(data)
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    });
             }else{
                 MySwal.fire({
                     title: <strong>Try again!!</strong>,
@@ -124,9 +227,6 @@ const EditTopic = ({topic}) =>{
                 })
             }
         });
-    }
-    const handleDeleteR = (index) =>{
-        topic.vocab?.splice(index,1);
     }
     return(
         <Form className='scroll' onSubmit={handleSubmit}>
@@ -188,7 +288,7 @@ const EditTopic = ({topic}) =>{
                                 onChange = {(e) => handleChange(e, index)}
                                 required
                             />
-                            <button onClick={() => {handleDelete(topic.name, index); handleDeleteR(index)}} type="button" className="btn btn-danger input-group-text">X</button>
+                            <button onClick={() => handleDelete(topic.name, index)} type="button" className="btn btn-danger input-group-text">X</button>
 
                         </Form.Group>
                     </Form.Group>
