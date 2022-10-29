@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './sidebar.css';
 
 export default function AdminLayout({children}){
-    const [toggled, setToggled] = useState(false);
+    const [toggled, setToggled] = useState(true);
     const token = localStorage.getItem('token');
     const toggleMenu = () =>{
         setToggled(!toggled);
