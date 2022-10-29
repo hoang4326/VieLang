@@ -113,54 +113,6 @@ router.post("/deleteVocabulary", async (req, res) => {
     res.send({status: 'success'})
 })
 
-router.post("/updateLessonImg",upload.single('lessonImg'),  async (req, res) => {
-    const file = req.file.filename;
-    const name =  req.body.name;
-    const vocab = JSON.parse(req.body.vocab);
-    const id = req.body.id;
-    const url = req.protocol + '://' + req.get('host');
-    try{
-        await Topic.updateOne({_id: id},{
-            $set:{
-                name: name,
-                lessonImg: {
-                    urlImage: url + '/public/' + file
-                },
-                vocab: vocab
-            }
-        })
-        res.send({status:"success"});
-    }catch(error){
-        res.send({status:"error"});
-        console.log(error);
-    }
-
-})
-
-router.post("/updateTopicImg",upload.single('topicImg'),  async (req, res) => {
-    const file = req.file.filename;
-    const name =  req.body.name;
-    const vocab = JSON.parse(req.body.vocab);
-    const id = req.body.id;
-    const url = req.protocol + '://' + req.get('host');
-    try{
-        await Topic.updateOne({_id: id},{
-            $set:{
-                name: name,
-                topicImg: {
-                    urlImage: url + '/public/' + file
-                },
-                vocab: vocab
-            }
-        })
-        res.send({status:"success"});
-    }catch(error){
-        res.send({status:"error"});
-        console.log(error);
-    }
-
-})
-
 router.post("/updateTopic", async (req, res) => {
     const {name, id} =  req.body;
     const {vocab} = req.body;
@@ -178,27 +130,49 @@ router.post("/updateImg",uploadMultiple, async (req, res) => {
     const name =  req.body.name;
     const vocab = JSON.parse(req.body.vocab);
     const id = req.body.id;
-    console.log(name);
-    console.log(vocab);
     const url = req.protocol + '://' + req.get('host');
     //Add to array imgTopic
     imgTopic = req.files.imgTopic;
-    let fileTopic = imgTopic[0].filename;
-    imgTopic.forEach((item) => item.urlImage = url + '/public/' + fileTopic);
+    if(imgTopic){
+        let fileTopic = imgTopic[0].filename;
+        imgTopic.forEach((item) => item.urlImage = url + '/public/' + fileTopic);
+    }
     //Add to array imgLesson
     imgLesson = req.files.imgLesson;
-    let fileLesson = imgLesson[0].filename;
-    imgLesson.forEach((item) => item.urlImage = url + '/public/' + fileLesson);
+    if(imgLesson){
+        let fileLesson = imgLesson[0].filename;
+        imgLesson.forEach((item) => item.urlImage = url + '/public/' + fileLesson);
+    }
     try{
-        await Topic.updateOne({_id: id},{
-            $set:{
-                name: name,
-                topicImg: imgTopic,
-                lessonImg: imgLesson,
-                vocab: vocab,
-            }
-        })
-        res.send({status: 'success'})
+        if(imgTopic && !imgLesson){
+            await Topic.updateOne({_id: id},{
+                $set:{
+                    name: name,
+                    topicImg: imgTopic,
+                    vocab: vocab,
+                }
+            })
+            res.send({status: 'success'})
+        } else if(!imgTopic && imgLesson){
+            await Topic.updateOne({_id: id},{
+                $set:{
+                    name: name,
+                    lessonImg: imgLesson,
+                    vocab: vocab,
+                }
+            })
+            res.send({status: 'success'})
+        }else{
+            await Topic.updateOne({_id: id},{
+                $set:{
+                    name: name,
+                    topicImg: imgTopic,
+                    lessonImg: imgLesson,
+                    vocab: vocab,
+                }
+            })
+            res.send({status: 'success'})
+        }
     }catch(error){
     res.send({status:"error"});
     console.log(error);
@@ -241,7 +215,7 @@ router.post("/addVocab", async (req, res)=>{
 
 
 
-router.post("/addTopic",uploadMultiple, async (req, res, next) => {
+router.post("/addTopic",uploadMultiple, async (req, res) => {
     const url = req.protocol + '://' + req.get('host');
     const vocab = [];
     const countTopic = await Topic.countDocuments({});

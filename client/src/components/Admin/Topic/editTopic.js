@@ -21,79 +21,13 @@ const EditTopic = ({topic, chooseMessage}) =>{
 
     const handleSubmit = event =>{
         event.preventDefault();
-        // const data = new FormData();
-        // data.append("vocab", vocab);
-        // data.append("name", name);
-        if( (imgTopic !== '' && imgLesson === '') || (imgTopic === '' && imgLesson !== '') ){
-            if ( imgTopic === '' && imgLesson !== '' ){
-                const data = new FormData();
-                data.append("vocab", JSON.stringify(vocab));
-                data.append("name", name);
-                data.append("id", topic._id);
-                data.append("lessonImg", imgLesson);
-                fetch("http://localhost:5000/admin/updateLessonImg",{
-                    method: "POST",
-                    crossDomain: true,
-                    headers: {
-                        Accept: "application/json",
-                        "Access-Control-Allow-Origin":"*",
-                    },
-                    body: data
-            }).then((res)=> res.json())
-            .then((data)=>{
-                if(data.status === 'success'){
-                    MySwal.fire({
-                        title: <strong>Success!</strong>,
-                        html: <i>Update successfully !</i>,
-                        icon: 'success'
-                    });
-                    chooseMessage()
-                }else{
-                    MySwal.fire({
-                        title: <strong>Try again!!</strong>,
-                        html: <i>Cannot update</i>,
-                        icon: 'warning'
-                    })
-                }
-            });
-        }
-                const data = new FormData();
-                data.append("vocab", JSON.stringify(vocab));
-                data.append("name", name);
-                data.append("id", topic._id);
-                data.append("topicImg", imgTopic);
-                fetch("http://localhost:5000/admin/updateTopicImg",{
-                    method: "POST",
-                    crossDomain: true,
-                    headers: {
-                        Accept: "application/json",
-                        "Access-Control-Allow-Origin":"*",
-                    },
-                    body: data
-                }).then((res)=> res.json())
-                .then((data)=>{
-                    if(data.status === 'success'){
-                        MySwal.fire({
-                            title: <strong>Success!</strong>,
-                            html: <i>Update successfully !</i>,
-                            icon: 'success'
-                        });
-                        chooseMessage()
-                    }else{
-                        MySwal.fire({
-                            title: <strong>Try again!!</strong>,
-                            html: <i>Cannot update</i>,
-                            icon: 'warning'
-                        })
-                    }
-                });
-        }else if(imgTopic !== '' && imgLesson !== ''){
             const data = new FormData();
             data.append("vocab", JSON.stringify(vocab));
             data.append("name", name);
             data.append("id", topic._id);
-            data.append("imgTopic", imgTopic);
             data.append("imgLesson", imgLesson);
+            data.append("imgTopic", imgTopic);
+
             fetch("http://localhost:5000/admin/updateImg",{
                 method: "POST",
                 crossDomain: true,
@@ -119,38 +53,6 @@ const EditTopic = ({topic, chooseMessage}) =>{
                     })
                 }
             });
-        }else{
-            fetch("http://localhost:5000/admin/updateTopic",{
-                method: "POST",
-                crossDomain: true,
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: "application/json",
-                    "Access-Control-Allow-Origin":"*",
-                },
-                body: JSON.stringify({
-                    name: name,
-                    vocab: vocab,
-                    id: topic._id
-                }),
-            }).then((res)=> res.json())
-            .then((data)=>{
-                if(data.status === 'success'){
-                    MySwal.fire({
-                        title: <strong>Success!</strong>,
-                        html: <i>Update successfully !</i>,
-                        icon: 'success'
-                    });
-                    chooseMessage()
-                }else{
-                    MySwal.fire({
-                        title: <strong>Try again!!</strong>,
-                        html: <i>Cannot update</i>,
-                        icon: 'warning'
-                    })
-                }
-            });
-        }
     }
 
     const handleDelete = (name, id) =>{
@@ -203,8 +105,10 @@ const EditTopic = ({topic, chooseMessage}) =>{
                         const file = event.target.files[0];
                         setImgTopic(file)
                     }} 
-                    // required
                 />
+                {/* {imgTopic = "" ? 
+                    (<></>) : 
+                    (<img src={topic.topicImg?.map(item => item.urlImage)} alt="topicImg" />)} */}
             </Form.Group>
             <Form.Group className="mb-4">
                 <Form.Label>Lesson Image: </Form.Label>
@@ -212,9 +116,9 @@ const EditTopic = ({topic, chooseMessage}) =>{
                     type='file' accept=".png, .jpeg, .jpg" onChange={event =>{
                         const file = event.target.files[0];
                         setImgLesson(file)
-                    }} 
-                    // required
+                    }}
                 />
+                <img src={topic.lessonImg?.map(item => item.urlImage)} alt="lessonImg" />
             </Form.Group>
             {topic.vocab?.map?.(({vocabEng, vocabVie},index) =>{
                 return (
