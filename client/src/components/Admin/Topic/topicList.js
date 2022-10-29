@@ -20,8 +20,17 @@ export default function TopicList (){
     const handleClose2 = () => setShow2(false);
     const handleShow2 = () => setShow2(true);
 
-    const chooseMessage = (message) => {
-        setData(message);
+    const chooseMessage = () => {
+        fetch("http://localhost:5000/admin/topicList")
+                    .then(res => 
+                        res.json()
+                    )
+                    .then((data)=>{
+                        setData(data)
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    });
     };
     useEffect(()=>{
         fetch("http://localhost:5000/admin/topicList")

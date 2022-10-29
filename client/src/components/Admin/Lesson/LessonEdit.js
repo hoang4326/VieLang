@@ -34,16 +34,7 @@ const EditTopic = ({lesson, chooseMessage}) =>{
                     html: <i>Update successfully !</i>,
                     icon: 'success'
                 })
-                fetch("http://localhost:5000/admin/lessonList")
-                    .then(res => 
-                        res.json()
-                    )
-                    .then((data)=>{
-                        chooseMessage(data);
-                    })
-                    .catch((err) => {
-                        console.log(err)    
-                    });
+                chooseMessage()
             }else{
                 MySwal.fire({
                     title: <strong>Try again!!</strong>,
@@ -60,19 +51,20 @@ const EditTopic = ({lesson, chooseMessage}) =>{
             res.json()
         )
         .then((data)=>{
-            const topicNew = data.filter(e => e.name !== topic);
+            const topicNew = data.filter(e => e.name !== lesson.topic);
             setData(topicNew);
         })
         .catch((err) => {
             console.log(err)    
         });
-    }, [topic])
+    }, [lesson.topic])
     return(
         <Form onSubmit={handleSubmit}>
+            <h1>{topic}</h1>
             <Form.Group className="mb-4">
                 <Form.Label>Select the topic you need to add: </Form.Label>
-                    <Form.Select aria-label="Default select example" defaultValue={topic} onChange={e => setTopic(e.target.value)} required>
-                        <option value={topic} >{topic}</option>
+                    <Form.Select aria-label="Default select example"  onChange={e => setTopic(e.target.value)} required>
+                        <option value={lesson.topic} >{lesson.topic}</option>
                         {/* <option value=''>Open this select menu</option> */}
                         {data?.map?.((item,index) =>{
                             return (

@@ -37,16 +37,7 @@ const LessonView = ({lesson, chooseMessage}) =>{
                     html: <i>Delete lesson successfully !</i>,
                     icon: 'success'
                 })
-                fetch("http://localhost:5000/admin/lessonList")
-                    .then(res => 
-                        res.json()
-                    )
-                    .then((data)=>{
-                        chooseMessage(data);
-                    })
-                    .catch((err) => {
-                        console.log(err)    
-                    });
+                chooseMessage()
             }else{
                 MySwal.fire({
                     title: <strong>Try again!!</strong>,

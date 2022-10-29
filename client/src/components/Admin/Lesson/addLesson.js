@@ -39,16 +39,7 @@ export default function AddLesson({chooseMessage}) {
                     html: <i>New lesson has been added!</i>,
                     icon: 'success'
                 })
-                fetch("http://localhost:5000/admin/lessonList")
-                    .then(res => 
-                        res.json()
-                    )
-                    .then((data)=>{
-                        chooseMessage(data);
-                    })
-                    .catch((err) => {
-                        console.log(err)    
-                    });
+                chooseMessage()
                 setContent1('');
                 setContent2('');
             }

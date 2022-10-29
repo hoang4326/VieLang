@@ -13,8 +13,17 @@ export default function LessonList (){
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const chooseMessage = (message) => {
-        setData(message);
+    const chooseMessage = () => {
+        fetch("http://localhost:5000/admin/lessonList")
+        .then(res => 
+            res.json()
+        )
+        .then((data)=>{
+            setData(data);
+        })
+        .catch((err) => {
+            console.log(err)    
+        });
     };
 
     useEffect(()=>{

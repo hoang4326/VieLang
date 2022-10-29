@@ -38,16 +38,7 @@ export default function AddTopic({chooseMessage}) {
                     html: <i>Add topic successfully!</i>,
                     icon: 'success'
                 })
-                fetch("http://localhost:5000/admin/topicList")
-                    .then(res => 
-                        res.json()
-                    )
-                    .then((data)=>{
-                        chooseMessage(data)
-                    })
-                    .catch((err) => {
-                        console.log(err)
-                    });
+                chooseMessage();
             } 
         });
     }

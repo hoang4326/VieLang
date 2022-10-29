@@ -53,17 +53,8 @@ export default function AddVocab({chooseMessage}){
                 html: <i>New vocabulary has been added!</i>,
                 icon: 'success'
             });
-            fetch("http://localhost:5000/admin/topicList")
-                    .then(res => 
-                        res.json()
-                    )
-                    .then((data)=>{
-                        chooseMessage(data)
-                    })
-                    .catch((err) => {
-                        console.log(err)
-                    });
-            setVocabEng('');
+            chooseMessage()
+            setVocabEng('')
             setVocabVie('')
         }
     });
