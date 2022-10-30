@@ -157,6 +157,9 @@ router.post("/updateImg",uploadMultiple, async (req, res) => {
             })
             res.send({status: 'success'})
         } else if(!imgTopic && imgLesson){
+            const pathLesson = await Topic.findOne({_id: id}, {"_id": 0, "lessonImg.path": 1 });
+            const pathLessonDelete = (pathLesson.lessonImg[0]).path;
+            await fs.unlinkSync(pathLessonDelete);
             await Topic.updateOne({_id: id},{
                 $set:{
                     name: name,
@@ -166,6 +169,13 @@ router.post("/updateImg",uploadMultiple, async (req, res) => {
             })
             res.send({status: 'success'})
         }else{
+            const pathTopic = await Topic.findOne({_id: id}, {"_id": 0, "topicImg.path": 1 });
+            const pathTopicDelete = (pathTopic.topicImg[0]).path;
+            await fs.unlinkSync(pathTopicDelete);
+        
+            const pathLesson = await Topic.findOne({_id: id}, {"_id": 0, "lessonImg.path": 1 });
+            const pathLessonDelete = (pathLesson.lessonImg[0]).path;
+            await fs.unlinkSync(pathLessonDelete);
             await Topic.updateOne({_id: id},{
                 $set:{
                     name: name,
