@@ -43,6 +43,14 @@ var upload = multer({
 
 var uploadMultiple = upload.fields([{name: 'imgTopic'},{name: 'imgLesson'} ]);
 
+//question
+
+router.post("/addQuestion", async (req, res)=>{
+    const topic = req.body.topic;
+    const lesson = req.body.lesson;
+    const questionText = req.body.questionText;
+})
+
 //lesson
 
 router.post("/updateLesson", async (req, res) => {
@@ -81,6 +89,16 @@ router.post("/addLesson", async (req, res)=>{
             id: topic.length + 1,
             content1: content1,
             content2: content2,
+        },function(error){
+            if (error) return handleError(error);
+            const question = new Question({
+                topic: name,
+                lesson: topic.length + 1,
+                question: []
+            });
+            question.save(function(error){
+                if (error) return handleError(error);
+            })
         })
         res.status(200).json({status: "Sucess"});
     }catch(error){
