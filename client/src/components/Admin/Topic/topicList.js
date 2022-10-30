@@ -9,9 +9,6 @@ import AddTopic from "./AddTopic";
 
 export default function TopicList (){
     const [data, setData] = useState();
-        // eslint-disable-next-line
-    const [message, setMessage] = useState('');
-        // eslint-disable-next-line
     const [show1, setShow1] = useState(false);
     const [show2, setShow2] = useState(false);
 
@@ -82,7 +79,7 @@ export default function TopicList (){
                     </div>
                     <table className="table table-striped table-hover">
                         <thead>
-                            <tr>
+                            <tr className='centerItems'>
                                 <th>Name</th>
                                 <th>Topic Image</th>
                                 <th>Lesson Image</th>
@@ -93,7 +90,7 @@ export default function TopicList (){
                         <tbody>
                             {data?.map?.((topic, index)=>{
                                 return(
-                                    <tr key={index}>
+                                    <tr key={index} className='centerItems'>
                                         <TopicView topic = {topic} chooseMessage = {chooseMessage} />
                                     </tr>
                                 )

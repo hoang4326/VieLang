@@ -53,6 +53,7 @@ const LessonView = ({lesson, chooseMessage}) =>{
     return (
         <>
                 <td>{lesson.topic}</td>
+                <td >{lesson.id}</td>
                 <td>{lesson.content1}</td>
                 <td>{lesson.content2}</td>
                 <td>

@@ -53,6 +53,13 @@ router.post("/addQuestion", async (req, res)=>{
 
 //lesson
 
+router.post("/lessonFindbyTopic", async (req, res)=>{
+    const {value} = req.body
+    const lesson = await Lesson.find({topic: value},{_id: 0, id:1}).sort({id:1});
+
+    res.send(lesson);
+});
+
 router.post("/updateLesson", async (req, res) => {
     const {topic, id, content1, content2} =  req.body;
     await Lesson.updateOne({_id: id},{
@@ -131,22 +138,11 @@ router.post("/deleteVocabulary", async (req, res) => {
     res.send({status: 'success'})
 })
 
-router.post("/updateTopic", async (req, res) => {
-    const {name, id} =  req.body;
-    const {vocab} = req.body;
-    await Topic.updateOne({_id: id},{
-        $set:{
-            name: name,
-            vocab: vocab
-        }
-    })
-    res.send({status: 'success'})
-})
-
 
 router.post("/updateImg",uploadMultiple, async (req, res) => {
     const name =  req.body.name;
     const vocab = JSON.parse(req.body.vocab);
+    console.log(vocab);
     const id = req.body.id;
     const url = req.protocol + '://' + req.get('host');
     //Add to array imgTopic
@@ -186,7 +182,16 @@ router.post("/updateImg",uploadMultiple, async (req, res) => {
                 }
             })
             res.send({status: 'success'})
-        }else{
+        } else if(!imgTopic && !imgLesson){
+            await Topic.updateOne({_id: id},{
+                $set:{
+                    name: name,
+                    vocab: vocab,
+                }
+            })
+            res.send({status: 'success'})
+        }
+        else{
             const pathTopic = await Topic.findOne({_id: id}, {"_id": 0, "topicImg.path": 1 });
             const pathTopicDelete = (pathTopic.topicImg[0]).path;
             await fs.unlinkSync(pathTopicDelete);
@@ -210,11 +215,6 @@ router.post("/updateImg",uploadMultiple, async (req, res) => {
 }
 })
 
-router.get('/test', async (req, res)=>{
-    const pathTopic = await Topic.findOne({name: "Basic 1"}, {"_id": 0, "topicImg.path": 1 });
-    const path = (pathTopic.topicImg[0]).path;
-    res.send(path)
-})
 
 router.post("/deleteTopic", async (req, res)=>{
     const {name, id} = req.body;
@@ -264,6 +264,7 @@ router.post("/addTopic",uploadMultiple, async (req, res) => {
     const countTopic = await Topic.countDocuments({});
     const id = countTopic + 1;
     const name =  req.body.name;
+    console.log(name)
     //Add to array imgTopic
     imgTopic = req.files.imgTopic;
     let fileTopic = imgTopic[0].filename;

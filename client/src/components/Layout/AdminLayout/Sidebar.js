@@ -51,7 +51,7 @@ export default function AdminLayout({children}){
                                 <i className='bx bx-user nav_icon'></i>
                                 <span className="nav_name">Lesson</span>
                             </Link>
-                            <Link to="/#" className="nav_link">
+                            <Link to="/admin/questionList" className="nav_link">
                                 <i className='bx bx-message-square-detail nav_icon'></i>
                                 <span className="nav_name">Question</span>
                             </Link>

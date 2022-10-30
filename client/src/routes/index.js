@@ -13,6 +13,7 @@ import Lesson from '../components/Lesson/Lesson/Lesson';
 import Question from '../components/Lesson/Question/Question';
 import TopicList from '../components/Admin/Topic/TopicList';
 import LessonList from '../components/Admin/Lesson/LessonList';
+import QuestionList from '../components/Admin/Question/QuestionList';
 import Manage from '../components/Admin/Admin';
 
 //Public routes
@@ -35,7 +36,9 @@ export const privateRoutes = [
     { path: '/login', component: LoginForm},
     { path: '/admin', component: Manage},
     { path: '/admin/topicList', component: TopicList},
-    { path: '/admin/lessonList', component: LessonList}
+    { path: '/admin/lessonList', component: LessonList},
+    { path: '/admin/questionList', component: QuestionList}
+
 ]
 
 

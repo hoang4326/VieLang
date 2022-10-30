@@ -20,6 +20,7 @@ const EditTopic = ({topic, chooseMessage}) =>{
             ...newState[i],
             [name]: value
         };
+        console.log(newState)
         setVocab(newState);
     };
 
@@ -66,6 +67,7 @@ const EditTopic = ({topic, chooseMessage}) =>{
                 method: "POST",
                 crossDomain: true,
                 headers: {
+                    "Content-Type": "application/json",
                     Accept: "application/json",
                     "Access-Control-Allow-Origin":"*",
                 },
@@ -118,6 +120,9 @@ const EditTopic = ({topic, chooseMessage}) =>{
                 })
             }
         });
+        const newState = [...vocab];
+        newState.splice(id, 1)
+        setVocab(newState)
     }
     return(
         <Form className='scroll' onSubmit={handleSubmit}>

@@ -75,9 +75,10 @@ export default function LessonList (){
                     </div>
                     <table className="table table-striped table-hover">
                         <thead>
-                            <tr>
+                            <tr className='centerItems'>
                                 <th>Topic</th>
-                                <th>Content 1</th>
+                                <th>Lesson</th>
+                                <th >Content 1</th>
                                 <th>Content 2</th>
                                 <th>Actions</th>
                             </tr>
@@ -85,7 +86,7 @@ export default function LessonList (){
                         <tbody>
                             {data?.map?.((lesson, index)=>{
                                 return(
-                                    <tr key={index}>
+                                    <tr key={index} className='centerItems'>
                                         <LessonView lesson = {lesson} chooseMessage = {chooseMessage}/>
                                     </tr>
                                 )
