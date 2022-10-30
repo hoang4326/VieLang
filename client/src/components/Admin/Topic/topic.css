@@ -124,4 +124,9 @@ table.table .avatar {
 	margin-right: 42% !important;
 
 }
-
+.imgPreviewTopic{
+	width: 100px;
+}
+.imgPreviewLesson{
+	width: 250px;
+}

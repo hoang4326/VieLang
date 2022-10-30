@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button } from "react-bootstrap";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -8,7 +8,11 @@ const EditTopic = ({topic, chooseMessage}) =>{
     const [name,setName] = useState(topic.name);
     const [imgTopic,setImgTopic] = useState('');
     const [imgLesson,setImgLesson] = useState('');
+    const [imgTopicUrl,setImgTopicUrl] = useState('');
+    const [imgLessonUrl,setImgLessonUrl] = useState('');
     const [vocab, setVocab] = useState(topic.vocab);
+
+
     const handleChange = (e, i) => {
         const { value, name } = e.target;
         const newState = [...vocab];
@@ -18,6 +22,36 @@ const EditTopic = ({topic, chooseMessage}) =>{
         };
         setVocab(newState);
     };
+
+    useEffect(() => {
+        let fileReader, isCancel = false;
+        if (imgTopic) {
+            fileReader = new FileReader();
+            fileReader.onload = (e) => {
+                const { result } = e.target;
+                if (result && !isCancel) {
+                    setImgTopicUrl(result)
+                }
+                }
+            fileReader.readAsDataURL(imgTopic);
+        }
+        if (imgLesson) {
+            fileReader = new FileReader();
+            fileReader.onload = (e) => {
+                const { result } = e.target;
+                if (result && !isCancel) {
+                    setImgLessonUrl(result)
+                }
+                }
+            fileReader.readAsDataURL(imgLesson);
+        }
+        return () => {
+            isCancel = true;
+            if (fileReader && fileReader.readyState === 1) {
+                fileReader.abort();
+            }
+            }
+        }, [imgTopic, imgLesson]);
 
     const handleSubmit = event =>{
         event.preventDefault();
@@ -106,9 +140,13 @@ const EditTopic = ({topic, chooseMessage}) =>{
                         setImgTopic(file)
                     }} 
                 />
-                {/* {imgTopic = "" ? 
-                    (<></>) : 
-                    (<img src={topic.topicImg?.map(item => item.urlImage)} alt="topicImg" />)} */}
+                {imgTopicUrl ? 
+                    (<p className="img-preview-wrapper">
+                    {
+                        <img src={imgTopicUrl} className = 'imgPreviewTopic' alt="previewTopic" />
+                    }
+                    </p>) : 
+                    (<img src={topic.topicImg?.map(item => item.urlImage)} className = 'imgPreviewTopic'  alt="topicImg" />)}
             </Form.Group>
             <Form.Group className="mb-4">
                 <Form.Label>Lesson Image: </Form.Label>
@@ -118,7 +156,13 @@ const EditTopic = ({topic, chooseMessage}) =>{
                         setImgLesson(file)
                     }}
                 />
-                <img src={topic.lessonImg?.map(item => item.urlImage)} alt="lessonImg" />
+                {imgLessonUrl ? 
+                    (<p className="img-preview-wrapper">
+                    {
+                        <img src={imgLessonUrl} className = 'imgPreviewLesson' alt="previewLesson" />
+                    }
+                    </p>) : 
+                    (<img src={topic.lessonImg?.map(item => item.urlImage)} className = 'imgPreviewLesson' alt="lessonImg" />)}
             </Form.Group>
             {topic.vocab?.map?.(({vocabEng, vocabVie},index) =>{
                 return (

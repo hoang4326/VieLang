@@ -1,4 +1,4 @@
-const { json } = require('express');
+var fs = require('fs');
 
 const express = require('express'),
     multer = require('multer'),
@@ -145,6 +145,9 @@ router.post("/updateImg",uploadMultiple, async (req, res) => {
     }
     try{
         if(imgTopic && !imgLesson){
+            const pathTopic = await Topic.findOne({_id: id}, {"_id": 0, "topicImg.path": 1 });
+            const pathTopicDelete = (pathTopic.topicImg[0]).path;
+            await fs.unlinkSync(pathTopicDelete);
             await Topic.updateOne({_id: id},{
                 $set:{
                     name: name,
@@ -176,13 +179,25 @@ router.post("/updateImg",uploadMultiple, async (req, res) => {
     }catch(error){
     res.send({status:"error"});
     console.log(error);
-
 }
+})
 
+router.get('/test', async (req, res)=>{
+    const pathTopic = await Topic.findOne({name: "Basic 1"}, {"_id": 0, "topicImg.path": 1 });
+    const path = (pathTopic.topicImg[0]).path;
+    res.send(path)
 })
 
 router.post("/deleteTopic", async (req, res)=>{
     const {name, id} = req.body;
+    const pathTopic = await Topic.findOne({name: name}, {"_id": 0, "topicImg.path": 1 });
+    const pathTopicDelete = (pathTopic.topicImg[0]).path;
+    await fs.unlinkSync(pathTopicDelete);
+
+    const pathLesson = await Topic.findOne({name: name}, {"_id": 0, "lessonImg.path": 1 });
+    const pathLessonDelete = (pathLesson.lessonImg[0]).path;
+    await fs.unlinkSync(pathLessonDelete);
+
     await Topic.deleteOne({name: name});
     await Lesson.deleteMany({topic: name});
     await Question.deleteMany({topic: name});

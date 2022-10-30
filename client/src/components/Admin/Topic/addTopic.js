@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { Button, Form } from "react-bootstrap";
@@ -7,7 +7,39 @@ export default function AddTopic({chooseMessage}) {
     const [name,setName] = useState('');
     const [imgTopic,setImgTopic] = useState('');
     const [imgLesson,setImgLesson] = useState('');
+    const [imgTopicUrl,setImgTopicUrl] = useState('');
+    const [imgLessonUrl,setImgLessonUrl] = useState('');
     const MySwal = withReactContent(Swal);
+
+    useEffect(() => {
+        let fileReader, isCancel = false;
+        if (imgTopic) {
+            fileReader = new FileReader();
+            fileReader.onload = (e) => {
+                const { result } = e.target;
+                if (result && !isCancel) {
+                    setImgTopicUrl(result)
+                }
+                }
+            fileReader.readAsDataURL(imgTopic);
+        }
+        if (imgLesson) {
+            fileReader = new FileReader();
+            fileReader.onload = (e) => {
+                const { result } = e.target;
+                if (result && !isCancel) {
+                    setImgLessonUrl(result)
+                }
+                }
+            fileReader.readAsDataURL(imgLesson);
+        }
+        return () => {
+            isCancel = true;
+            if (fileReader && fileReader.readyState === 1) {
+                fileReader.abort();
+            }
+            }
+        }, [imgTopic, imgLesson]);
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -65,6 +97,13 @@ export default function AddTopic({chooseMessage}) {
                         }} 
                         required
                     />
+                    {imgTopicUrl ? 
+                    (<p className="img-preview-wrapper">
+                    {
+                        <img src={imgTopicUrl} className = 'imgPreviewTopic' alt="previewTopic" />
+                    }
+                    </p>) : 
+                    (<></>)}
                 </Form.Group>
                 <Form.Group className="mb-4">
                     <Form.Label>Lesson Image: </Form.Label>
@@ -75,6 +114,13 @@ export default function AddTopic({chooseMessage}) {
                         }} 
                         required
                     />
+                    {imgLessonUrl ? 
+                    (<p className="img-preview-wrapper">
+                    {
+                        <img src={imgLessonUrl} className = 'imgPreviewLesson' alt="previewLesson" />
+                    }
+                    </p>) : 
+                    (<></>)}
                 </Form.Group>
                 <Button variant="success" type="submit" >
                         Add new Topic
