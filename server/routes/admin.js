@@ -46,9 +46,64 @@ var uploadMultiple = upload.fields([{name: 'imgTopic'},{name: 'imgLesson'} ]);
 //question
 
 router.post("/addQuestion", async (req, res)=>{
-    const topic = req.body.topic;
-    const lesson = req.body.lesson;
-    const questionText = req.body.questionText;
+    const {topic, lesson, questionText, answerOptions} = req.body;
+    await Question.findOne({
+        topic: topic, lesson: less
+    },function(err, item){
+        if(item.questions === null || item.questions === undefined){
+            Question.findOneAndUpdate({
+                topic: topic, lesson: less
+            },{
+                $set: {
+                    questions: 
+                        {
+                            "questionText": questionText,
+                            "answerOptions": answerOptions
+                        },                        
+                }
+            }
+            ,{
+                new: true
+            },function (error){
+                // return result.json({
+                //     "status": "success",
+                //     "message": "LessonId has been inserted",
+                // });
+                res.send({"status": "success"})
+            }
+            );
+    }else if (item.questions.find(e => e.questionText === questionText)){
+        // return result.json({
+        //     "status": "error",
+        //     "message": "Already had this LessonId"
+        // });
+        res.send({"status": "error"})
+    }else{
+        Question.findOneAndUpdate({
+            topic: topic, lesson: less
+        },{
+            $push: {
+                questions: 
+                    {
+                        "questionText": questionText,
+                        "answerOptions": answerOptions
+                    },                        
+            }
+        }
+        ,{
+            new: true
+        },function (error){
+            // return result.json({
+            //     "status": "success",
+            //     "message": "LessonId has been inserted",
+            // });
+            res.send({"status": "success"})
+        }
+        );
+    }
+    }
+    )
+
 })
 
 //lesson
@@ -56,7 +111,6 @@ router.post("/addQuestion", async (req, res)=>{
 router.post("/lessonFindbyTopic", async (req, res)=>{
     const {value} = req.body
     const lesson = await Lesson.find({topic: value},{_id: 0, id:1}).sort({id:1});
-
     res.send(lesson);
 });
 
@@ -142,7 +196,6 @@ router.post("/deleteVocabulary", async (req, res) => {
 router.post("/updateImg",uploadMultiple, async (req, res) => {
     const name =  req.body.name;
     const vocab = JSON.parse(req.body.vocab);
-    console.log(vocab);
     const id = req.body.id;
     const url = req.protocol + '://' + req.get('host');
     //Add to array imgTopic

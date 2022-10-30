@@ -14,7 +14,7 @@ export default function QuestionList (){
 
     return (
         <div className="container-xl">
-            <Modal show={show} onHide={handleClose}>
+            <Modal dialogClassName="info-modal" show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                 <Modal.Title>Add Question</Modal.Title>
                 </Modal.Header>

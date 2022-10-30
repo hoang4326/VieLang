@@ -122,7 +122,6 @@ export default function Question(){
                                                 </div>
                                             </button>
                                         )})}
-                                        
                                         </div>
                                 </div>
                             </div>

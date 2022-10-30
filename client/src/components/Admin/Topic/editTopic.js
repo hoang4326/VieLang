@@ -67,7 +67,6 @@ const EditTopic = ({topic, chooseMessage}) =>{
                 method: "POST",
                 crossDomain: true,
                 headers: {
-                    "Content-Type": "application/json",
                     Accept: "application/json",
                     "Access-Control-Allow-Origin":"*",
                 },
