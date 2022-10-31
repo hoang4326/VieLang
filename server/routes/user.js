@@ -201,7 +201,7 @@ router.post("/do-post", async function (request, result){
     const totalLesson = await  User.find({_id: mongoose.Types.ObjectId(userId)},{_id: 0, lessonDone:1});
     const totalLessonArray = totalLesson.map(a => a.lessonDone);
     const totalLessonSub = totalLessonArray[0];
-    const percentLessonDone = (totalLessonSub.length / totalLessonDB.length) * 100;
+    const percentLessonDone = ((totalLessonSub.length / totalLessonDB.length) * 100).toFixed(1);
 
     function getAchievementByLesson(percent) {
         var achievement = 0;

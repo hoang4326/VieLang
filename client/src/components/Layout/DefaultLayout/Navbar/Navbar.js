@@ -30,7 +30,6 @@ export default function Navbar() {
 
     const logOut = () =>{
         localStorage.removeItem('token');
-        style1.display = 'none';
     }
     const handleClick = () =>{
         setClicked(!clicked);

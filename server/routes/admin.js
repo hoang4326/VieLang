@@ -43,18 +43,57 @@ var upload = multer({
 
 var uploadMultiple = upload.fields([{name: 'imgTopic'},{name: 'imgLesson'} ]);
 
+const uploadArray = multer();
+
 //question
 
-router.post("/addQuestion", async (req, res)=>{
-    const {topic, lesson, questionText, answerOptions} = req.body;
-    await Question.findOne({
-        topic: topic, lesson: less
-    },function(err, item){
-        if(item.questions === null || item.questions === undefined){
+
+
+router.post("/addQuestion", uploadArray.none(), async (req, res)=>{
+    const data = req.body
+    const topic = data.topic;
+    const lesson = data.lesson;
+    const questionText = data.questionText;
+    const answerOptions = JSON.parse(data.answerOptions);
+    console.log(answerOptions, typeof(answerOptions))
+    try{
+        await Question.findOne({
+            "topic": topic, "lesson": lesson
+        },function(err, item){
+            if(item.questions === null || item.questions === undefined){
+                Question.findOneAndUpdate({
+                    "topic": topic, "lesson": lesson
+                },{
+                    $set: {
+                        questions: 
+                            {
+                                "questionText": questionText,
+                                "answerOptions": answerOptions
+                            },                        
+                    }
+                }
+                ,{
+                    new: true
+                },function (error){
+                    // return result.json({
+                    //     "status": "success",
+                    //     "message": "LessonId has been inserted",
+                    // });
+                    res.send({"status": "success"})
+                }
+                );
+        }else if (item.questions.find(e => e.questionText === questionText)){
+            // return result.json({
+            //     "status": "error",
+            //     "message": "Already had this LessonId"
+            // });
+            res.send({"status": "error"})
+            console.log("Already had this question")
+        }else{
             Question.findOneAndUpdate({
-                topic: topic, lesson: less
+                "topic": topic, "lesson": lesson
             },{
-                $set: {
+                $push: {
                     questions: 
                         {
                             "questionText": questionText,
@@ -72,37 +111,13 @@ router.post("/addQuestion", async (req, res)=>{
                 res.send({"status": "success"})
             }
             );
-    }else if (item.questions.find(e => e.questionText === questionText)){
-        // return result.json({
-        //     "status": "error",
-        //     "message": "Already had this LessonId"
-        // });
-        res.send({"status": "error"})
-    }else{
-        Question.findOneAndUpdate({
-            topic: topic, lesson: less
-        },{
-            $push: {
-                questions: 
-                    {
-                        "questionText": questionText,
-                        "answerOptions": answerOptions
-                    },                        
-            }
         }
-        ,{
-            new: true
-        },function (error){
-            // return result.json({
-            //     "status": "success",
-            //     "message": "LessonId has been inserted",
-            // });
-            res.send({"status": "success"})
         }
-        );
+        ).clone()
+    }catch(err){
+        console.log(err)
     }
-    }
-    )
+    
 
 })
 

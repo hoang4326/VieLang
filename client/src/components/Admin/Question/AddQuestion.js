@@ -77,6 +77,7 @@ export default function AddQuestion(){
         data.append("lesson", lesson);
         data.append("questionText",questionText);
         data.append("answerOptions", JSON.stringify(answerOptions));
+        console.log(data);
         fetch("http://localhost:5000/admin/addQuestion",{
                 method: "POST",
                 crossDomain: true,
