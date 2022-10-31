@@ -4,6 +4,7 @@ import { Button} from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 // import TopicView from './TopicView';
 import AddQuestion from "./AddQuestion";
+import QuestionView from "./QuestionView";
 
 export default function QuestionList (){
     const [data, setData] = useState();
@@ -12,6 +13,32 @@ export default function QuestionList (){
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    const chooseMessage = () => {
+        fetch("http://localhost:5000/admin/questionList")
+                    .then(res => 
+                        res.json()
+                    )
+                    .then((data)=>{
+                        setData(data)
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    });
+    };
+
+    useEffect(()=>{
+        fetch("http://localhost:5000/admin/questionList")
+        .then(res => 
+            res.json()
+        )
+        .then((data)=>{
+            setData(data);
+        })
+        .catch((err) => {
+            console.log(err)
+        });
+    }, [])
+
     return (
         <div className="container-xl">
             <Modal dialogClassName="info-modal" show={show} onHide={handleClose}>
@@ -19,7 +46,7 @@ export default function QuestionList (){
                 <Modal.Title>Add Question</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <AddQuestion/>
+                    <AddQuestion chooseMessage = {chooseMessage}/>
                 </Modal.Body>
                 <Modal.Footer>
                 </Modal.Footer>
@@ -38,23 +65,23 @@ export default function QuestionList (){
                     </div>
                     <table className="table table-striped table-hover">
                         <thead>
-                            <tr>
+                            <tr className='centerItems'>
                                 <th>Topic</th>
                                 <th>Lesson</th>
                                 <th>Question</th>
-                                <th>Answer</th>
+                                {/* <th>Answer</th> */}
                                 <th>Correct Answer</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {/* {data?.map?.((topic, index)=>{
+                            {data?.map?.((question, index)=>{
                                 return(
-                                    <tr key={index}>
-                                        <TopicView topic = {topic} chooseMessage = {chooseMessage} />
+                                    <tr key={index} className='centerItems'>
+                                        <QuestionView question = {question} chooseMessage = {chooseMessage} />
                                     </tr>
                                 )
-                            })} */}
+                            })}
                         </tbody>
                     </table>
                 </div>

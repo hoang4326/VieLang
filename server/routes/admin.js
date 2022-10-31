@@ -48,6 +48,40 @@ const uploadArray = multer();
 var uploadQuestion = upload.fields([{ name: 'answerImg1'}, { name: 'answerImg2' }, { name: 'answerImg3',}, { name: 'answerImg4' }])
 //question
 
+router.get('/questionList', async (req, res) => {
+    const question = await Question.find({}).sort({ topic: 1});
+    res.send(question)
+})
+
+router.post('/questionByName', async (req, res) => {
+    const {topic, lesson, questionText} = req.body;
+    const question = await Question.find({ topic: topic, lesson: lesson},{
+        questions: {
+            $elemMatch: {
+                questionText: questionText
+            }
+        }
+    })
+    myArray = question[0].questions.find(a => a.questionText === questionText)
+    res.send(myArray);
+})
+
+router.post('/questionDelete', async (req, res) => {
+    const {topic, lesson, questionText} = req.body;
+    try{
+        await Question.findOneAndUpdate({topic: topic, lesson: lesson},{
+            $pull: {
+                questions:{
+                    questionText: questionText
+                }
+            }
+        })
+        res.send({status: "success"})
+    }catch(err){
+        res.send({status: "error"})
+    }
+})
+
 router.post("/addQuestion", uploadQuestion, async (req, res)=>{
     const url = req.protocol + '://' + req.get('host');
     const data = req.body

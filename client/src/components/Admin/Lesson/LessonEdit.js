@@ -60,7 +60,6 @@ const EditTopic = ({lesson, chooseMessage}) =>{
     }, [lesson.topic])
     return(
         <Form onSubmit={handleSubmit}>
-            <h1>{topic}</h1>
             <Form.Group className="mb-4">
                 <Form.Label>Select the topic you need to add: </Form.Label>
                     <Form.Select aria-label="Default select example"  onChange={e => setTopic(e.target.value)} required>

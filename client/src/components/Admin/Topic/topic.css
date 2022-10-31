@@ -133,3 +133,6 @@ table.table .avatar {
 .centerItems{
 	text-align: center;
 }
+.exceptTD{
+	text-align: left !important;
+}

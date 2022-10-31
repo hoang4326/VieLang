@@ -3,12 +3,13 @@ import { Form, Button, InputGroup } from "react-bootstrap";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
-export default function AddQuestion(){
+export default function AddQuestion({chooseMessage}){
     const [dataTopic, setDataTopic] = useState();
     const [dataLesson, setDataLesson] = useState();
     const [topic, setTopic] = useState("");
     const [lesson, setLesson] = useState("");
     const [questionText, setQuestionText] = useState("");
+    const [type, setType] = useState("text");
     const [answerOptions, setAnswerOptions] = useState(
     [
         {answerText:"", isCorrect: false },
@@ -120,6 +121,7 @@ export default function AddQuestion(){
                     html: <i>Add question successfully!</i>,
                     icon: 'success'
                 })
+                chooseMessage()
             }else{
                 MySwal.fire({
                     title: <strong>Try again!</strong>,
@@ -154,6 +156,14 @@ export default function AddQuestion(){
                 </Form.Select>
             </Form.Group>
             <Form.Group className="mb-4">
+                <Form.Label>Select type of Answer: </Form.Label>
+                <Form.Select aria-label="Default select example" onChange={e => setType(e.target.value)} required>
+                    <option value=''>Open this select menu</option>
+                    <option value='text'>Including only text</option>
+                    <option value='image'>Including text and images</option>
+                </Form.Select>
+            </Form.Group>
+            <Form.Group className="mb-4">
                 <Form.Label>Enter question: </Form.Label>
                 <Form.Control
                 type="text"
@@ -174,20 +184,8 @@ export default function AddQuestion(){
                         onChange = { (e) => handleChangeValue(e, 0)}
                         required
                         />
-                    <Form.Control
-                        type='file' accept=".png, .jpeg, .jpg"
-                        name='answerImg'
-                        onChange={
-                            (e) => handleChangeValue(e, 0)
-                            // event =>{
-                            // const file = event.target.files[0];
-                            // setImgTopic(file)
-                            // }
-                    } 
-                />
                     <InputGroup.Checkbox  onChange = { (e) => handleChangeValue(e, 0)}  name="isCorrect" aria-label="Checkbox for following text input" />
                 </InputGroup >
-                
                 <InputGroup  className="mb-3" >
                     <InputGroup.Text>Answer 2</InputGroup.Text>
                     <Form.Control
@@ -197,13 +195,6 @@ export default function AddQuestion(){
                         onChange = { (e) => handleChangeValue(e, 1)}
                         required
                         />
-                    <Form.Control
-                        type='file' accept=".png, .jpeg, .jpg"
-                        name='answerImg'
-                        onChange={
-                            (e) => handleChangeValue(e, 1)
-                        } 
-                    />
                     <InputGroup.Checkbox  onChange = { (e) => handleChangeValue(e, 1)} name="isCorrect" aria-label="Checkbox for following text input" />
                 </InputGroup >
                 <InputGroup  className="mb-3" >
@@ -215,13 +206,6 @@ export default function AddQuestion(){
                         onChange = { (e) => handleChangeValue(e, 2)}
                         required
                         />
-                    <Form.Control
-                        type='file' accept=".png, .jpeg, .jpg"
-                        name='answerImg'
-                        onChange={
-                            (e) => handleChangeValue(e, 2)
-                        } 
-                    />
                     <InputGroup.Checkbox  onChange = { (e) => handleChangeValue(e, 2)} name="isCorrect" aria-label="Checkbox for following text input" />
                 </InputGroup >
                 <InputGroup  className="mb-3" >
@@ -233,6 +217,47 @@ export default function AddQuestion(){
                         onChange = { (e) => handleChangeValue(e, 3 )}
                         required
                         />
+                    <InputGroup.Checkbox onChange = { (e) => handleChangeValue(e, 3)} name="isCorrect" aria-label="Checkbox for following text input" />
+                </InputGroup >             
+            </Form.Group>
+            {type === "text" ? (
+                <></>
+            ): (
+                <Form.Group>
+                <Form.Label> Choose the image that corresponds to each answer above:  </Form.Label>
+                <Form.Group  className="mb-3" >
+                    <Form.Label> Image of answer 1:  </Form.Label>
+                    <Form.Control
+                        type='file' accept=".png, .jpeg, .jpg"
+                        name='answerImg'
+                        onChange={
+                            (e) => handleChangeValue(e, 0)
+                    } 
+                    />  
+                    
+                </Form.Group >
+                <Form.Group  className="mb-3" >
+                    <Form.Label> Image of answer 2:  </Form.Label>
+                    <Form.Control
+                        type='file' accept=".png, .jpeg, .jpg"
+                        name='answerImg'
+                        onChange={
+                            (e) => handleChangeValue(e, 1)
+                        } 
+                    />
+                </Form.Group >
+                <Form.Group  className="mb-3" >
+                    <Form.Label> Image of answer 3:  </Form.Label>
+                    <Form.Control
+                        type='file' accept=".png, .jpeg, .jpg"
+                        name='answerImg'
+                        onChange={
+                            (e) => handleChangeValue(e, 2)
+                        } 
+                    />
+                </Form.Group >
+                <Form.Group  className="mb-3" >
+                    <Form.Label> Image of answer 4:  </Form.Label>
                     <Form.Control
                         type='file' accept=".png, .jpeg, .jpg"
                         name='answerImg'
@@ -240,9 +265,10 @@ export default function AddQuestion(){
                             (e) => handleChangeValue(e, 3)
                         } 
                     />
-                    <InputGroup.Checkbox onChange = { (e) => handleChangeValue(e, 3)} name="isCorrect" aria-label="Checkbox for following text input" />
-                </InputGroup >             
+                </Form.Group >
             </Form.Group>
+            )
+        }
             <Button variant="success" type="submit" >
                 Add New Vocabulary
             </Button>
