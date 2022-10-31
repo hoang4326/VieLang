@@ -89,6 +89,8 @@ export default function AddQuestion({chooseMessage}){
         data.append("lesson", lesson);
         data.append("questionText",questionText);
         data.append("type", type);
+        
+        console.log(typeof(answerOptions[0].answerImg))
 
         data.append("answerText",answerOptions[0].answerText);
         data.append("answerText",answerOptions[1].answerText);
