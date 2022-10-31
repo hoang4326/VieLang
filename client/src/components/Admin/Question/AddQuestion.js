@@ -88,7 +88,8 @@ export default function AddQuestion({chooseMessage}){
         data.append("topic", topic);
         data.append("lesson", lesson);
         data.append("questionText",questionText);
-        // data.append("answerOptions", JSON.stringify(answerOptions));
+        data.append("type", type);
+
         data.append("answerText",answerOptions[0].answerText);
         data.append("answerText",answerOptions[1].answerText);
         data.append("answerText",answerOptions[2].answerText);
@@ -159,8 +160,8 @@ export default function AddQuestion({chooseMessage}){
                 <Form.Label>Select type of Answer: </Form.Label>
                 <Form.Select aria-label="Default select example" onChange={e => setType(e.target.value)} required>
                     <option value=''>Open this select menu</option>
-                    <option value='text'>Including only text</option>
-                    <option value='image'>Including text and images</option>
+                    <option value='text'>text</option>
+                    <option value='image'>image</option>
                 </Form.Select>
             </Form.Group>
             <Form.Group className="mb-4">

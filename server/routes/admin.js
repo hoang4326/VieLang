@@ -82,15 +82,28 @@ router.post('/questionDelete', async (req, res) => {
     }
 })
 
-router.post("/addQuestion", uploadQuestion, async (req, res)=>{
+router.post("/updateQuestion", async (req, res) => {
     const url = req.protocol + '://' + req.get('host');
     const data = req.body
     const topic = data.topic;
+    const type = data.type;
+    const lesson = data.lesson;
+    const questionText = data.questionText;
+    const isCorrect = req.body.isCorrect.map(e => JSON.parse(e));
+
+})
+
+router.post("/addQuestion", uploadQuestion, async (req, res)=>{
+    console.log(req.files.answerImg1)
+    const url = req.protocol + '://' + req.get('host');
+    const data = req.body
+    const topic = data.topic;
+    const type = data.type;
     const lesson = data.lesson;
     const questionText = data.questionText;
     const isCorrect = req.body.isCorrect.map(e => JSON.parse(e));
     var answerOptions = [];
-    if (req.files.answerImg1 !== undefined){
+    if (type === 'image'){
         const answerImgBefore = [req.files.answerImg1, req.files.answerImg2, req.files.answerImg3, req.files.answerImg4];
         const answerImg = answerImgBefore.map(e => 
                 e.map(item => ({...item, urlImage: url + '/public/' + item.filename})));
@@ -123,7 +136,9 @@ router.post("/addQuestion", uploadQuestion, async (req, res)=>{
                     $set: {
                         questions: 
                             {
+                                "_id": new mongoose.Types.ObjectId(),
                                 "questionText": questionText,
+                                "type": type,
                                 "answerOptions": answerOptions
                             },                        
                     }
@@ -152,7 +167,9 @@ router.post("/addQuestion", uploadQuestion, async (req, res)=>{
                 $push: {
                     questions: 
                         {
+                            "_id": new mongoose.Types.ObjectId(),
                             "questionText": questionText,
+                            "type": type,
                             "answerOptions": answerOptions
                         },                        
                 }
