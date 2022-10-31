@@ -112,7 +112,9 @@ export default function Question(){
                                             <button key={index} className='questionButton' onClick={() => handleAnswerOptionClick(answerOption.isCorrect)}>
                                             <div className='option'>
                                                     <div className='item'>
-                                                        <img src={answerOption.answerImg} alt='option' />
+                                                        <img src={
+                                                            answerOption.answerImg?.map((item)=> item.urlImage
+                                                    )} alt='option' />
                                                         <div className='tip other'>
                                                             <div className='rankC'>
                                                                 <span className='spanQuestion'>{answerOption.answerText}</span>

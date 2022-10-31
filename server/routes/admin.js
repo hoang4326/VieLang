@@ -45,17 +45,39 @@ var uploadMultiple = upload.fields([{name: 'imgTopic'},{name: 'imgLesson'} ]);
 
 const uploadArray = multer();
 
+var uploadQuestion = upload.fields([{ name: 'answerImg1'}, { name: 'answerImg2' }, { name: 'answerImg3',}, { name: 'answerImg4' }])
 //question
 
-
-
-router.post("/addQuestion", uploadArray.none(), async (req, res)=>{
+router.post("/addQuestion", uploadQuestion, async (req, res)=>{
+    const url = req.protocol + '://' + req.get('host');
     const data = req.body
     const topic = data.topic;
     const lesson = data.lesson;
     const questionText = data.questionText;
-    const answerOptions = JSON.parse(data.answerOptions);
-    console.log(answerOptions, typeof(answerOptions))
+    const isCorrect = req.body.isCorrect.map(e => JSON.parse(e));
+    var answerOptions = [];
+    if (req.files.answerImg1 !== undefined){
+        const answerImgBefore = [req.files.answerImg1, req.files.answerImg2, req.files.answerImg3, req.files.answerImg4];
+        const answerImg = answerImgBefore.map(e => 
+                e.map(item => ({...item, urlImage: url + '/public/' + item.filename})));
+        for (var i = 0; i < 4; i++) {
+            answerOptions.push({
+                answerText: req.body.answerText[i],
+                isCorrect: isCorrect[i],
+                answerImg: answerImg[i]
+            });
+        }
+    }else{
+        for (var i = 0; i < 4; i++) {
+            answerOptions.push({
+            answerText: req.body.answerText[i],
+            isCorrect: isCorrect[i],
+        });
+    }
+    }
+    // console.log(req.body);
+    // console.log(answerImg);
+
     try{
         await Question.findOne({
             "topic": topic, "lesson": lesson
@@ -117,7 +139,6 @@ router.post("/addQuestion", uploadArray.none(), async (req, res)=>{
     }catch(err){
         console.log(err)
     }
-    
 
 })
 
@@ -332,7 +353,6 @@ router.post("/addTopic",uploadMultiple, async (req, res) => {
     const countTopic = await Topic.countDocuments({});
     const id = countTopic + 1;
     const name =  req.body.name;
-    console.log(name)
     //Add to array imgTopic
     imgTopic = req.files.imgTopic;
     let fileTopic = imgTopic[0].filename;

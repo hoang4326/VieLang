@@ -44,6 +44,7 @@ export default function AddTopic({chooseMessage}) {
     const handleSubmit = event => {
         event.preventDefault();
         const data = new FormData();
+        console.log(imgTopic)
         data.append("imgTopic", imgTopic);
         data.append("imgLesson", imgLesson);
         data.append("name", name);

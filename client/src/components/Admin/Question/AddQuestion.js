@@ -9,24 +9,35 @@ export default function AddQuestion(){
     const [topic, setTopic] = useState("");
     const [lesson, setLesson] = useState("");
     const [questionText, setQuestionText] = useState("");
-    const [answerOptions, setAnswerOptions] = useState([
-        {answerText:"", isCorrect: false },{answerText:"", isCorrect: false },{answerText:"", isCorrect: false },{answerText:"", isCorrect: false }]);
+    const [answerOptions, setAnswerOptions] = useState(
+    [
+        {answerText:"", isCorrect: false },
+        {answerText:"", isCorrect: false },
+        {answerText:"", isCorrect: false },
+        {answerText:"", isCorrect: false }
+    ]
+    );
     const MySwal = withReactContent(Swal);
 
 
     const handleChangeValue = (e, i) => {
         const { value, name, checked } = e.target;
+        const file = e.target.files;
         const newState = [...answerOptions];
-        console.log(newState)
         if(name === "answerText"){
             newState[i] = {
                 ...newState[i],
                 [name]: value
             };
-        }else {
+        }else if (name === "isCorrect") {
             newState[i] = {
                 ...newState[i],
                 [name]: checked
+            };
+        }else{
+            newState[i] = {
+                ...newState[i],
+                [name]: file[0]
             };
         }
 
@@ -76,7 +87,22 @@ export default function AddQuestion(){
         data.append("topic", topic);
         data.append("lesson", lesson);
         data.append("questionText",questionText);
-        data.append("answerOptions", JSON.stringify(answerOptions));
+        // data.append("answerOptions", JSON.stringify(answerOptions));
+        data.append("answerText",answerOptions[0].answerText);
+        data.append("answerText",answerOptions[1].answerText);
+        data.append("answerText",answerOptions[2].answerText);
+        data.append("answerText",answerOptions[3].answerText);
+
+        data.append("isCorrect",answerOptions[0].isCorrect);
+        data.append("isCorrect",answerOptions[1].isCorrect);
+        data.append("isCorrect",answerOptions[2].isCorrect);
+        data.append("isCorrect",answerOptions[3].isCorrect);
+        if(answerOptions[0].answerImg){
+            data.append("answerImg1",answerOptions[0].answerImg);
+            data.append("answerImg2",answerOptions[1].answerImg);
+            data.append("answerImg3",answerOptions[2].answerImg);
+            data.append("answerImg4",answerOptions[3].answerImg);
+        }
         console.log(data);
         fetch("http://localhost:5000/admin/addQuestion",{
                 method: "POST",
@@ -86,6 +112,21 @@ export default function AddQuestion(){
                     "Access-Control-Allow-Origin":"*",
                 },
                 body: data
+        }).then((res)=> res.json())
+        .then((data)=>{
+            if(data.status === 'success'){
+                MySwal.fire({
+                    title: <strong>Success!</strong>,
+                    html: <i>Add question successfully!</i>,
+                    icon: 'success'
+                })
+            }else{
+                MySwal.fire({
+                    title: <strong>Try again!</strong>,
+                    html: <i>Cannot add new question !</i>,
+                    icon: 'warning'
+                })
+            } 
         })
     }
     return (
@@ -133,13 +174,17 @@ export default function AddQuestion(){
                         onChange = { (e) => handleChangeValue(e, 0)}
                         required
                         />
-                    {/* <Form.Control
-                            type='file' accept=".png, .jpeg, .jpg"
-                            onChange={event =>{
-                                const file = event.target.files[0];
-                                setImgTopic(file)
-                    }} 
-                /> */}
+                    <Form.Control
+                        type='file' accept=".png, .jpeg, .jpg"
+                        name='answerImg'
+                        onChange={
+                            (e) => handleChangeValue(e, 0)
+                            // event =>{
+                            // const file = event.target.files[0];
+                            // setImgTopic(file)
+                            // }
+                    } 
+                />
                     <InputGroup.Checkbox  onChange = { (e) => handleChangeValue(e, 0)}  name="isCorrect" aria-label="Checkbox for following text input" />
                 </InputGroup >
                 
@@ -152,6 +197,13 @@ export default function AddQuestion(){
                         onChange = { (e) => handleChangeValue(e, 1)}
                         required
                         />
+                    <Form.Control
+                        type='file' accept=".png, .jpeg, .jpg"
+                        name='answerImg'
+                        onChange={
+                            (e) => handleChangeValue(e, 1)
+                        } 
+                    />
                     <InputGroup.Checkbox  onChange = { (e) => handleChangeValue(e, 1)} name="isCorrect" aria-label="Checkbox for following text input" />
                 </InputGroup >
                 <InputGroup  className="mb-3" >
@@ -163,6 +215,13 @@ export default function AddQuestion(){
                         onChange = { (e) => handleChangeValue(e, 2)}
                         required
                         />
+                    <Form.Control
+                        type='file' accept=".png, .jpeg, .jpg"
+                        name='answerImg'
+                        onChange={
+                            (e) => handleChangeValue(e, 2)
+                        } 
+                    />
                     <InputGroup.Checkbox  onChange = { (e) => handleChangeValue(e, 2)} name="isCorrect" aria-label="Checkbox for following text input" />
                 </InputGroup >
                 <InputGroup  className="mb-3" >
@@ -174,6 +233,13 @@ export default function AddQuestion(){
                         onChange = { (e) => handleChangeValue(e, 3 )}
                         required
                         />
+                    <Form.Control
+                        type='file' accept=".png, .jpeg, .jpg"
+                        name='answerImg'
+                        onChange={
+                            (e) => handleChangeValue(e, 3)
+                        } 
+                    />
                     <InputGroup.Checkbox onChange = { (e) => handleChangeValue(e, 3)} name="isCorrect" aria-label="Checkbox for following text input" />
                 </InputGroup >             
             </Form.Group>
