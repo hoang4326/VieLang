@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, Button, InputGroup } from "react-bootstrap";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
 const EditQuestion = ({question, chooseMessage, item}) =>{
+    
     const MySwal = withReactContent(Swal);
-    const [topic,setTopic] = useState(question.topic);
-    const [lesson,setLesson] = useState(question.lesson);
-    const [type,setType] = useState(item.type);
+    const [topic] = useState(question.topic); 
+    const [lesson] = useState(question.lesson);
+    const [type] = useState(item.type);
     const [checked,setChecked] = useState(false);
     const [questionText, setQuestionText] = useState(item.questionText);
     const [answerOptions, setAnswerOptions] = useState(item.answerOptions);
-    const [checkBox, setCheckBox] = useState(answerOptions?.map(a => a.isCorrect));
-    
+    const [checkBox] = useState(answerOptions?.map(a => a.isCorrect));
+
     const checkBoxValue = (index) =>{
         return checkBox[index]
     } 
@@ -120,10 +121,13 @@ const EditQuestion = ({question, chooseMessage, item}) =>{
             </Form.Group>
             <Form.Group className="mb-4">
                 <Form.Label>Select type of Answer: </Form.Label>
-                <Form.Select aria-label="Default select example" onChange={e => setType(e.target.value)} required>
+                <Form.Select aria-label="Default select example" 
+                    // onChange={e => setType(e.target.value)}
+                    disabled
+                    >
                     <option value={item.type}>{item.type}</option>
-                    <option value='Text'>Text</option>
-                    <option value='Text + Image'>Text + Image</option>
+                    {/* <option value='Text'>Text</option>
+                    <option value='Text + Image'>Text + Image</option> */}
                 </Form.Select>
             </Form.Group>
             <Form.Group className="mb-4">
@@ -155,7 +159,7 @@ const EditQuestion = ({question, chooseMessage, item}) =>{
                     )
                 })}
             </Form.Group>
-            {type === "text" ? (
+            {type === "Text" ? (
                             <></>
                         ):(
                             <Form.Group >

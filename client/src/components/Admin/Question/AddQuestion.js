@@ -223,7 +223,7 @@ export default function AddQuestion({chooseMessage}){
                     <InputGroup.Checkbox onChange = { (e) => handleChangeValue(e, 3)} name="isCorrect" aria-label="Checkbox for following text input" />
                 </InputGroup >             
             </Form.Group>
-            {type === "text" ? (
+            {type === "Text" ? (
                 <></>
             ): (
                 <Form.Group>
