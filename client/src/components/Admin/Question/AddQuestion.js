@@ -277,7 +277,7 @@ export default function AddQuestion({chooseMessage}){
             )
         }
             <Button variant="success" type="submit" >
-                Add New Vocabulary
+                Add New Question
             </Button>
         </Form>
     )

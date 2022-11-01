@@ -39,6 +39,14 @@ const QuestionView = ({question, chooseMessage}) =>{
                     )
                     })}
                 </td>
+                <td >{question.questions?.map?.((item, id)=>{
+                    return (
+                        <div key={id} className= "paddingQuestion">
+                            {item.type} <br/>
+                        </div>
+                    )
+                    })}
+                </td>
                 {/* <td>{question.questions?.map?.((item) =>
                     (
                         <>

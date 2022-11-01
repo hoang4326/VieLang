@@ -212,3 +212,31 @@
 button.questionButton{
     border: none!important;
 }
+.modelContainerWord.wordModel1 .optionsArea .option .item1 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    /* vertical-align: middle;
+    text-align: center; */
+    /* line-break: anywhere; */
+    word-wrap: normal;
+    /* word-wrap: break-word; */
+    justify-content: center;
+}
+.modelContainerWord.wordModel1 .optionsArea .option .item1 .wrapOption {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+
+}
+.modelContainerWord .wordCardWord {
+    width: 100%;
+    height: 100%;
+    font-size: 22px;
+    text-align: center;
+    vertical-align: middle;
+}
+.modal-body.questionModal{
+    height: 100px !important;
+}

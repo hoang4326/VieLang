@@ -73,7 +73,7 @@ router.post("/do-post", async function (request, result){
     const data = await  Achievement.find({userId: mongoose.Types.ObjectId(userId)},{_id: 0, exp:1});
     let expArray = data.map(a => a.exp);
     const expBefore = parseInt((expArray.toString()));
-    const exp = expBefore + 2;
+    const exp = parseInt(expBefore + 2);
 
     function getLevel(exp) {
         var level = 0;
@@ -129,7 +129,7 @@ router.post("/do-post", async function (request, result){
                 //     "status": "error",
                 //     "message": "Already had this LessonId"
                 // });
-                console.log(error);
+                console.log("Already had this LessonId");
 
             }else{
                 User.findOneAndUpdate({
@@ -154,7 +154,7 @@ router.post("/do-post", async function (request, result){
                 }
                 );  
             }
-        }).clone().catch(function(err){ console.log(err)});
+        }).clone()
 
     await Lesson.findOne({
         "topic" : topic, "id": lessonId
@@ -219,18 +219,23 @@ router.post("/do-post", async function (request, result){
     }
     const achievement = getAchievementByLevel(getLevel(exp)) + getAchievementByLesson(percentLessonDone) + getAchievementByHour(totalTime/1000/60/60);
     console.log(achievement)
+    console.log(exp)
+    try{
+        await Achievement.findOneAndUpdate({
+            "userId": mongoose.Types.ObjectId(userId)
+        },{
+            $set:{
+                "totalTime": totalTime,
+                "exp": exp,
+                "level": getLevel(exp),
+                "percentLessonDone": percentLessonDone,
+                "achievement": achievement
+            }
+        })
+    }catch(error){
+        console(error)
+    }
 
-    await Achievement.findOneAndUpdate({
-        "userId": mongoose.Types.ObjectId(userId)
-    },{
-        $set:{
-            "totalTime": totalTime,
-            "exp": exp,
-            "level": getLevel(exp),
-            "percentLessonDone": percentLessonDone,
-            "achievement": achievement
-        }
-    })
 })
 
 router.post("/signup",async(req,res)=>{

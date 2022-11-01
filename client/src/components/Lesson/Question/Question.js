@@ -83,11 +83,11 @@ export default function Question(){
     }, [])
     return (
         <div className='mainCourse'>
-            <Modal show={show} >
+            <Modal show={show}  >
                 <Modal.Header >
                     <Modal.Title>Final Results</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className='questionModal'>
                     You have correctly answered {score} out of {questions?.length} questions in this lesson - (
                     {(score / questions?.length) * 100}%)
                 </Modal.Body>
@@ -111,16 +111,24 @@ export default function Question(){
                                         {questions?.[currentQuestion]?.answerOptions?.map((answerOption, index) =>{ return (
                                             <button key={index} className='questionButton' onClick={() => handleAnswerOptionClick(answerOption.isCorrect)}>
                                             <div className='option'>
+                                                {questions?.[currentQuestion].type === "Text + Image" ?
+                                                (
                                                     <div className='item'>
                                                         <img src={
                                                             answerOption.answerImg?.map((item)=> item.urlImage
-                                                    )} alt='option' />
+                                                        )} alt='option' />
                                                         <div className='tip other'>
                                                             <div className='rankC'>
                                                                 <span className='spanQuestion'>{answerOption.answerText}</span>
                                                             </div>
                                                         </div>
-                                                    </div>  
+                                                    </div>
+                                                ):
+                                                (
+                                                    <div className='item1'>{answerOption.answerText}</div>
+                                                )
+                                                }
+                                                    
                                                 </div>
                                             </button>
                                         )})}

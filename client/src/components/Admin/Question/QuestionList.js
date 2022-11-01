@@ -69,7 +69,7 @@ export default function QuestionList (){
                                 <th>Topic</th>
                                 <th>Lesson</th>
                                 <th>Question</th>
-                                {/* <th>Answer</th> */}
+                                <th>Type Answer</th>
                                 <th>Correct Answer</th>
                                 <th>Actions</th>
                             </tr>
