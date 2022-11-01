@@ -123,9 +123,9 @@ export default function Navbar() {
                             </div>
                             <hr/>
 
-                            <Link to='/#' className='sub-menu-link'>
+                            <Link to={`/achievement/${userData._id}`} className='sub-menu-link'>
                                 <img src={require('../../../../assets/image/profile.png')} alt='profile' />
-                                <p className='profileNav'>Edit profile</p>
+                                <p className='profileNav'>Profile</p>
                                 {/* <span>{'>'}</span> */}
                             </Link>
                             <Link to='/#' className='sub-menu-link' onClick={logOut}>

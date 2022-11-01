@@ -22,6 +22,12 @@ const Question = mongoose.model("Question");
 const Achievement = mongoose.model("Achievement");
 
 
+router.get("/achievement/:id", async (req, res) => {
+    const {id} = req.params;
+    const data = await Achievement.findOne({userId: mongoose.Types.ObjectId(id)})
+    res.send(data);
+})
+
 router.get("/topic/:name/:id", async (req, res) =>{
     const {id} = req.params;
     const {name} = req.params;
@@ -251,6 +257,8 @@ router.post("/signup",async(req,res)=>{
             const achievement = new Achievement({
                 _id: new mongoose.Types.ObjectId(),
                 userId: user._id,
+                name: name,
+                email: email,
                 totalTime: 0,
                 exp: 0,
                 level: 0,

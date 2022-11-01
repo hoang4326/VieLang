@@ -14,7 +14,8 @@ import Question from '../components/Lesson/Question/Question';
 import TopicList from '../components/Admin/Topic/TopicList';
 import LessonList from '../components/Admin/Lesson/LessonList';
 import QuestionList from '../components/Admin/Question/QuestionList';
-import Manage from '../components/Admin/Admin';
+import Achievement from '../components/Achievement/Achievement';
+// import Manage from '../components/Admin/Admin';
 
 //Public routes
 export const publicRoutes = [
@@ -28,13 +29,13 @@ export const publicRoutes = [
     { path: '/topic', component: Topic},  
     { path: '/topic/:name', component: Lesson},
     { path: '/topic/:name/:id', component: Question},
-
+    { path: '/achievement/:id', component: Achievement},
 
 ]
 
 export const privateRoutes = [
     { path: '/login', component: LoginForm},
-    { path: '/admin', component: Manage},
+    // { path: '/admin', component: Manage},
     { path: '/admin/topicList', component: TopicList},
     { path: '/admin/lessonList', component: LessonList},
     { path: '/admin/questionList', component: QuestionList}

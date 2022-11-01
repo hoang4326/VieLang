@@ -19,6 +19,8 @@ const AchievementSchema = new mongoose.Schema({
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "UserInfo"
             },
+    name: String,
+    email: String,
     totalTime: Number,
     exp: Number,
     level:Number,

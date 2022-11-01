@@ -48,21 +48,13 @@ export default function AdminLayout({children}){
                                 <span className="nav_name">Topic</span>
                             </Link>
                             <Link to="/admin/lessonList" className="nav_link">
-                                <i className='bx bx-user nav_icon'></i>
+                                <i className='bx bx-folder nav_icon'></i>
                                 <span className="nav_name">Lesson</span>
                             </Link>
                             <Link to="/admin/questionList" className="nav_link">
                                 <i className='bx bx-message-square-detail nav_icon'></i>
                                 <span className="nav_name">Question</span>
                             </Link>
-                            <Link to="/#" className="nav_link">
-                                <i className='bx bx-bookmark nav_icon'></i>
-                                <span className="nav_name">Messages</span>
-                            </Link>
-                            <Link to="/#" className="nav_link">
-                                <i className='bx bx-folder nav_icon'></i>
-                                <span className="nav_name">User</span>
-                            </Link> 
                         </div>
                     </div>
                         <Link to="/login" className="nav_link" onClick={logOut}>
