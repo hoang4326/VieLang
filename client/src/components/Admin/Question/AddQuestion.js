@@ -101,7 +101,7 @@ export default function AddQuestion({chooseMessage}){
         data.append("isCorrect",answerOptions[1].isCorrect);
         data.append("isCorrect",answerOptions[2].isCorrect);
         data.append("isCorrect",answerOptions[3].isCorrect);
-        if(answerOptions[0].answerImg){
+        if(type === "image"){
             data.append("answerImg1",answerOptions[0].answerImg);
             data.append("answerImg2",answerOptions[1].answerImg);
             data.append("answerImg3",answerOptions[2].answerImg);

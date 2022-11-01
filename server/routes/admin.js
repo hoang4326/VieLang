@@ -68,6 +68,12 @@ router.post('/questionByName', async (req, res) => {
 
 router.post('/questionDelete', async (req, res) => {
     const {topic, lesson, questionText} = req.body;
+
+    // const pathQuestion = await Question.find({topic: topic, lesson: lesson, questions: {$elemMatch:{questionText: questionText}}},
+    //     {"_id": 0, "topicImg.path": 1 });
+    // const pathTopicDelete = (pathQuestion.topicImg[0]).path;
+    // await fs.unlinkSync(pathTopicDelete);
+
     try{
         await Question.findOneAndUpdate({topic: topic, lesson: lesson},{
             $pull: {
@@ -82,19 +88,60 @@ router.post('/questionDelete', async (req, res) => {
     }
 })
 
-router.post("/updateQuestion", async (req, res) => {
+router.post("/updateQuestion",uploadQuestion, async (req, res) => {
     const url = req.protocol + '://' + req.get('host');
     const data = req.body
     const topic = data.topic;
+    const id = data.id;
     const type = data.type;
     const lesson = data.lesson;
     const questionText = data.questionText;
     const isCorrect = req.body.isCorrect.map(e => JSON.parse(e));
-
+    var answerOptions = [];
+    let answerImg1 = req.files.answerImg1;
+    let answerImg2 = req.files.answerImg2;
+    let answerImg3 = req.files.answerImg3;
+    let answerImg4 = req.files.answerImg4;
+    if(type === 'image'){
+        if(answerImg1 === undefined){ answerImg1 = JSON.parse(req.body.answerImg1[0]);}
+        if(answerImg2 === undefined){ answerImg2 = JSON.parse(req.body.answerImg2[0]);}
+        if(answerImg3 === undefined){ answerImg3 = JSON.parse(req.body.answerImg3[0]);}
+        if(answerImg4 === undefined){ answerImg4 = JSON.parse(req.body.answerImg4[0]);}
+    }
+    if (type === 'image'){
+        const answerImgBefore = [answerImg1, answerImg2, answerImg3, answerImg4];
+        const answerImg = answerImgBefore.map(e => 
+                e.map(item => ({...item, urlImage: url + '/public/' + item.filename})));
+        for (var i = 0; i < 4; i++) {
+            answerOptions.push({
+                answerText: req.body.answerText[i],
+                isCorrect: isCorrect[i],
+                answerImg: answerImg[i]
+            });
+        }
+    }else{
+        for (var i = 0; i < 4; i++) {
+            answerOptions.push({
+            answerText: req.body.answerText[i],
+            isCorrect: isCorrect[i],
+        });
+    }
+    }
+    try{
+        await Question.findOneAndUpdate({ topic: topic, lesson: lesson, questions: {$elemMatch: {_id: mongoose.Types.ObjectId(id)}} },{
+            $set: {
+                    'questions.$.questionText': questionText,
+                    'questions.$.type': type,
+                    'questions.$.answerOptions': answerOptions
+            }
+        })
+        res.send({status: 'success'});
+    }catch(err){
+        res.send({status: 'error'});
+    }
 })
 
 router.post("/addQuestion", uploadQuestion, async (req, res)=>{
-    console.log(req.files.answerImg1)
     const url = req.protocol + '://' + req.get('host');
     const data = req.body
     const topic = data.topic;
@@ -122,9 +169,6 @@ router.post("/addQuestion", uploadQuestion, async (req, res)=>{
         });
     }
     }
-    // console.log(req.body);
-    // console.log(answerImg);
-
     try{
         await Question.findOne({
             "topic": topic, "lesson": lesson
@@ -159,7 +203,6 @@ router.post("/addQuestion", uploadQuestion, async (req, res)=>{
             //     "message": "Already had this LessonId"
             // });
             res.send({"status": "error"})
-            console.log("Already had this question")
         }else{
             Question.findOneAndUpdate({
                 "topic": topic, "lesson": lesson
@@ -188,7 +231,7 @@ router.post("/addQuestion", uploadQuestion, async (req, res)=>{
         }
         ).clone()
     }catch(err){
-        console.log(err)
+        res.send({"status": "error"})
     }
 
 })
@@ -351,7 +394,6 @@ router.post("/updateImg",uploadMultiple, async (req, res) => {
         }
     }catch(error){
     res.send({status:"error"});
-    console.log(error);
 }
 })
 

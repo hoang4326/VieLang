@@ -33,8 +33,8 @@ const QuestionView = ({question, chooseMessage}) =>{
                 <td>{question.lesson}</td>
                 <td >{question.questions?.map?.((item, id)=>{
                     return (
-                        <div key={id}>
-                            Q{id + 1}: {item.questionText} <br/>
+                        <div key={id} className= "paddingQuestion">
+                            {item.questionText} <br/>
                         </div>
                     )
                     })}
@@ -56,12 +56,16 @@ const QuestionView = ({question, chooseMessage}) =>{
                 <td>
                 {question.questions?.map?.((item, index) =>
                     (
-                        <div key={index}>
+                        <div key={index} className="paddingQuestion">
                             {item.answerOptions?.map?.((a,id)=>{
                             return(
                                 <div key={id}>
                                     {a.isCorrect === true ?
-                                    (<>{a.answerText}</>):(<></>)
+                                    (
+                                        <>
+                                            {a.answerText}
+                                        </>
+                                    ):(<></>)
                                     }
                                 </div>
                             )

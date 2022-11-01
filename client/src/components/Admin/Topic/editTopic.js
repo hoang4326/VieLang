@@ -20,7 +20,6 @@ const EditTopic = ({topic, chooseMessage}) =>{
             ...newState[i],
             [name]: value
         };
-        console.log(newState)
         setVocab(newState);
     };
 
