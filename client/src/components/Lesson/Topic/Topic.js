@@ -12,7 +12,8 @@ export default function Topic(){
     const [topic, setTopic] = useState([]);
     // const [userId, setUserId] = useState('');
     const [percentLessonDone, setPercentLessonDone] = useState(0);
-
+    const [level,setLevel] = useState(0);
+    const [achievement, setAchievement] = useState(0);
     const token = localStorage.getItem('token');
     
     useEffect(() => {
@@ -26,7 +27,11 @@ export default function Topic(){
                 const userId = decoded._id;
                 let percent = data[2].find( a => a.userId === userId );
                 const percentLessonDone = percent.percentLessonDone;
+                const level = percent.level;
+                const achievement = percent.achievement;
                 setPercentLessonDone(percentLessonDone);
+                setAchievement(achievement);
+                setLevel(level)
             }
             setTopic(data)
         })
@@ -59,14 +64,14 @@ export default function Topic(){
                                     <div className='scoreCard'>
                                         <div className='cardLesson'>
                                             <div className='cardInner'>
-                                                <div >1</div>
+                                                <div >{level}</div>
                                                 <div >Level</div>
                                             </div>
                                         </div>
                                         <div className='vLine'></div>
                                         <div className='cardLesson'>
                                         <div className='cardInner'>
-                                                <div >0 / 10</div>
+                                                <div >{achievement} / 20</div>
                                                 <div >Achievements</div>
                                             </div>
                                         </div>

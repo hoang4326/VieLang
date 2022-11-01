@@ -47,7 +47,7 @@ router.get("/topic/:name",async (req, res) => {
     res.send([lesson, url, vocab, topic]);
 })
 router.get("/topic",async (req, res)=>{
-    const percentLesson = await Achievement.find({},{_id: 0, userId: 1, percentLessonDone: 1});
+    const percentLesson = await Achievement.find({},{_id: 0, userId: 1, percentLessonDone: 1, achievement: 1, level: 1});
     const topicL = await Topic.find({id: { $mod: [ 2, 1 ] }}).sort({id: 1});
     const topicR = await Topic.find({id: { $mod: [ 2, 0 ] }}).sort({id: 1});
     
