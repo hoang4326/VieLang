@@ -5,10 +5,10 @@ import withReactContent from 'sweetalert2-react-content';
 
 const EditTopic = ({lesson, chooseMessage}) =>{
     const MySwal = withReactContent(Swal);
-    const [topic,setTopic] = useState(lesson.topic);
+    // const [topic,setTopic] = useState(lesson.topic);
     const [content1,setContent1] = useState(lesson.content1);
     const [content2,setContent2] = useState(lesson.content2);
-    const [data, setData] = useState();
+    // const [data, setData] = useState();
 
     const handleSubmit = event =>{
         event.preventDefault();
@@ -21,7 +21,6 @@ const EditTopic = ({lesson, chooseMessage}) =>{
                 "Access-Control-Allow-Origin":"*",
             },
             body: JSON.stringify({
-                topic: topic,
                 content1: content1,
                 content2: content2,
                 id: lesson._id
@@ -45,31 +44,33 @@ const EditTopic = ({lesson, chooseMessage}) =>{
         });
         
     }
-    useEffect(()=>{
-        fetch("http://localhost:5000/admin/topic")
-        .then(res => 
-            res.json()
-        )
-        .then((data)=>{
-            const topicNew = data.filter(e => e.name !== lesson.topic);
-            setData(topicNew);
-        })
-        .catch((err) => {
-            console.log(err)    
-        });
-    }, [lesson.topic])
+    // useEffect(()=>{
+    //     fetch("http://localhost:5000/admin/topic")
+    //     .then(res => 
+    //         res.json()
+    //     )
+    //     .then((data)=>{
+    //         const topicNew = data.filter(e => e.name !== lesson.topic);
+    //         setData(topicNew);
+    //     })
+    //     .catch((err) => {
+    //         console.log(err)    
+    //     });
+    // }, [lesson.topic])
     return(
         <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-4">
-                <Form.Label>Select the topic you need to add: </Form.Label>
-                    <Form.Select aria-label="Default select example"  onChange={e => setTopic(e.target.value)} required>
+                <Form.Label>Topic of lesson: </Form.Label>
+                    <Form.Select aria-label="Default select example"  
+                    // onChange={e => setTopic(e.target.value)}
+                    disabled>
                         <option value={lesson.topic} >{lesson.topic}</option>
                         {/* <option value=''>Open this select menu</option> */}
-                        {data?.map?.((item,index) =>{
+                        {/* {data?.map?.((item,index) =>{
                             return (
                                 <option value={item.name} key={index}>{item.name}</option>
                             )
-                        })}
+                        })} */}
                     </Form.Select>
             </Form.Group>
             <Form.Group className="mb-4">

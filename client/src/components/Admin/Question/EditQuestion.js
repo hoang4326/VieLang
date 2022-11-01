@@ -59,7 +59,7 @@ const EditQuestion = ({question, chooseMessage, item}) =>{
         data.append("isCorrect",answerOptions[1].isCorrect);
         data.append("isCorrect",answerOptions[2].isCorrect);
         data.append("isCorrect",answerOptions[3].isCorrect);
-        if(type === "image"){
+        if(type === "Text + Image"){
             for(var i = 0; i < 4; i++){
                 if(typeof(answerOptions[i].answerImg) === typeof[]){
                     data.append(`answerImg${i+1}`,JSON.stringify(answerOptions[i].answerImg));
@@ -122,8 +122,8 @@ const EditQuestion = ({question, chooseMessage, item}) =>{
                 <Form.Label>Select type of Answer: </Form.Label>
                 <Form.Select aria-label="Default select example" onChange={e => setType(e.target.value)} required>
                     <option value={item.type}>{item.type}</option>
-                    <option value='text'>text</option>
-                    <option value='image'>image</option>
+                    <option value='Text'>Text</option>
+                    <option value='Text + Image'>Text + Image</option>
                 </Form.Select>
             </Form.Group>
             <Form.Group className="mb-4">

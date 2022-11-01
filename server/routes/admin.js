@@ -102,13 +102,13 @@ router.post("/updateQuestion",uploadQuestion, async (req, res) => {
     let answerImg2 = req.files.answerImg2;
     let answerImg3 = req.files.answerImg3;
     let answerImg4 = req.files.answerImg4;
-    if(type === 'image'){
+    if(type === 'Text + Image'){
         if(answerImg1 === undefined){ answerImg1 = JSON.parse(req.body.answerImg1[0]);}
         if(answerImg2 === undefined){ answerImg2 = JSON.parse(req.body.answerImg2[0]);}
         if(answerImg3 === undefined){ answerImg3 = JSON.parse(req.body.answerImg3[0]);}
         if(answerImg4 === undefined){ answerImg4 = JSON.parse(req.body.answerImg4[0]);}
     }
-    if (type === 'image'){
+    if (type === 'Text + Image'){
         const answerImgBefore = [answerImg1, answerImg2, answerImg3, answerImg4];
         const answerImg = answerImgBefore.map(e => 
                 e.map(item => ({...item, urlImage: url + '/public/' + item.filename})));
@@ -150,7 +150,7 @@ router.post("/addQuestion", uploadQuestion, async (req, res)=>{
     const questionText = data.questionText;
     const isCorrect = req.body.isCorrect.map(e => JSON.parse(e));
     var answerOptions = [];
-    if (type === 'image'){
+    if (type === 'Text + Image'){
         const answerImgBefore = [req.files.answerImg1, req.files.answerImg2, req.files.answerImg3, req.files.answerImg4];
         const answerImg = answerImgBefore.map(e => 
                 e.map(item => ({...item, urlImage: url + '/public/' + item.filename})));
@@ -245,10 +245,9 @@ router.post("/lessonFindbyTopic", async (req, res)=>{
 });
 
 router.post("/updateLesson", async (req, res) => {
-    const {topic, id, content1, content2} =  req.body;
+    const { id, content1, content2} =  req.body;
     await Lesson.updateOne({_id: id},{
         $set:{
-            topic: topic,
             content1: content1,
             content2: content2
         }

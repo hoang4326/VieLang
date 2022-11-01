@@ -101,7 +101,7 @@ export default function AddQuestion({chooseMessage}){
         data.append("isCorrect",answerOptions[1].isCorrect);
         data.append("isCorrect",answerOptions[2].isCorrect);
         data.append("isCorrect",answerOptions[3].isCorrect);
-        if(type === "image"){
+        if(type === "Text + Image"){
             data.append("answerImg1",answerOptions[0].answerImg);
             data.append("answerImg2",answerOptions[1].answerImg);
             data.append("answerImg3",answerOptions[2].answerImg);
@@ -162,8 +162,8 @@ export default function AddQuestion({chooseMessage}){
                 <Form.Label>Select type of Answer: </Form.Label>
                 <Form.Select aria-label="Default select example" onChange={e => setType(e.target.value)} required>
                     <option value=''>Open this select menu</option>
-                    <option value='text'>text</option>
-                    <option value='image'>image</option>
+                    <option value='Text'>Text</option>
+                    <option value='Text + Image'>Text + Image</option>
                 </Form.Select>
             </Form.Group>
             <Form.Group className="mb-4">
@@ -235,7 +235,8 @@ export default function AddQuestion({chooseMessage}){
                         name='answerImg'
                         onChange={
                             (e) => handleChangeValue(e, 0)
-                    } 
+                    }
+                    required
                     />  
                     
                 </Form.Group >
@@ -246,7 +247,8 @@ export default function AddQuestion({chooseMessage}){
                         name='answerImg'
                         onChange={
                             (e) => handleChangeValue(e, 1)
-                        } 
+                        }
+                        required
                     />
                 </Form.Group >
                 <Form.Group  className="mb-3" >
@@ -256,7 +258,8 @@ export default function AddQuestion({chooseMessage}){
                         name='answerImg'
                         onChange={
                             (e) => handleChangeValue(e, 2)
-                        } 
+                        }
+                        required
                     />
                 </Form.Group >
                 <Form.Group  className="mb-3" >
@@ -266,7 +269,8 @@ export default function AddQuestion({chooseMessage}){
                         name='answerImg'
                         onChange={
                             (e) => handleChangeValue(e, 3)
-                        } 
+                        }
+                        required
                     />
                 </Form.Group >
             </Form.Group>
