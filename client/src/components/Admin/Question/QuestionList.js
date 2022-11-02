@@ -5,6 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 // import TopicView from './TopicView';
 import AddQuestion from "./AddQuestion";
 import QuestionView from "./QuestionView";
+// import Table from 'react-bootstrap/Table';
 
 export default function QuestionList (){
     const [data, setData] = useState();
@@ -69,8 +70,8 @@ export default function QuestionList (){
                                 <th>Topic</th>
                                 <th>Lesson</th>
                                 <th>Question</th>
-                                <th>Type Answer</th>
                                 <th>Correct Answer</th>
+                                <th>Type Answer</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
