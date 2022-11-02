@@ -5,6 +5,8 @@ const express = require('express'),
     mongoose = require('mongoose'),
     { v4: uuidv4 } = require('uuid'),
     router = express.Router();
+const bcrypt = require('bcryptjs');
+const { response } = require('express');
 
 require("../models/userDetails");
 require("../models/topic");
@@ -15,6 +17,7 @@ const Lesson = mongoose.model("Lesson");
 const Topic = mongoose.model("Topic");
 const User = mongoose.model("UserInfo");
 const Question = mongoose.model("Question");
+const Achievement = mongoose.model("Achievement");
 
 const DIR = './public/';
 
@@ -46,6 +49,91 @@ var uploadMultiple = upload.fields([{name: 'imgTopic'},{name: 'imgLesson'} ]);
 const uploadArray = multer();
 
 var uploadQuestion = upload.fields([{ name: 'answerImg1'}, { name: 'answerImg2' }, { name: 'answerImg3',}, { name: 'answerImg4' }])
+
+//User
+
+router.get('/user', async (req, res) => {
+    const user = await User.find({}).sort({role:1});
+    res.send(user);
+})
+
+router.post('/addUser', async (req, res) => {
+    const {name, email, username, password, role} = req.body;
+    const encryptedPassword = await bcrypt.hash(password, 10);
+    const lessonDone = [];
+    const user = new User({
+        _id: new mongoose.Types.ObjectId(),
+        name: name,
+        email: email,
+        username: username,
+        password: encryptedPassword,
+        role: role,
+        lessonDone: lessonDone
+    })
+    try{
+        const oldUser = await User.findOne({email});
+        if(oldUser){
+            return res.send({status:"User exits"});
+        }
+        await user.save( function(err){
+            if (err) return handleError(err);
+            const achievement = new Achievement({
+                _id: new mongoose.Types.ObjectId(),
+                userId: user._id,
+                name: name,
+                email: email,
+                totalTime: 0,
+                exp: 0,
+                level: 0,
+                percentLessonDone: 0,
+                achievement: 0
+            });
+            achievement.save(function(err){
+                if (err) return handleError(err);
+            })
+        })
+    res.send({status:"success"});
+    }catch(error){
+        res.send({status:"error"});
+    }
+})
+
+router.post('/updateUser', async (req, res)=>{
+    const {name, email, username, role, id} = req.body;
+    try{
+        const oldUser = await User.findOne({email});
+        if(oldUser){
+            return res.send({status:"User exits"});
+        }
+        await User.findOneAndUpdate({_id: mongoose.Types.ObjectId(id)},{
+            name: name,
+            email: email,
+            role: role,
+            username: username
+        })
+        await Achievement.findOneAndUpdate({userId: mongoose.Types.ObjectId(id)},{
+            name: name,
+            email: email,
+        })
+        res.send({status: 'success'})
+    }catch(error){
+        res.send({status: 'error'})
+        console.log(error)
+    }
+})
+
+router.post('/deleteUser', async (req, res) => {
+    try{
+        const {id} = req.body;
+        await User.deleteOne({_id: mongoose.Types.ObjectId(id)});
+        await Achievement.deleteOne({userId: mongoose.Types.ObjectId(id)});
+        res.send({status: 'success'})
+    }catch(error){
+        res.send({status: 'error'})
+    }
+})
+
+
 //question
 
 router.get('/questionList', async (req, res) => {

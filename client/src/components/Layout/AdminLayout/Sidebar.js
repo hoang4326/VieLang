@@ -43,6 +43,10 @@ export default function AdminLayout({children}){
                             <span className="nav_logo-name">VieLang</span>
                         </Link>
                         <div className="nav_list">
+                            <Link to="/admin/user" className="nav_link ">
+                                <i className='bx bx-grid-alt nav_icon'></i>
+                                <span className="nav_name">User</span>
+                            </Link>
                             <Link to="/admin/topicList" className="nav_link ">
                                 <i className='bx bx-grid-alt nav_icon'></i>
                                 <span className="nav_name">Topic</span>

@@ -15,6 +15,7 @@ import TopicList from '../components/Admin/Topic/TopicList';
 import LessonList from '../components/Admin/Lesson/LessonList';
 import QuestionList from '../components/Admin/Question/QuestionList';
 import Achievement from '../components/Achievement/Achievement';
+import UserList from '../components/Admin/User/UserList';
 // import Manage from '../components/Admin/Admin';
 
 //Public routes
@@ -35,7 +36,7 @@ export const publicRoutes = [
 
 export const privateRoutes = [
     { path: '/login', component: LoginForm},
-    // { path: '/admin', component: Manage},
+    { path: '/admin/user', component: UserList},
     { path: '/admin/topicList', component: TopicList},
     { path: '/admin/lessonList', component: LessonList},
     { path: '/admin/questionList', component: QuestionList}

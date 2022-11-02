@@ -16,7 +16,6 @@ export default function SignupForm() {
 
     const handleSubmit = event => {
         event.preventDefault();
-        console.log({name, email, username ,password, role});
         if (password !== cpassword) {
             MySwal.fire({
                 title: <strong>Try again!</strong>,
