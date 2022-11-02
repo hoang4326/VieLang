@@ -190,7 +190,7 @@
 .modelContainerWord.wordModel1 .optionsArea .option .item img {
     width: 100%;
     min-width: 145px;
-    height: auto;
+    height: 145px;
     border-top-left-radius: 9px;
     border-top-right-radius: 9px;
 }
