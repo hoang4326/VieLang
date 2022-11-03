@@ -33,7 +33,7 @@ router.get("/topic/:name/:id", async (req, res) =>{
     const {name} = req.params;
     const data = await Question.find({topic: name, lesson: id},{_id: 0, questions: 1});
     const question = data[0].questions;
-    const timeStart =  (new Date).getTime();
+    const timeStart =  new Date().getTime();
     res.send([question, timeStart]);
 })
 
@@ -54,20 +54,34 @@ router.get("/topic",async (req, res)=>{
 
 });
 
+
 router.post("/do-post", async function (request, result){
-    const {topic,lessonId,token, duration } = request.body;
+    const {topic,lessonId,token,duration } = request.body;
     const decodeToken = jwt.verify(token, JWT_SECRET);
     const userId = decodeToken._id;
     const totalLessonDB = await Lesson.find();
+
+    const question = await Question.findOne({topic: topic, lesson: lessonId},{"_id": 0, "questions": 1});
+    const countQuestion = (question.questions).length;
+    const timeLimit = countQuestion * 120000;
 
     const lesson = await  Lesson.find({topic: topic, id: lessonId},{_id: 1});
     let lessonArray = lesson.map(a => a._id);
     const lessonID = lessonArray.toString();
 
+    function checkDuration(duration){
+        if (duration <= timeLimit) {
+            return duration
+        }
+        else{
+            return timeLimit
+        }
+    }
+    console.log(checkDuration(duration));
     const time = await  Achievement.find({userId: mongoose.Types.ObjectId(userId)},{_id: 0, totalTime:1});
     let timeArray = time.map(a => a.totalTime);
     const totalTimeBefore = parseInt((timeArray.toString()));
-    const totalTime = totalTimeBefore + duration;
+    const totalTime = totalTimeBefore + checkDuration(duration);
 
     const data = await  Achievement.find({userId: mongoose.Types.ObjectId(userId)},{_id: 0, exp:1});
     let expArray = data.map(a => a.exp);
@@ -94,7 +108,7 @@ router.post("/do-post", async function (request, result){
 
     function getAchievementByHour(hour) {
         var achievement = 0;
-        [1, 5, 10, 50, 70, 100, 101].some(function(v, i) {
+        [1, 5, 10, 15, 20, 25, 26].some(function(v, i) {
             achievement = i;        
             return v > hour;});
         return achievement;}

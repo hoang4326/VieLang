@@ -18,8 +18,6 @@ export default function Question(){
     const [show, setShow] = useState(false);
     const [duration, setDuration] = useState(0);
     let navigate = useNavigate();
-
-    var today = new Date();
     const handlePost =  () => {
         if(score === questions.length){
             fetch("http://localhost:5000/do-post",{
@@ -38,7 +36,6 @@ export default function Question(){
             }),
         }).then((res)=> res.json())
         .then((data)=>{
-            console.log(data);
             navigate(`/topic/${param.name}`)
         });
         }else{
@@ -55,9 +52,9 @@ export default function Question(){
 		if (nextQuestion < questions.length) {
 			setCurrentQuestion(nextQuestion);
 		} else {
-            var time2 = today.getTime();
+            var time2 = new Date().getTime();
             const duration = time2 - timeStart;
-            console.log(time2);
+            console.log(duration);
             setDuration(duration);
             setShow(true);
 		}

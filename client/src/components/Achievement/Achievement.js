@@ -186,7 +186,7 @@ export default function Achievement(){
                                         </div>
                                         <div className="medal">
                                             <div>
-                                                {hour >= 2 ?
+                                                {hour >= 5 ?
                                                 (
                                                     <img src="https://cdn-icons-png.flaticon.com/512/610/610172.png" />
                                                 ):
@@ -199,7 +199,7 @@ export default function Achievement(){
                                         </div>
                                         <div className="medal">
                                             <div>
-                                                {hour >= 3 ?
+                                                {hour >= 10 ?
                                                 (
                                                     <img src="https://cdn-icons-png.flaticon.com/512/610/610172.png" />
                                                 ):
@@ -212,7 +212,7 @@ export default function Achievement(){
                                         </div>
                                         <div className="medal">
                                             <div>
-                                                {hour >= 4 ?
+                                                {hour >= 15 ?
                                                 (
                                                     <img src="https://cdn-icons-png.flaticon.com/512/610/610172.png" />
 
@@ -221,11 +221,11 @@ export default function Achievement(){
                                                     <img src="https://i.postimg.cc/jd6rGWJv/311900983-598494861965899-4970635466708121808-n.png" />
                                                 )}
                                             </div>
-                                            <div className="hour"> 50 Hours</div>
+                                            <div className="hour"> 15 Hours</div>
                                         </div>
                                         <div className="medal">
                                             <div>
-                                                {hour >= 5 ?
+                                                {hour >= 20 ?
                                                 (
                                                     <img src="https://cdn-icons-png.flaticon.com/512/610/610172.png" />
                                                 ):
@@ -234,11 +234,11 @@ export default function Achievement(){
                                                 )
                                                 }
                                             </div>
-                                            <div className="hour"> 70 Hours</div>
+                                            <div className="hour"> 20 Hours</div>
                                         </div>
                                         <div className="medal">
                                             <div>
-                                                {hour >= 6 ?
+                                                {hour >= 25 ?
                                                 (
                                                     <img src="https://cdn-icons-png.flaticon.com/512/610/610172.png" />
                                                 ):
@@ -247,7 +247,7 @@ export default function Achievement(){
                                                 )
                                                 }
                                             </div>
-                                            <div className="hour"> 100 Hours</div>
+                                            <div className="hour"> 25 Hours</div>
                                         </div>
                                     </div>
                                     
