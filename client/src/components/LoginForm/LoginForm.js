@@ -36,7 +36,7 @@ export default function LoginForm() {
                 }).then(()=>{
                     if(data.role === 'admin'){
                         window.localStorage.setItem("token", data.data);
-                        window.location.href = "./admin/topicList";
+                        window.location.href = "./admin/user";
                     }else{
                         window.localStorage.setItem("token", data.data);
                         window.location.href = "./";

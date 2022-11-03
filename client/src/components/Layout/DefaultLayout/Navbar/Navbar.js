@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import jwt_decode from "jwt-decode";
 
 // import { MenuItems }   from "./Menu";
 import {
@@ -17,11 +18,18 @@ export default function Navbar() {
 
     var style1 = {};
     var style2 = {};
+    var style3 = {};
 
     if(!token) {
         style1.display = 'none';
+        style3.display = 'none';
     }else{
         style2.display = 'none';
+        const decoded = jwt_decode(token);
+        const role = decoded.role;
+        if(role === "customer"){
+            style3.display = 'none';
+        }
     }
 
     const toggleMenu = () =>{
@@ -97,11 +105,11 @@ export default function Navbar() {
                                 LESSONS
                             </Link>
                         </li>
-                        {/* <li>
-                            <Link className='nav-links' to='/membership'>
-                                MEMBERSHIP
+                        <li>
+                            <Link className='nav-links' to='/admin/user' style={style3}>
+                                MANAGE
                             </Link>
-                        </li> */}
+                        </li>
                         <li>
                             <Link className='nav-links' to='/support'>
                                 CONTACT
