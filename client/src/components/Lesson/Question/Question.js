@@ -20,6 +20,21 @@ export default function Question(){
     const [duration, setDuration] = useState(0);
     const MySwal = withReactContent(Swal);
 
+    const exitQuestion = () =>{
+        MySwal.fire({
+            title: 'Are you sure?',
+            text: "You will lose the progress of this lesson if you quit now.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ok'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                navigate(`/topic/${param.name}`)
+            }
+        })
+    }
 
     let navigate = useNavigate();
     const handlePost =  () => {
@@ -123,9 +138,17 @@ export default function Question(){
                 </Modal.Footer>
             </Modal>
             <div className='mainContentQ'>
-                <ProgressBar variant='progress-flat' now={((currentQuestion + 1) / questions?.length) * 100} />
+                
                 <div className='switchCourse'>
                     <div className='switchContentQ'>
+                        <div className='dyHeader'>
+                            <div className='wrapHeader'>
+                                <div className='closeArea'>
+                                    <button className='quizQuestion' onClick={()=> exitQuestion()}><img className='closeButton' src= {require('../../../assets/image/close.png')}  alt='close button'/></button>
+                                </div>
+                                <ProgressBar variant='progress-flat' now={((currentQuestion + 1) / questions?.length) * 100} />
+                            </div>
+                        </div>
                         <div className='dyComponent'>
                             <div className='modelContainer rankA check'>
                                 <div className='modelContainerWord wordModel1'>

@@ -169,7 +169,7 @@
 }
 .modelContainerWord.wordModel1 .optionsArea .option {
     width: 145px;
-    margin: 0 7px;
+    /* margin: 0 7px; */
     /* display: inline-block; */
     box-shadow: 0 0 1px 0 #999;
     border-radius: 9px;
@@ -211,6 +211,7 @@
 }
 button.questionButton{
     border: none!important;
+    margin: 0 7px;
 }
 .modelContainerWord.wordModel1 .optionsArea .option .item1 {
     width: 100%;
@@ -243,4 +244,28 @@ button.questionButton{
 .strongSwal {
     color: green;
     font-size: 20px;
+}
+.wrapHeader {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 1000px;
+    margin: auto;
+    padding-top: 1vh;
+}
+.closeButton{
+    cursor: pointer;
+    width: 30px;
+    vertical-align: middle !important;
+}
+
+.progress{
+    position: relative;
+    flex-grow: 1;
+    margin: 0 10px;
+}
+.quizQuestion{
+    border: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
 }
