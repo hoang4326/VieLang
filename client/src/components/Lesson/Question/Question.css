@@ -193,6 +193,7 @@
     height: 145px;
     border-top-left-radius: 9px;
     border-top-right-radius: 9px;
+    background-color: white;
 }
 .modelContainerWord.wordModel1 .optionsArea .option .item .tip.other {
     height: 45px;
