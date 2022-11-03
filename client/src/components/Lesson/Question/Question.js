@@ -4,7 +4,8 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import { useNavigate } from 'react-router-dom';
-
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 import './question.css'
 
@@ -17,6 +18,9 @@ export default function Question(){
 	const [score, setScore] = useState(0);
     const [show, setShow] = useState(false);
     const [duration, setDuration] = useState(0);
+    const MySwal = withReactContent(Swal);
+
+
     let navigate = useNavigate();
     const handlePost =  () => {
         if(score === questions.length){
@@ -46,18 +50,42 @@ export default function Question(){
     const handleAnswerOptionClick = (isCorrect) => {
 		if (isCorrect) {
 			setScore(score + 1);
-		}
-
-		const nextQuestion = currentQuestion + 1;
-		if (nextQuestion < questions.length) {
-			setCurrentQuestion(nextQuestion);
-		} else {
-            var time2 = new Date().getTime();
-            const duration = time2 - timeStart;
-            console.log(duration);
-            setDuration(duration);
-            setShow(true);
-		}
+            Swal.fire({
+                icon: 'success',
+                title: 'Correct Answer',
+            }).then(()=>{
+                const nextQuestion = currentQuestion + 1;
+                if (nextQuestion < questions.length) {
+                    setCurrentQuestion(nextQuestion);
+                } else {
+                    var time2 = new Date().getTime();
+                    const duration = time2 - timeStart;
+                    console.log(duration);
+                    setDuration(duration);
+                    setShow(true);
+                }
+            })
+		}else{
+            let answer = questions[currentQuestion].answerOptions.filter(item => item.isCorrect === true);
+            let correctAnswer = answer[0].answerText
+            MySwal.fire({
+                icon: 'error',
+                title: 'Incorrect Answer',
+                html: 'The correct answer is </br>  </br>' +
+                    `<strong class="strongSwal">${correctAnswer}</strong>`,
+            }).then(()=>{
+                const nextQuestion = currentQuestion + 1;
+                if (nextQuestion < questions.length) {
+                    setCurrentQuestion(nextQuestion);
+                } else {
+                    var time2 = new Date().getTime();
+                    const duration = time2 - timeStart;
+                    console.log(duration);
+                    setDuration(duration);
+                    setShow(true);
+                }
+            })
+        }
 	};
 
     useEffect(() => {

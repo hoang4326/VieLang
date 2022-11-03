@@ -240,3 +240,7 @@ button.questionButton{
 .modal-body.questionModal{
     height: 100px !important;
 }
+.strongSwal {
+    color: green;
+    font-size: 20px;
+}
