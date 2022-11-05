@@ -197,7 +197,17 @@ router.post("/updateQuestion",uploadQuestion, async (req, res) => {
         if(answerImg4 === undefined){ answerImg4 = JSON.parse(req.body.answerImg4[0]);}
     }
     if (type === 'Text + Image'){
-        const answerImgBefore = [answerImg1, answerImg2, answerImg3, answerImg4];
+        let answerImgBefore = [answerImg1, answerImg2, answerImg3, answerImg4];
+        answerImgBefore.map(item => {
+            return item = item.filter(function(a){
+                delete a.fieldname;
+                delete a.encoding;
+                delete a.mimetype;
+                delete a.destination;
+                delete a.size;
+                return true;
+            })
+        })
         const answerImg = answerImgBefore.map(e => 
                 e.map(item => ({...item, urlImage: url + '/public/' + item.filename})));
         for (var i = 0; i < 4; i++) {
@@ -239,7 +249,17 @@ router.post("/addQuestion", uploadQuestion, async (req, res)=>{
     const isCorrect = req.body.isCorrect.map(e => JSON.parse(e));
     var answerOptions = [];
     if (type === 'Text + Image'){
-        const answerImgBefore = [req.files.answerImg1, req.files.answerImg2, req.files.answerImg3, req.files.answerImg4];
+        let answerImgBefore = [req.files.answerImg1, req.files.answerImg2, req.files.answerImg3, req.files.answerImg4];
+        answerImgBefore.map(item => {
+            return item = item.filter(function(a){
+                delete a.fieldname;
+                delete a.encoding;
+                delete a.mimetype;
+                delete a.destination;
+                delete a.size;
+                return true;
+            })
+        })
         const answerImg = answerImgBefore.map(e => 
                 e.map(item => ({...item, urlImage: url + '/public/' + item.filename})));
         for (var i = 0; i < 4; i++) {
@@ -416,14 +436,30 @@ router.post("/updateImg",uploadMultiple, async (req, res) => {
     const id = req.body.id;
     const url = req.protocol + '://' + req.get('host');
     //Add to array imgTopic
-    imgTopic = req.files.imgTopic;
+    let imgTopic = req.files.imgTopic;
     if(imgTopic){
+        imgTopic = imgTopic.filter(function(item){
+            delete item.fieldname;
+            delete item.encoding;
+            delete item.mimetype;
+            delete item.destination;
+            delete item.size;
+            return true;
+        })
         let fileTopic = imgTopic[0].filename;
         imgTopic.forEach((item) => item.urlImage = url + '/public/' + fileTopic);
     }
     //Add to array imgLesson
-    imgLesson = req.files.imgLesson;
+    let imgLesson = req.files.imgLesson;
     if(imgLesson){
+        imgLesson = imgLesson.filter(function(item){
+            delete item.fieldname;
+            delete item.encoding;
+            delete item.mimetype;
+            delete item.destination;
+            delete item.size;
+            return true;
+        })
         let fileLesson = imgLesson[0].filename;
         imgLesson.forEach((item) => item.urlImage = url + '/public/' + fileLesson);
     }
@@ -534,11 +570,27 @@ router.post("/addTopic",uploadMultiple, async (req, res) => {
     const id = countTopic + 1;
     const name =  req.body.name;
     //Add to array imgTopic
-    imgTopic = req.files.imgTopic;
+    let imgTopic = req.files.imgTopic;
+    imgTopic = imgTopic.filter(function(item){
+        delete item.fieldname;
+        delete item.encoding;
+        delete item.mimetype;
+        delete item.destination;
+        delete item.size;
+        return true;
+    })
     let fileTopic = imgTopic[0].filename;
     imgTopic.forEach((item) => item.urlImage = url + '/public/' + fileTopic);
     //Add to array imgLesson
-    imgLesson = req.files.imgLesson;
+    let imgLesson = req.files.imgLesson;
+    imgLesson = imgLesson.filter(function(item){
+        delete item.fieldname;
+        delete item.encoding;
+        delete item.mimetype;
+        delete item.destination;
+        delete item.size;
+        return true;
+    })
     let fileLesson = imgLesson[0].filename;
     imgLesson.forEach((item) => item.urlImage = url + '/public/' + fileLesson);
     try{
