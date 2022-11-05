@@ -144,3 +144,14 @@ table.table .avatar {
     --bs-btn-padding-y: 0.58rem;
 	padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
 }
+.mb-3.fix.input-group{
+	width: 30% ;
+	float: right;
+}
+.change.btn.btn-outline-secondary:hover{
+	background-color: #2196F3;
+}
+.change.btn.btn-outline-secondary{
+	background-color: var(--bs-btn-hover-bg);
+	color: white;
+}

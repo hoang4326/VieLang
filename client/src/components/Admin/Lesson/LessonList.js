@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import '../Topic/topic.css';
-import { Button} from 'react-bootstrap';
+import { Button, InputGroup, Form} from 'react-bootstrap'
 import Modal from 'react-bootstrap/Modal';
 import LessonView from './LessonView'
 import AddLesson from './AddLesson';
@@ -9,6 +9,7 @@ import AddLesson from './AddLesson';
 export default function LessonList (){
     const [data, setData] = useState();
     const [show, setShow] = useState(false);
+    const [search, setSearch] = useState("")
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -38,19 +39,26 @@ export default function LessonList (){
             console.log(err)    
         });
     }, [])
-
+    const searchByName = (name) =>{
+        fetch("http://localhost:5000/admin/lessonFind",{
+            method: "POST",
+            crossDomain: true,
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                "Access-Control-Allow-Origin":"*",
+            },
+            body: JSON.stringify({
+                name: name
+            }),
+        })
+        .then((res)=>res.json())
+        .then((data)=>{
+            setData(data);
+        })
+    }
     return (
         <div className="container-xl">
-            {/* <Modal show={show1} onHide={handleClose1}>
-                <Modal.Header closeButton>
-                <Modal.Title>Add Vocabulary</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <AddVocab/>
-                </Modal.Body>
-                <Modal.Footer>
-                </Modal.Footer>
-            </Modal> */}
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                 <Modal.Title>Add Lesson</Modal.Title>
@@ -73,6 +81,15 @@ export default function LessonList (){
                                 </div>
                         </div>
                     </div>
+                    <InputGroup className="mb-3 fix">
+                                <Form.Control
+                                    placeholder='Search lesson by topic'
+                                    onChange={(e) => setSearch(e.target.value)}
+                                />
+                                <Button variant="outline-secondary" id="button-addon1" className='change' onClick={()=>searchByName(search)}>
+                                    Search
+                                </Button>
+                    </InputGroup>
                     <table className="table table-striped table-hover">
                         <thead>
                             <tr className='centerItems'>

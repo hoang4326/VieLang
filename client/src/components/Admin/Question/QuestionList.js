@@ -1,15 +1,14 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { Button} from 'react-bootstrap';
+import { Button, InputGroup, Form} from 'react-bootstrap'
 import Modal from 'react-bootstrap/Modal';
-// import TopicView from './TopicView';
 import AddQuestion from "./AddQuestion";
 import QuestionView from "./QuestionView";
-// import Table from 'react-bootstrap/Table';
 
 export default function QuestionList (){
     const [data, setData] = useState();
     const [show, setShow] = useState(false);
+    const [search, setSearch] = useState("")
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -39,7 +38,24 @@ export default function QuestionList (){
             console.log(err)
         });
     }, [])
-
+    const searchByName = (name) =>{
+        fetch("http://localhost:5000/admin/questionFind",{
+            method: "POST",
+            crossDomain: true,
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                "Access-Control-Allow-Origin":"*",
+            },
+            body: JSON.stringify({
+                name: name
+            }),
+        })
+        .then((res)=>res.json())
+        .then((data)=>{
+            setData(data);
+        })
+    }
     return (
         <div className="container-xl">
             <Modal dialogClassName="info-modal" show={show} onHide={handleClose}>
@@ -64,6 +80,15 @@ export default function QuestionList (){
                                 </div>
                         </div>
                     </div>
+                    <InputGroup className="mb-3 fix">
+                                <Form.Control
+                                    placeholder='Search question by topic'
+                                    onChange={(e) => setSearch(e.target.value)}
+                                />
+                                <Button variant="outline-secondary" id="button-addon1" className='change' onClick={()=>searchByName(search)}>
+                                    Search
+                                </Button>
+                    </InputGroup>
                     <table className="table table-striped table-hover">
                         <thead>
                             <tr className='centerItems'>

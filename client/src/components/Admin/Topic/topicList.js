@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import './topic.css';
-import { Button} from 'react-bootstrap';
+import { Button, InputGroup, Form} from 'react-bootstrap'
 import Modal from 'react-bootstrap/Modal';
 import TopicView from './TopicView';
 import AddVocab from "./AddVocab";
@@ -9,6 +9,7 @@ import AddTopic from "./AddTopic";
 
 export default function TopicList (){
     const [data, setData] = useState();
+    const [search, setSearch] = useState("")
     const [show1, setShow1] = useState(false);
     const [show2, setShow2] = useState(false);
 
@@ -41,7 +42,24 @@ export default function TopicList (){
             console.log(err)
         });
     }, [])
-
+    const searchByName = (name) =>{
+        fetch("http://localhost:5000/admin/topicFind",{
+            method: "POST",
+            crossDomain: true,
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                "Access-Control-Allow-Origin":"*",
+            },
+            body: JSON.stringify({
+                name: name
+            }),
+        })
+        .then((res)=>res.json())
+        .then((data)=>{
+            setData(data);
+        })
+    }
     return (
         <div className="container-xl">
             <Modal show={show1} onHide={handleClose1}>
@@ -77,6 +95,15 @@ export default function TopicList (){
                                 </div>
                         </div>
                     </div>
+                    <InputGroup className="mb-3 fix">
+                                <Form.Control
+                                    placeholder='Search topic by name'
+                                    onChange={(e) => setSearch(e.target.value)}
+                                />
+                                <Button variant="outline-secondary" id="button-addon1" className='change' onClick={()=>searchByName(search)}>
+                                    Search
+                                </Button>
+                    </InputGroup>
                     <table className="table table-striped table-hover">
                         <thead>
                             <tr className='centerItems'>

@@ -57,6 +57,17 @@ router.get('/user', async (req, res) => {
     res.send(user);
 })
 
+router.post('/userFind', async (req, res) => {
+    const {name} = req.body;
+    let user;
+    if(name === ""){
+        user = await User.find({}).sort({role:1});
+    }else{
+        user = await User.find({name:name}).sort({role:1});
+    }
+    res.send(user);
+})
+
 router.post('/addUser', async (req, res) => {
     const {name, email, username, password, role} = req.body;
     const encryptedPassword = await bcrypt.hash(password, 10);
@@ -138,6 +149,17 @@ router.post('/deleteUser', async (req, res) => {
 
 router.get('/questionList', async (req, res) => {
     const question = await Question.find({}).sort({ topic: 1});
+    res.send(question)
+})
+
+router.post('/questionFind', async (req, res) => {
+    const {name} = req.body;
+    let question;
+    if(name === ''){
+        question = await Question.find({}).sort({ topic: 1});
+    }else{
+        question = await Question.find({topic: name}).sort({ topic: 1});
+    }
     res.send(question)
 })
 
@@ -369,6 +391,17 @@ router.get("/lessonList", async (req, res)=>{
     res.send(lesson);
 });
 
+router.post("/lessonFind", async (req, res)=>{
+    const {name} = req.body;
+    let lesson;
+    if(name === ""){
+        lesson = await Lesson.find({},{_id: 1, topic: 1, content1 :1, content2 : 1, id: 1}).sort({topic:1});
+    }else{
+        lesson = await Lesson.find({topic: name},{_id: 1, topic: 1, content1 :1, content2 : 1, id: 1}).sort({topic:1});
+    }
+    res.send(lesson);
+})
+
 router.post("/deleteLesson", async (req, res)=>{
     const {name, id} = req.body;
     await Lesson.deleteOne({topic: name, id: id});
@@ -412,6 +445,17 @@ router.get("/topic", async (req, res)=>{
 
 router.get("/topicList", async (req, res)=>{
     const topic = await Topic.find({},{"_id": 1,"id":1, "name": 1, "topicImg.urlImage": 1,"topicImg.originalname" : 1, "lessonImg.urlImage": 1,"lessonImg.originalname" : 1, "vocab": 1}).sort({id:1});
+    res.send(topic);
+});
+
+router.post("/topicFind", async (req, res)=>{
+    const {name} = req.body;
+    let topic;
+    if(name === ""){
+        topic = await Topic.find({},{"_id": 1,"id":1, "name": 1, "topicImg.urlImage": 1,"topicImg.originalname" : 1, "lessonImg.urlImage": 1,"lessonImg.originalname" : 1, "vocab": 1}).sort({id:1});
+    }else{
+        topic = await Topic.find({name: name},{"_id": 1,"id":1, "name": 1, "topicImg.urlImage": 1,"topicImg.originalname" : 1, "lessonImg.urlImage": 1,"lessonImg.originalname" : 1, "vocab": 1}).sort({id:1});
+    }
     res.send(topic);
 });
 
