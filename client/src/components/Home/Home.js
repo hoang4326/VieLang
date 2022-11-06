@@ -77,11 +77,11 @@ export default function Home(){
                 <p className='description-item-text'>Target weak areas, review key grammar points, retain everything you learn with our built-in flashcards - all in one app!</p>
                 </div>
 
-                <div className='description-item'>
+                {/* <div className='description-item'>
                     <img src={require('../../assets/image/audio.png')} className='description-item-image' alt='description'/>
                     <h3 className='description-item-title'>HD audio</h3>
                 <p className='description-item-text'>Learn with lessons voiced by native speakers from the beginning. Don’t let robotic TTS audio compromise your listening and speaking skills.</p>
-                </div>
+                </div> */}
 
                 <div className='description-item'>
                     <img src={require('../../assets/image/story.png')} className='description-item-image' alt='description'/>

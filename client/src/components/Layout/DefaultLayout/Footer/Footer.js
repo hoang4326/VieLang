@@ -21,18 +21,17 @@ export default function Footer(){
 
         <div className="boxFooter">
             <h3>Quick links</h3>
-            <a href="/" className='linka'>Home</a>
-            <a href="/#" className='linka'>Lessons</a>
-            <Link to="/membership" className='linka'>Membership</Link>
-            <Link to="/support" className='linka'>Support</Link>
+            <Link to="/" className='linka'>Home</Link>
+            <Link to="/topic" className='linka'>Lessons</Link>
+            <Link to="/support" className='linka'>Contact</Link>
             <Link to="/login" className='linka'>Sign in</Link>
         </div>
 
         <div className="boxFooter">
             <h3>Follow us</h3>
-            <a href="/#"  className='linka'>Facebook</a>
-            <a href="/#" className='linka'>Twitter</a>
-            <a href="/#" className='linka'>Instagram</a>
+            <Link to="/#"  className='linka'>Facebook</Link>
+            <Link to="/#" className='linka'>Twitter</Link>
+            <Link to="/#" className='linka'>Instagram</Link>
         </div>
 
         <div className="boxFooter">
