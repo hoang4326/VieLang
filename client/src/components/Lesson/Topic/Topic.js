@@ -98,9 +98,9 @@ export default function Topic(){
                                                             <div className='unitName _1'>
                                                                 {item.name}
                                                             </div>
-                                                            {/* <div className='lessonProgressText'>
-                                                                0 / 3
-                                                            </div> */}
+                                                            <div className='lessonProgressText'>
+                                                                0 / {item.totalLesson}
+                                                            </div>
                                                             <div className='hrLine'></div>
                                                         </div>
                                                     </div>
@@ -136,9 +136,9 @@ export default function Topic(){
                                                                 <div className='unitName _1'>
                                                                     {item.name}
                                                                 </div>
-                                                                {/* <div className='lessonProgressText'>
-                                                                    "0 / 3"
-                                                                </div> */}
+                                                                <div className='lessonProgressText'>
+                                                                    0 / {item.totalLesson}
+                                                                </div>
                                                                 <div className='hrLine'></div>
                                                             </div>
                                                         </div>

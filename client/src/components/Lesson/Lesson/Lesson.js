@@ -15,6 +15,7 @@ export default function Lesson () {
     const [lesson, setLesson] = useState([]);
     const [showLesson, setShowLesson] = useState(false);
     const [toggled, setToggled] = useState(false);
+    const [userId, setUserId] = useState(null);
     const MySwal = withReactContent(Swal);
     const style1 = {};
     const style2 = {};
@@ -39,6 +40,8 @@ export default function Lesson () {
         if(token){
             // eslint-disable-next-line
             const decoded = jwt_decode(token);
+            const userId = decoded._id;
+            setUserId(userId);
             // eslint-disable-next-line
             setShowLesson(true);
         }else{
@@ -115,18 +118,56 @@ export default function Lesson () {
                                                             {index + 1}
                                                         </span>
                                                     </div>
-
                                                     {showLesson ? (
-                                                        <Link to = {`${item.id}`} className='lesson-link'>
-                                                            <div className='buttonArea'>
-                                                                <div className='btnLesson ripple start'>
-                                                                    <div>
-                                                                        Start
+                                                        <>
+                                                            { item.isFinished.find(a => a._id === userId)?
+                                                            (
+                                                                <Link to = {`${item.id}`} className='lesson-link'>
+                                                                <div className='buttonArea'>
+                                                                    <div className='btnLesson ripple start'>
+                                                                        <div>
+                                                                            Review
+                                                                        </div>
+                                                                        <img src={require('../../../assets/image/review.png')} alt='start'/>
                                                                     </div>
-                                                                    <img src={require('../../../assets/image/start.png')} alt='start'/>
                                                                 </div>
-                                                            </div>
-                                                        </Link>
+                                                                </Link>
+                                                            ):
+                                                            (
+                                                            <Link to = {`${item.id}`} className='lesson-link'>
+                                                                <div className='buttonArea'>
+                                                                    <div className='btnLesson ripple start'>
+                                                                        <div>
+                                                                            Start
+                                                                        </div>
+                                                                        <img src={require('../../../assets/image/start.png')} alt='start'/>
+                                                                    </div>
+                                                                </div>
+                                                            </Link>
+                                                            )
+                                                            }
+                                                        </>
+                                                        // <Link to = {`${item.id}`} className='lesson-link'>
+                                                        //     <div className='buttonArea'>
+                                                        //         <div className='btnLesson ripple start'>
+                                                        //             <div>
+                                                        //                 Start
+                                                        //             </div>
+                                                        //             <img src={require('../../../assets/image/start.png')} alt='start'/>
+                                                        //         </div>
+                                                        //     </div>
+                                                        // </Link>
+
+                                                        // <Link to = {`${item.id}`} className='lesson-link'>
+                                                        // <div className='buttonArea'>
+                                                        //     <div className='btnLesson ripple start'>
+                                                        //         <div>
+                                                        //             Review
+                                                        //         </div>
+                                                        //         <img src={require('../../../assets/image/review.png')} alt='start'/>
+                                                        //     </div>
+                                                        // </div>
+                                                        // </Link>
                                                     ):(
                                                         <button className='lesson-link' onClick={handleClick}>
                                                             <div className='buttonArea'>

@@ -404,6 +404,9 @@ router.post("/lessonFind", async (req, res)=>{
 
 router.post("/deleteLesson", async (req, res)=>{
     const {name, id} = req.body;
+    await Topic.findOneAndUpdate({name: name}, {
+        $inc:{totalLesson : -1}
+    });
     await Lesson.deleteOne({topic: name, id: id});
     await Question.deleteMany({topic: name, lesson: id});
     await Lesson.updateMany({topic: name, id: {$gte: id}},{$inc: {id: -1}});
@@ -431,6 +434,11 @@ router.post("/addLesson", async (req, res)=>{
                 if (error) return handleError(error);
             })
         })
+
+        await Topic.findOneAndUpdate({name: name},{
+            $inc: {totalLesson: 1}
+        })
+
         res.status(200).json({status: "Sucess"});
     }catch(error){
         res.status(500).json({status:'Error'})
@@ -613,6 +621,7 @@ router.post("/addTopic",uploadMultiple, async (req, res) => {
     const countTopic = await Topic.countDocuments({});
     const id = countTopic + 1;
     const name =  req.body.name;
+    const totalLesson = 0;
     //Add to array imgTopic
     let imgTopic = req.files.imgTopic;
     imgTopic = imgTopic.filter(function(item){
@@ -644,6 +653,7 @@ router.post("/addTopic",uploadMultiple, async (req, res) => {
         }
         await Topic.create({
             name: name,
+            totalLesson: totalLesson,
             topicImg: imgTopic,
             lessonImg: imgLesson,
             id: id,
