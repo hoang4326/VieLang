@@ -10,7 +10,7 @@ import {
 
 export default function Topic(){
     const [topic, setTopic] = useState([]);
-    // const [userId, setUserId] = useState('');
+    const [lesson, setLesson] = useState(null);
     const [percentLessonDone, setPercentLessonDone] = useState(0);
     const [level,setLevel] = useState(0);
     const [achievement, setAchievement] = useState(0);
@@ -39,6 +39,16 @@ export default function Topic(){
             console.log(err)
         })
     }, [token])
+
+    useEffect(()=>{
+        fetch('http://localhost:5000/lesson')
+        .then((res)=> 
+            res.json())
+        .then((data)=>{
+            setLesson(data);
+        })
+    },[])
+
     return (
         <div className='lesson'>
             <div className='mainContent'>

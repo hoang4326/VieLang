@@ -76,8 +76,6 @@ export default function Achievement(){
         }
     
     },[data])
-
-    console.log(hour, percent, levelSum)
     return (
         <div className="mainContent">
             <div className="profile">

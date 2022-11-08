@@ -147,27 +147,6 @@ export default function Lesson () {
                                                             )
                                                             }
                                                         </>
-                                                        // <Link to = {`${item.id}`} className='lesson-link'>
-                                                        //     <div className='buttonArea'>
-                                                        //         <div className='btnLesson ripple start'>
-                                                        //             <div>
-                                                        //                 Start
-                                                        //             </div>
-                                                        //             <img src={require('../../../assets/image/start.png')} alt='start'/>
-                                                        //         </div>
-                                                        //     </div>
-                                                        // </Link>
-
-                                                        // <Link to = {`${item.id}`} className='lesson-link'>
-                                                        // <div className='buttonArea'>
-                                                        //     <div className='btnLesson ripple start'>
-                                                        //         <div>
-                                                        //             Review
-                                                        //         </div>
-                                                        //         <img src={require('../../../assets/image/review.png')} alt='start'/>
-                                                        //     </div>
-                                                        // </div>
-                                                        // </Link>
                                                     ):(
                                                         <button className='lesson-link' onClick={handleClick}>
                                                             <div className='buttonArea'>

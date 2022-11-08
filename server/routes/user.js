@@ -21,6 +21,10 @@ const User = mongoose.model("UserInfo");
 const Question = mongoose.model("Question");
 const Achievement = mongoose.model("Achievement");
 
+router.get('/lesson', async(req, res)=>{
+    const lesson = await Lesson.find({},{_id: 0, topic: 1, id: 1, isFinished: 1});
+    res.send(lesson);
+})
 
 router.get("/achievement/:id", async (req, res) => {
     const {id} = req.params;
@@ -54,7 +58,6 @@ router.get("/topic",async (req, res)=>{
 
 });
 
-
 router.post("/do-post", async function (request, result){
     const {topic,lessonId,token,duration } = request.body;
     const decodeToken = jwt.verify(token, JWT_SECRET);
@@ -65,9 +68,9 @@ router.post("/do-post", async function (request, result){
     const countQuestion = (question.questions).length;
     const timeLimit = countQuestion * 120000;
 
-    const lesson = await  Lesson.find({topic: topic, id: lessonId},{_id: 1});
-    let lessonArray = lesson.map(a => a._id);
-    const lessonID = lessonArray.toString();
+    // const lesson = await  Lesson.find({topic: topic, id: lessonId},{_id: 1});
+    // let lessonArray = lesson.map(a => a._id);
+    // const lessonID = lessonArray.toString();
 
     function checkDuration(duration){
         if (duration <= timeLimit) {
@@ -77,7 +80,6 @@ router.post("/do-post", async function (request, result){
             return timeLimit
         }
     }
-    console.log(checkDuration(duration));
     const time = await  Achievement.find({userId: mongoose.Types.ObjectId(userId)},{_id: 0, totalTime:1});
     let timeArray = time.map(a => a.totalTime);
     const totalTimeBefore = parseInt((timeArray.toString()));
@@ -112,62 +114,6 @@ router.post("/do-post", async function (request, result){
             achievement = i;        
             return v > hour;});
         return achievement;}
-
-        await User.findOne({
-            "_id" : userId
-        }, function (error, item){
-            if(item.lessonDone === null || item.lessonDone === undefined){
-                User.findOneAndUpdate({
-                    "_id" : userId
-                },{
-                    $set: {
-                        lessonDone: 
-                            {
-                                "_id": lessonID,
-                            },                        
-                    }
-                }
-                ,{
-                    new: true
-                },function (error){
-                    // return result.json({
-                    //     "status": "success",
-                    //     "message": "LessonId has been inserted",
-                    // });
-                    console.log("Sucess")
-                }
-                );
-            }else if (item.lessonDone.find(e => e._id.toString() === lessonID)){
-                // return result.json({
-                //     "status": "error",
-                //     "message": "Already had this LessonId"
-                // });
-                console.log("Already had this LessonId");
-
-            }else{
-                User.findOneAndUpdate({
-                    "_id" : userId
-                },{
-                    $push: {
-                        lessonDone: 
-                        {
-                            "_id": lessonID,
-                        },
-                        
-                    }
-                }
-                ,{
-                    new: true
-                },function (error){
-                    // return result.json({
-                    //     "status": "success",
-                    //     "message": "LessonId has been inserted",
-                    // });
-                    console.log("Sucess")
-                }
-                );  
-            }
-        }).clone()
 
     await Lesson.findOne({
         "topic" : topic, "id": lessonId
@@ -217,10 +163,12 @@ router.post("/do-post", async function (request, result){
         }
     }).clone();
     
-    const totalLesson = await  User.find({_id: mongoose.Types.ObjectId(userId)},{_id: 0, lessonDone:1});
-    const totalLessonArray = totalLesson.map(a => a.lessonDone);
-    const totalLessonSub = totalLessonArray[0];
-    const percentLessonDone = ((totalLessonSub.length / totalLessonDB.length) * 100).toFixed(1);
+    const totalLessonSub = await Lesson.find({
+        isFinished : {
+            _id: userId
+        }
+    }).count();
+    const percentLessonDone = ((totalLessonSub / totalLessonDB.length) * 100).toFixed(1);
 
     function getAchievementByLesson(percent) {
         var achievement = 0;
@@ -254,7 +202,6 @@ router.post("/do-post", async function (request, result){
 router.post("/signup",async(req,res)=>{
     const {name, email, username, password, role } = req.body;
     const encryptedPassword = await bcrypt.hash(password, 10);
-    const lessonDone = [];
     const user = new User({
         _id: new mongoose.Types.ObjectId(),
         name: name,
@@ -262,7 +209,6 @@ router.post("/signup",async(req,res)=>{
         username: username,
         password: encryptedPassword,
         role: role,
-        lessonDone: lessonDone
     })
     try{
         const oldUser = await User.findOne({email});

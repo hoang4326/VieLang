@@ -7,7 +7,6 @@ const UserDetailsSchema = new mongoose.Schema({
     username: String,
     password: String,
     role: String,
-    lessonDone: Array
 
 },{
     collection: "UserInfo",
