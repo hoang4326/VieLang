@@ -63,7 +63,6 @@ router.post("/do-post", async function (request, result){
     const decodeToken = jwt.verify(token, JWT_SECRET);
     const userId = decodeToken._id;
     const totalLessonDB = await Lesson.find();
-
     const question = await Question.findOne({topic: topic, lesson: lessonId},{"_id": 0, "questions": 1});
     const countQuestion = (question.questions).length;
     const timeLimit = countQuestion * 120000;
@@ -114,6 +113,63 @@ router.post("/do-post", async function (request, result){
             achievement = i;        
             return v > hour;});
         return achievement;}
+
+        await Topic.findOne({
+            "name" : topic
+        }, function (error, item){
+            if(item.lessonDone === null || item.lessonDone === undefined){
+                Topic.findOneAndUpdate({
+                    "name" : topic
+                },{
+                    $set: {
+                        lessonDone: 
+                            {
+                                "_id": userId,
+                                "lesson": parseInt(lessonId)
+                            },                        
+                    }
+                }
+                ,{
+                    new: true
+                },function (error){
+                    // return result.json({
+                    //     "status": "success",
+                    //     "message": "LessonId has been inserted",
+                    // });
+                    console.log("Sucess")
+                }
+                );
+            }else if (item.lessonDone.find(e => e._id === userId && e.lesson === lessonId)){
+                // return result.json({
+                //     "status": "error",
+                //     "message": "Already had this LessonId"
+                // });
+                console.log("Already had this User");
+
+            }else{
+                Topic.findOneAndUpdate({
+                    "name" : topic
+                },{
+                    $push: {
+                        lessonDone: 
+                            {
+                                "_id": userId,
+                                "lesson": parseInt(lessonId)
+                            },  
+                    }
+                }
+                ,{
+                    new: true
+                },function (error){
+                    // return result.json({
+                    //     "status": "success",
+                    //     "message": "LessonId has been inserted",
+                    // });
+                    console.log("Sucess")
+                }
+                );  
+            }
+        }).clone()
 
     await Lesson.findOne({
         "topic" : topic, "id": lessonId

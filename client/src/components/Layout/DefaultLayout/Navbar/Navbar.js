@@ -60,7 +60,8 @@ export default function Navbar() {
     },[token])
 
     useEffect(() => {
-        fetch("http://localhost:5000/userData",{
+        if(token){
+            fetch("http://localhost:5000/userData",{
             method: "POST",
             crossDomain: true,
             headers: {
@@ -76,7 +77,8 @@ export default function Navbar() {
         .then((data)=>{
             setUserData(data.data);
         });
-    },[]);
+        }
+    },[token]);
 
     return (
             <div className='Navigation'>

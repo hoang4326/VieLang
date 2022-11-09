@@ -9,12 +9,12 @@ import {
 
 
 export default function Topic(){
-    const [topic, setTopic] = useState([]);
-    const [lesson, setLesson] = useState(null);
-    const [percentLessonDone, setPercentLessonDone] = useState(0);
-    const [level,setLevel] = useState(0);
-    const [achievement, setAchievement] = useState(0);
-    const token = localStorage.getItem('token');
+    const [topic, setTopic] = useState([])
+    const [userId, setUserId] = useState(null)
+    const [percentLessonDone, setPercentLessonDone] = useState(0)
+    const [level,setLevel] = useState(0)
+    const [achievement, setAchievement] = useState(0)
+    const token = localStorage.getItem('token')
     
     useEffect(() => {
         fetch("http://localhost:5000/topic")
@@ -23,14 +23,15 @@ export default function Topic(){
         )
         .then((data)=>{
             if(token){
-                const decoded = jwt_decode(token);
-                const userId = decoded._id;
-                let percent = data[2].find( a => a.userId === userId );
-                const percentLessonDone = percent.percentLessonDone;
-                const level = percent.level;
-                const achievement = percent.achievement;
-                setPercentLessonDone(percentLessonDone);
-                setAchievement(achievement);
+                const decoded = jwt_decode(token)
+                const userId = decoded._id
+                let percent = data[2].find( a => a.userId === userId )
+                const percentLessonDone = percent.percentLessonDone
+                const level = percent.level
+                const achievement = percent.achievement
+                setUserId(userId)
+                setPercentLessonDone(percentLessonDone)
+                setAchievement(achievement)
                 setLevel(level)
             }
             setTopic(data)
@@ -40,14 +41,6 @@ export default function Topic(){
         })
     }, [token])
 
-    useEffect(()=>{
-        fetch('http://localhost:5000/lesson')
-        .then((res)=> 
-            res.json())
-        .then((data)=>{
-            setLesson(data);
-        })
-    },[])
 
     return (
         <div className='lesson'>
@@ -109,7 +102,7 @@ export default function Topic(){
                                                                 {item.name}
                                                             </div>
                                                             <div className='lessonProgressText'>
-                                                                0 / {item.totalLesson}
+                                                                {(item.lessonDone.filter(a => a._id === userId)).length}/ {item.totalLesson}
                                                             </div>
                                                             <div className='hrLine'></div>
                                                         </div>
@@ -147,7 +140,7 @@ export default function Topic(){
                                                                     {item.name}
                                                                 </div>
                                                                 <div className='lessonProgressText'>
-                                                                    0 / {item.totalLesson}
+                                                                    {(item.lessonDone.filter(a => a._id === userId)).length} / {item.totalLesson}
                                                                 </div>
                                                                 <div className='hrLine'></div>
                                                             </div>

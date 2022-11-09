@@ -654,6 +654,7 @@ router.post("/addTopic",uploadMultiple, async (req, res) => {
         await Topic.create({
             name: name,
             totalLesson: totalLesson,
+            lessonDone: [],
             topicImg: imgTopic,
             lessonImg: imgLesson,
             id: id,
@@ -663,7 +664,6 @@ router.post("/addTopic",uploadMultiple, async (req, res) => {
     }catch(error){
         res.send({status:"error"});
         console.log(error);
-
     }
 })
 
