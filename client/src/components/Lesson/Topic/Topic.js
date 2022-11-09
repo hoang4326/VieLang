@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './topic.css';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import Chart from './BarChart'
 import jwt_decode from "jwt-decode";
 import {
     Link,
@@ -64,6 +65,7 @@ export default function Topic(){
                                     <div className='dayGoalArea'>
                                         <div>DAILY GOAL</div>
                                     </div>
+                                    <Chart />
                                     <div className='scoreCard'>
                                         <div className='cardLesson'>
                                             <div className='cardInner'>
