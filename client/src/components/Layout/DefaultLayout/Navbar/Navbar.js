@@ -1,36 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import jwt_decode from "jwt-decode";
 
-// import { MenuItems }   from "./Menu";
 import {
-    // Routes,
-    // Route,
     Link,
 } from "react-router-dom";
-
 import './navbar.css';
 
 export default function Navbar() {
-    const [userData, setUserData] = useState("");
-    const [clicked, setClicked] = useState(false);
-    const [toggled, setToggled] = useState(false);
-    const token = localStorage.getItem('token');
-
+    const [userData, setUserData] = useState("")
+    const [role, setRole] = useState(null)
+    const [clicked, setClicked] = useState(false)
+    const [toggled, setToggled] = useState(false)
+    const token = localStorage.getItem('token')
     var style1 = {};
-    var style2 = {};
-    var style3 = {};
 
-    if(!token) {
-        style1.display = 'none';
-        style3.display = 'none';
-    }else{
-        style2.display = 'none';
-        const decoded = jwt_decode(token);
-        const role = decoded.role;
-        if(role === "customer"){
-            style3.display = 'none';
+    useEffect(()=>{
+        if(token){
+            const decoded = jwt_decode(token);
+            const role = decoded.role;
+            setRole(role);
         }
-    }
+    },[token])
+
 
     const toggleMenu = () =>{
         setToggled(!toggled);
@@ -88,15 +79,6 @@ export default function Navbar() {
                             <i className={clicked ? 'fas fa-times': 'fa fa-bars'}></i>
                     </div>
                     <ul className={clicked ? 'nav-menu active' : 'nav-menu'}>
-                        {/* {MenuItems.map((item,index)=>{
-                            return (
-                                <li key = {index}>
-                                    <Link className={item.cName} to={item.url}>
-                                        {item.title}
-                                    </Link>
-                                </li>
-                            )
-                        })} */}
                         <li>
                             <Link className='nav-links' to='/'>
                                 HOME
@@ -107,45 +89,66 @@ export default function Navbar() {
                                 LESSONS
                             </Link>
                         </li>
-                        <li>
-                            <Link className='nav-links' to='/admin/user' style={style3}>
-                                MANAGE
-                            </Link>
-                        </li>
+                        {role === "admin" ? 
+                        (
+                            <li>
+                                <Link className='nav-links' to='/admin/user' >
+                                    MANAGE
+                                </Link>
+                            </li>
+                        ):
+                        (<></>)
+                        }
                         <li>
                             <Link className='nav-links' to='/support'>
                                 CONTACT
                             </Link>
                         </li>
-                        <li>
-                            <Link className='nav-links' to='/login' style={style2}>
-                                SIGN IN
-                            </Link>
-                        </li>
+                        {token && role ?
+                        (
+                            <></>
+                        ):
+                        (
+                            <li>
+                                <Link className='nav-links' to='/login' >
+                                    SIGN IN
+                                </Link>
+                            </li>
+                        )
+                        }
                     </ul>
-                    <img src={require('../../../../assets/image/user.png')} className='user-pic' alt='profile' onClick={toggleMenu} style={style1}/>
-                    <div className={ toggled ? 'sub-menu-wrap open-menu' : 'sub-menu-wrap' } style={style1} >
-                    {/* <div className='sub-menu-wrap' style={style1} id='subMenu' ref={ref}> */}
-                        <div className='sub-menu'>
-                            <div className='user-info'>
-                                <img src={require('../../../../assets/image/user.png')}  alt='profile' />
-                                <h2>{userData.name}</h2>
+                    {token && role ?
+                    (
+                        <>
+                            <img src={require('../../../../assets/image/user.png')} className='user-pic' alt='profile' onClick={toggleMenu}/>
+                            <div className={ toggled ? 'sub-menu-wrap open-menu' : 'sub-menu-wrap' } style={style1} >
+                            {/* <div className='sub-menu-wrap' style={style1} id='subMenu' ref={ref}> */}
+                                <div className='sub-menu'>
+                                    <div className='user-info'>
+                                        <img src={require('../../../../assets/image/user.png')}  alt='profile' />
+                                        <h2>{userData.name}</h2>
+                                    </div>
+                                    <hr/>
+        
+                                    <Link to={`/achievement/${userData._id}`} className='sub-menu-link'>
+                                        <img src={require('../../../../assets/image/profile.png')} alt='profile' />
+                                        <p className='profileNav'>Profile</p>
+                                        {/* <span>{'>'}</span> */}
+                                    </Link>
+                                    <Link to='/#' className='sub-menu-link' onClick={logOut}>
+                                        <img src={require('../../../../assets/image/logout.png')} alt='profile' />
+                                        <p className='profileNav'>Logout</p>
+                                        {/* <span>{'>'}</span> */}
+                                    </Link>
+        
+                                </div>
                             </div>
-                            <hr/>
-
-                            <Link to={`/achievement/${userData._id}`} className='sub-menu-link'>
-                                <img src={require('../../../../assets/image/profile.png')} alt='profile' />
-                                <p className='profileNav'>Profile</p>
-                                {/* <span>{'>'}</span> */}
-                            </Link>
-                            <Link to='/#' className='sub-menu-link' onClick={logOut}>
-                                <img src={require('../../../../assets/image/logout.png')} alt='profile' />
-                                <p className='profileNav'>Logout</p>
-                                {/* <span>{'>'}</span> */}
-                            </Link>
-
-                        </div>
-                    </div>
+                        </>
+                    ):
+                    (
+                        <></>
+                    )
+                    }
                 </nav>
             </div>
 
