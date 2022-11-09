@@ -139,7 +139,7 @@ router.post("/do-post", async function (request, result){
                     console.log("Sucess")
                 }
                 );
-            }else if (item.lessonDone.find(e => e._id === userId && e.lesson === lessonId)){
+            }else if (item.lessonDone.find(e => e._id === userId && e.lesson === parseInt(lessonId))){
                 // return result.json({
                 //     "status": "error",
                 //     "message": "Already had this LessonId"
