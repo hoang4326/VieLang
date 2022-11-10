@@ -22,7 +22,7 @@ export default function Topic(){
     const [level,setLevel] = useState(0)
     const [search,setSearch] = useState(null)
     const [achievement, setAchievement] = useState(0)
-    const [date, setDate] = useState("")
+    const [goalCurr, setGoalCurr] = useState(0)
     const token = localStorage.getItem('token')
     
 
@@ -82,6 +82,25 @@ export default function Topic(){
             console.log(err)
         })
     }, [token])
+
+    useEffect(()=>{
+        if(token){
+            const today = new Date();
+            const date = today.getDate();
+            const month = today.getMonth() + parseInt(1);
+            const year = today.getFullYear();
+            const total = date + "-" + month + "-" + year;
+
+            let valueGoal = history?.history?.map(item =>{
+                if(item.date === total){
+                    return item.exp
+                }
+                return 0
+            })
+            let goal = valueGoal?.[0]
+            setGoalCurr(goal)
+        }
+    },[history])
     return (
         <div className='lesson'>
             <Modal show={show} onHide={handleClose}>
@@ -144,14 +163,20 @@ export default function Topic(){
                                         </button>
                                     </div>
                                     <div className='chart'>
-                                        <div className='imageTreasure'></div>
+                                        {goalCurr >= goal ?
+                                        (
+                                            <div className='imageTreasure2'></div>
+                                        ):
+                                        (
+                                            <div className='imageTreasure1'></div>
+                                        )}
                                         <div className='dalyGoal'>
                                             <div className='textDaily'>
                                                 Daily Goal
                                             </div>
                                             <div className='expDaily'>
                                                 <div className='expTopic'>
-                                                    30 / {goal}XP
+                                                    {goalCurr} / {goal}XP
                                                 </div>
                                             </div>
                                         </div>

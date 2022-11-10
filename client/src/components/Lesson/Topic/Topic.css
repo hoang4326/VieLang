@@ -91,7 +91,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin-top: 11px;
+    /* margin-top: 11px; */
 }
 .sidebar .section .recordContent .scoreCard .cardLesson {
     width: 38%;
@@ -284,8 +284,15 @@
     height: 90px;
     text-align: center;
 }
-.imageTreasure{
+.imageTreasure1{
     background-image: url("../../../assets/image/treasure.png");
+    height: 80px;
+    margin-left: 25px;
+    width: 118.7px;
+    background-size: 74px;
+}
+.imageTreasure2{
+    background-image: url("../../../assets/image/treasureopen.png");
     height: 80px;
     margin-left: 25px;
     width: 118.7px;
