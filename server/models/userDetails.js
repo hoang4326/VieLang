@@ -29,5 +29,18 @@ const AchievementSchema = new mongoose.Schema({
     collection: "Achievement",
 });
 
+const HistorySchema = new mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
+    userId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "UserInfo"
+            },
+    history: Array,
+    goal: Number
+},{
+    collection: "History",
+});
+
+mongoose.model("History", HistorySchema);
 mongoose.model("Achievement", AchievementSchema);
 mongoose.model("UserInfo", UserDetailsSchema);

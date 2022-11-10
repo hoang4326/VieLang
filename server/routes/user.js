@@ -20,6 +20,24 @@ const Topic = mongoose.model("Topic");
 const User = mongoose.model("UserInfo");
 const Question = mongoose.model("Question");
 const Achievement = mongoose.model("Achievement");
+const History = mongoose.model("History");
+
+
+router.post("/editGoal", async (req, res) => {
+    try{
+        const {userId, goal} = req.body;
+        await History.findOneAndUpdate({
+            userId: userId
+        },{
+            $set:{
+                goal: goal
+            }
+        })
+        res.send({message: 'success'})
+    }catch(error){
+        res.send({message: 'error'})   
+    }
+})
 
 router.get('/lesson', async(req, res)=>{
     const lesson = await Lesson.find({},{_id: 0, topic: 1, id: 1, isFinished: 1});
@@ -29,7 +47,8 @@ router.get('/lesson', async(req, res)=>{
 router.get("/achievement/:id", async (req, res) => {
     const {id} = req.params;
     const data = await Achievement.findOne({userId: mongoose.Types.ObjectId(id)})
-    res.send(data);
+    const history = await History.findOne({userId: mongoose.Types.ObjectId(id)},{_id:0, history: 1})
+    res.send([data, history]);
 })
 
 router.get("/topic/:name/:id", async (req, res) =>{
@@ -54,7 +73,9 @@ router.get("/topic",async (req, res)=>{
     const percentLesson = await Achievement.find({},{_id: 0, userId: 1, percentLessonDone: 1, achievement: 1, level: 1});
     const topicL = await Topic.find({id: { $mod: [ 2, 1 ] }}).sort({id: 1});
     const topicR = await Topic.find({id: { $mod: [ 2, 0 ] }}).sort({id: 1});
-    res.send([ topicL, topicR, percentLesson ] );
+    const history = await History.find({},{_id:0,userId: 1, history: 1, goal: 1})
+
+    res.send([ topicL, topicR, percentLesson, history ] );
 
 });
 
@@ -67,9 +88,12 @@ router.post("/do-post", async function (request, result){
     const countQuestion = (question.questions).length;
     const timeLimit = countQuestion * 120000;
 
-    // const lesson = await  Lesson.find({topic: topic, id: lessonId},{_id: 1});
-    // let lessonArray = lesson.map(a => a._id);
-    // const lessonID = lessonArray.toString();
+    const today = new Date();
+    const date = today.getDate();
+    const month = today.getMonth() + parseInt(1);
+    const year = today.getFullYear();
+    
+    const total = date + "-" + month + "-" + year;
 
     function checkDuration(duration){
         if (duration <= timeLimit) {
@@ -235,9 +259,19 @@ router.post("/do-post", async function (request, result){
         return achievement;
     }
     const achievement = getAchievementByLevel(getLevel(exp)) + getAchievementByLesson(percentLessonDone) + getAchievementByHour(totalTime/1000/60/60);
-    console.log(achievement)
-    console.log(exp)
+
     try{
+
+        await History.findOneAndUpdate({
+            "userId": mongoose.Types.ObjectId(userId), "history.date" : total
+        }, {
+            $inc: {
+                "history.$.exp": 2,
+                "history.$.time": checkDuration(duration)
+            }
+        }
+        );
+
         await Achievement.findOneAndUpdate({
             "userId": mongoose.Types.ObjectId(userId)
         },{
@@ -287,6 +321,16 @@ router.post("/signup",async(req,res)=>{
             });
             achievement.save(function(err){
                 if (err) return handleError(err);
+
+                const history = new History({
+                    _id: new mongoose.Types.ObjectId(),
+                    userId: user._id,
+                    goal: parseInt(100),
+                    history: []
+                });
+                history.save(function(err){
+                    if (err) return handleError(err);
+                })
             })
         })
     res.send({status:"ok"});
@@ -297,6 +341,12 @@ router.post("/signup",async(req,res)=>{
 
 router.post("/login",async(req,res)=>{
     const {email, password} = req.body;
+    const today = new Date();
+    const date = today.getDate();
+    const month = today.getMonth() + parseInt(1);
+    const year = today.getFullYear();
+    
+    const total = date + "-" + month + "-" + year;
 
     const user = await User.findOne({email});
     if(!user){
@@ -307,6 +357,62 @@ router.post("/login",async(req,res)=>{
             expiresIn: "5h"
         });
         if(res.status(201)){
+            await History.findOne({
+                "userId" : mongoose.Types.ObjectId(user._id)
+            }, function (error, item){
+                if(item.history === null || item.history === undefined){
+                    History.findOneAndUpdate({
+                        "userId" : mongoose.Types.ObjectId(user._id)
+                    },{
+                        $set: {
+                            history: 
+                                {
+                                    "date": total,
+                                    "dateAll": today.toString(),
+                                    "exp": 0,
+                                    "time": 0
+                                },                        
+                        }
+                    },{
+                        new: true
+                    },function (error){
+                        // return result.json({
+                        //     "status": "success",
+                        //     "message": "UserId has been inserted",
+                        // });
+                        console.log("success")
+                    });
+                }else if (item.history.find(e => e.date.toString() === total)){
+                    // return result.json({
+                    //     "status": "error",
+                    //     "message": "Already had this UserId"
+                    // });
+                    console.log("Already had this date")
+                }else{
+                    History.findOneAndUpdate({
+                        "userId" : mongoose.Types.ObjectId(user._id)
+                    },{
+                        $push: {
+                            history: 
+                            {
+                                "date": total,
+                                "dateAll": today.toString(),
+                                "exp": 0,
+                                "time": 0
+                            },
+                            
+                        }
+                    },{
+                        new: true
+                    },function (error){
+                        // return result.json({
+                        //     "status": "success",
+                        //     "message": "UserId has been inserted",
+                        // });
+                        console.log("success")
+                    });  
+                }
+            }).clone();
             return res.json({status : "ok", data : token, role: user.role});
         }else{
             return res.json({error : "error"});
@@ -314,13 +420,6 @@ router.post("/login",async(req,res)=>{
     }
     res.json({status: "error", error: "Invalid password"});
 })
-// router.get("/getRole",async function(req, res) {
-//     const {token} = req.body;
-//     const user = jwt.verify(token, JWT_SECRET);
-//     const userRole = user.role;
-//     res.send(userRole);
-
-// })
 router.post("/userData", async (req, res) => {
     const {token} = req.body;
     try{

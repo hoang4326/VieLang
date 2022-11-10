@@ -35,17 +35,17 @@ export default function Lesson () {
     }
 
     const searchVocab = (search)=>{
-        let array = [... lesson];
-        let array1 = [... lessonSearch];
+        let array = [...lesson];
+        let array1 = [...lessonSearch];
         let data = lesson[2];
         let data2 = [];
             if((data[0].vocab.find(a => a.vocabVie === search)) !== undefined || (data[0].vocab.find(a => a.vocabEng === search)) !== undefined){
                 if((data[0].vocab.find(a => a.vocabVie === search)) !== undefined){
-                    data2 = [... data2, {vocab: [data[0].vocab.find(a => a.vocabVie === search)]}];
+                    data2 = [...data2, {vocab: [data[0].vocab.find(a => a.vocabVie === search)]}];
                     array1[2] = data2;
                     setLessonSearch(array1)
                 }else if ((data[0].vocab.find(a => a.vocabEng === search)) !== undefined){
-                    data2 = [... data2, {vocab: [data[0].vocab.find(a => a.vocabEng === search)]}];
+                    data2 = [...data2, {vocab: [data[0].vocab.find(a => a.vocabEng === search)]}];
                     array1[2] = data2;
                     setLessonSearch(array1)
                 }
@@ -92,7 +92,7 @@ export default function Lesson () {
         .catch((err) => {
             console.log(err)
         })
-    }, [])
+    }, [param.name])
     return(
         <div className='mainContent'>
             <div className='unitDetailP'>

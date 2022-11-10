@@ -80,6 +80,7 @@
 }
 .sidebar .section .recordContent .dayGoalArea {
     display: flex;
+    justify-content: space-between;
 }
 .sidebar .section .recordContent .dayGoalArea>div:first-child {
     font-size: 15px;
@@ -259,11 +260,72 @@
     border: 1px solid #3e98c7;
 }
 .mb-3.topic.input-group{
-    width: 75%; 
+    width: 100%;
 }
 .topicDiffer{
     width: 100% !important;
 }
 .hrLine.differ{
     width: 100% !important;
+}
+.searchTopic{
+    border-radius: 10px;
+    margin-left: 335px;
+    margin-right: 330px;
+
+}
+.sidebar .section .recordContent .chart {
+    padding: 0px;
+    padding-top: 20px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    flex-direction: row;
+    height: 90px;
+    text-align: center;
+}
+.imageTreasure{
+    background-image: url("../../../assets/image/treasure.png");
+    height: 80px;
+    margin-left: 25px;
+    width: 118.7px;
+    background-size: 74px;
+}
+.dalyGoal{
+    flex-direction: column;
+    display: flex;
+    width: 100%;
+}
+.textDaily{
+    color: #777;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 25px;
+}
+.expDaily{
+    align-items: center;
+    flex-direction: row;
+}
+.expTopic{
+    white-space: nowrap;
+    justify-content: flex-end;
+    color: #afafaf;
+    font-size: 17px;
+}
+.sidebar .section .recordContent .dayGoalArea>div:last-child {
+    font-size: 15px;
+    display: flex;
+    font-weight: bold;
+    justify-content: flex-end;
+}
+.topicButton{
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+}
+.topicButton:hover{
+    color: #3e98c7;
+}
+.modal-body.topicModal{
+    height: 140px;
 }

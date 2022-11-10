@@ -18,6 +18,7 @@ const Topic = mongoose.model("Topic");
 const User = mongoose.model("UserInfo");
 const Question = mongoose.model("Question");
 const Achievement = mongoose.model("Achievement");
+const History = mongoose.model("History");
 
 const DIR = './public/';
 
@@ -101,6 +102,14 @@ router.post('/addUser', async (req, res) => {
             });
             achievement.save(function(err){
                 if (err) return handleError(err);
+                const history = new History({
+                    _id: new mongoose.Types.ObjectId(),
+                    userId: user._id,
+                    history: []
+                });
+                history.save(function(err){
+                    if (err) return handleError(err);
+                })
             })
         })
     res.send({status:"success"});

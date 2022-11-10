@@ -1,13 +1,14 @@
 import React,{useEffect, useState} from "react";
 import './achievement.css'
 import { useParams } from "react-router-dom";
-import { CircularProgressbar } from 'react-circular-progressbar';
+// import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 export default function Achievement(){
     const param = useParams();
     const [percentLessonDone, setPercentLessonDone] = useState(0);
     const [data, setData] = useState();
+    const [history, setHistory] = useState();
     const [level, setLevel] = useState(0);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -25,17 +26,18 @@ export default function Achievement(){
         .then(res=>
             res.json())
         .then((data)=>{
-            setAchievement(data.achievement)
-            setLevel(data.level)
-            setPercentLessonDone(data.percentLessonDone)
-            setName(data.name)
-            setEmail(data.email)
-            setData(data)
+            setAchievement(data[0].achievement)
+            setLevel(data[0].level)
+            setPercentLessonDone(data[0].percentLessonDone)
+            setName(data[0].name)
+            setEmail(data[0].email)
+            setData(data[0])
+            setHistory(data[1])
         })
         .catch((err) => {
             console.log(err)
         });
-    },[])
+    },[param.id])
 
     useEffect(()=>{
         if(data !== undefined){
@@ -78,7 +80,6 @@ export default function Achievement(){
         }
     
     },[data])
-    console.log(hour)
     return (
         <div className="mainContent">
             <div className="profile">
@@ -94,7 +95,7 @@ export default function Achievement(){
                                 </div>
                             </div>
                         </div>
-                        <div className='sidebar'>
+                        {/* <div className='sidebar'>
                             <div className='section'>
                                 <div className='progressTitle'>
                                     <div>
@@ -128,6 +129,31 @@ export default function Achievement(){
                                     </div>
                                 </div>
                             </div>
+                        </div> */}
+                        <div className="streakList">
+                            {history?.history?.map((item, index)=>{
+                                return (
+                                <div className="streakItem" key = {index}>
+                                    <div className="date">
+                                        <div>{item.date}</div>
+                                    </div>
+                                    <div className="timeLine">
+                                        <div className="hrLine"></div>
+                                        <div className="circle active1">
+                                            <div className="circleInner"></div>
+                                        </div>
+                                    </div>
+                                    <div className="learnTime">
+                                        <img src={require('../../assets/image/time.png')} alt="clock"/>
+                                        <div>+{Math.floor((item.time/1000/60/60 - Math.floor(item.time/1000/60/60))*60)}m {Math.floor(((item.time/1000/60/60 - Math.floor(item.time/1000/60/60))*60 - Math.floor((item.time/1000/60/60 - Math.floor(item.time/1000/60/60))*60))*60)}s</div>
+                                    </div>
+                                    <div className="xp">
+                                        <img src={require('../../assets/image/xp.png')} alt= 'xp' />
+                                        <div>+{item.exp}xp</div>
+                                    </div>
+                                </div>
+                                )
+                            }).reverse()}
                         </div>
                     </div>
                 </div>
@@ -135,7 +161,7 @@ export default function Achievement(){
             <div className="profileContent">
                 <div className="headerAchieve">
                     <div>
-                        <img src="/static/media/user.1513073bc736d11dce70.png"/>
+                        <img src="/static/media/user.1513073bc736d11dce70.png" alt="avatar"/>
                         <div className="userAttachInfo">
                             <div className="nameQuestion">
                                 <div>{name}</div>
@@ -177,10 +203,10 @@ export default function Achievement(){
                                             <div>
                                                 {hour >= 1 ?
                                                 (
-                                                    <img src="https://cdn-icons-png.flaticon.com/512/610/610172.png" /> 
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/610/610172.png" alt="medal" /> 
                                                 ):
                                                 (
-                                                    <img src="https://i.postimg.cc/jd6rGWJv/311900983-598494861965899-4970635466708121808-n.png" />
+                                                    <img src="https://i.postimg.cc/jd6rGWJv/311900983-598494861965899-4970635466708121808-n.png"  alt="medal" />
                                                 )}
                                             </div>
                                             <div className="hour"> 1 Hours</div>
@@ -189,10 +215,10 @@ export default function Achievement(){
                                             <div>
                                                 {hour >= 2 ?
                                                 (
-                                                    <img src="https://cdn-icons-png.flaticon.com/512/610/610172.png" />
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/610/610172.png"  alt="medal" />
                                                 ):
                                                 (
-                                                    <img src="https://i.postimg.cc/jd6rGWJv/311900983-598494861965899-4970635466708121808-n.png" />
+                                                    <img src="https://i.postimg.cc/jd6rGWJv/311900983-598494861965899-4970635466708121808-n.png"  alt="medal" />
                                                 )
                                                 }
                                             </div>
@@ -202,10 +228,10 @@ export default function Achievement(){
                                             <div>
                                                 {hour >= 3 ?
                                                 (
-                                                    <img src="https://cdn-icons-png.flaticon.com/512/610/610172.png" />
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/610/610172.png"  alt="medal" />
                                                 ):
                                                 (
-                                                    <img src="https://i.postimg.cc/jd6rGWJv/311900983-598494861965899-4970635466708121808-n.png" />
+                                                    <img src="https://i.postimg.cc/jd6rGWJv/311900983-598494861965899-4970635466708121808-n.png"  alt="medal" />
                                                 )
                                                 }
                                             </div>
@@ -215,11 +241,11 @@ export default function Achievement(){
                                             <div>
                                                 {hour >= 4 ?
                                                 (
-                                                    <img src="https://cdn-icons-png.flaticon.com/512/610/610172.png" />
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/610/610172.png" alt="medal"/>
 
                                                 ):
                                                 (
-                                                    <img src="https://i.postimg.cc/jd6rGWJv/311900983-598494861965899-4970635466708121808-n.png" />
+                                                    <img src="https://i.postimg.cc/jd6rGWJv/311900983-598494861965899-4970635466708121808-n.png"  alt="medal"/>
                                                 )}
                                             </div>
                                             <div className="hour"> 15 Hours</div>
@@ -228,10 +254,10 @@ export default function Achievement(){
                                             <div>
                                                 {hour >= 5 ?
                                                 (
-                                                    <img src="https://cdn-icons-png.flaticon.com/512/610/610172.png" />
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/610/610172.png"  alt="medal"/>
                                                 ):
                                                 (
-                                                    <img src="https://i.postimg.cc/jd6rGWJv/311900983-598494861965899-4970635466708121808-n.png" />
+                                                    <img src="https://i.postimg.cc/jd6rGWJv/311900983-598494861965899-4970635466708121808-n.png"  alt="medal"/>
                                                 )
                                                 }
                                             </div>
@@ -241,10 +267,10 @@ export default function Achievement(){
                                             <div>
                                                 {hour >= 6 ?
                                                 (
-                                                    <img src="https://cdn-icons-png.flaticon.com/512/610/610172.png" />
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/610/610172.png" alt="medal" />
                                                 ):
                                                 (
-                                                    <img src="https://i.postimg.cc/jd6rGWJv/311900983-598494861965899-4970635466708121808-n.png" />
+                                                    <img src="https://i.postimg.cc/jd6rGWJv/311900983-598494861965899-4970635466708121808-n.png" alt="medal" />
                                                 )
                                                 }
                                             </div>
@@ -263,10 +289,10 @@ export default function Achievement(){
                                                 <div className="levelMedal">
                                                     {percent >= 1 ?
                                                     (
-                                                        <img src="https://cdn-icons-png.flaticon.com/512/179/179250.png" />
+                                                        <img src="https://cdn-icons-png.flaticon.com/512/179/179250.png" alt="medal" />
                                                     ):
                                                     (
-                                                        <img src="https://i.postimg.cc/zBkvjJ1G/daf.png" />
+                                                        <img src="https://i.postimg.cc/zBkvjJ1G/daf.png" alt="medal" />
                                                     )
                                                     }
                                                 </div>
@@ -276,10 +302,10 @@ export default function Achievement(){
                                             <div className="levelMedal">
                                                 {percent >= 2 ?
                                                     (
-                                                        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135728.png" />
+                                                        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135728.png" alt="medal" />
                                                     ):
                                                     (
-                                                        <img src="https://i.postimg.cc/s2nsDK7w/fwwww.png" />
+                                                        <img src="https://i.postimg.cc/s2nsDK7w/fwwww.png" alt="medal" />
                                                     )
                                                     }
                                             </div>
@@ -289,10 +315,10 @@ export default function Achievement(){
                                             <div className="levelMedal">
                                                 {percent >= 3 ?
                                                     (
-                                                        <img src="https://cdn-icons-png.flaticon.com/512/3229/3229875.png" />
+                                                        <img src="https://cdn-icons-png.flaticon.com/512/3229/3229875.png"  alt="medal"/>
                                                     ):
                                                     (
-                                                        <img src="https://i.postimg.cc/kg9jYmzt/faf.png" />
+                                                        <img src="https://i.postimg.cc/kg9jYmzt/faf.png"  alt="medal"/>
                                                     )
                                                     }
                                             </div>
@@ -302,10 +328,10 @@ export default function Achievement(){
                                             <div className="levelMedal">
                                                 {percent >= 4 ?
                                                     (
-                                                        <img src="https://cdn-icons-png.flaticon.com/512/7645/7645279.png" />
+                                                        <img src="https://cdn-icons-png.flaticon.com/512/7645/7645279.png"  alt="medal"/>
                                                     ):
                                                     (
-                                                        <img src="https://i.postimg.cc/hPCB0XzY/54747.png" />
+                                                        <img src="https://i.postimg.cc/hPCB0XzY/54747.png"  alt="medal"/>
                                                     )
                                                     }
                                             </div>
@@ -330,10 +356,10 @@ export default function Achievement(){
                                                 <div className="levelMedal">
                                                     {levelSum >= 1 ?
                                                     (
-                                                        <img src="https://cdn-icons-png.flaticon.com/512/3176/3176367.png" />
+                                                        <img src="https://cdn-icons-png.flaticon.com/512/3176/3176367.png"  alt="medal" />
                                                     ):
                                                     (
-                                                        <img src="https://i.postimg.cc/BbXB21f3/dadddd.png" />
+                                                        <img src="https://i.postimg.cc/BbXB21f3/dadddd.png"  alt="medal" />
                                                     )
                                                 }
                                                     <span className="lvNum">1</span>
@@ -344,10 +370,10 @@ export default function Achievement(){
                                             <div className="levelMedal">
                                                 {levelSum >= 2 ?
                                                     (
-                                                        <img src="https://cdn-icons-png.flaticon.com/512/3176/3176367.png" />
+                                                        <img src="https://cdn-icons-png.flaticon.com/512/3176/3176367.png" alt="medal" />
                                                     ):
                                                     (
-                                                        <img src="https://i.postimg.cc/BbXB21f3/dadddd.png" />
+                                                        <img src="https://i.postimg.cc/BbXB21f3/dadddd.png"  alt="medal"/>
                                                     )
                                                 }
                                                 <span className="lvNum">2</span>
@@ -358,10 +384,10 @@ export default function Achievement(){
                                             <div className="levelMedal">
                                                 {levelSum >= 3 ?
                                                     (
-                                                        <img src="https://cdn-icons-png.flaticon.com/512/3176/3176367.png" />
+                                                        <img src="https://cdn-icons-png.flaticon.com/512/3176/3176367.png" alt="medal" />
                                                     ):
                                                     (
-                                                        <img src="https://i.postimg.cc/BbXB21f3/dadddd.png" />
+                                                        <img src="https://i.postimg.cc/BbXB21f3/dadddd.png" alt="medal" />
                                                     )
                                                 }
                                                 <span className="lvNum">3</span>
@@ -372,10 +398,10 @@ export default function Achievement(){
                                             <div className="levelMedal">
                                                 {levelSum >= 4 ?
                                                     (
-                                                        <img src="https://cdn-icons-png.flaticon.com/512/3176/3176367.png" />
+                                                        <img src="https://cdn-icons-png.flaticon.com/512/3176/3176367.png" alt="medal" />
                                                     ):
                                                     (
-                                                        <img src="https://i.postimg.cc/BbXB21f3/dadddd.png" />
+                                                        <img src="https://i.postimg.cc/BbXB21f3/dadddd.png"  alt="medal"/>
                                                     )
                                                 }
                                                 <span className="lvNum">4</span>
@@ -386,10 +412,10 @@ export default function Achievement(){
                                             <div className="levelMedal">
                                                 {levelSum >= 5 ?
                                                     (
-                                                        <img src="https://cdn-icons-png.flaticon.com/512/3176/3176367.png" />
+                                                        <img src="https://cdn-icons-png.flaticon.com/512/3176/3176367.png" alt="medal" />
                                                     ):
                                                     (
-                                                        <img src="https://i.postimg.cc/BbXB21f3/dadddd.png" />
+                                                        <img src="https://i.postimg.cc/BbXB21f3/dadddd.png" alt="medal" />
                                                     )
                                                 }
                                                 <span className="lvNum">5</span>
@@ -400,10 +426,10 @@ export default function Achievement(){
                                             <div className="levelMedal">
                                                 {levelSum >= 6 ?
                                                     (
-                                                        <img src="https://cdn-icons-png.flaticon.com/512/3176/3176367.png" />
+                                                        <img src="https://cdn-icons-png.flaticon.com/512/3176/3176367.png" alt="medal" />
                                                     ):
                                                     (
-                                                        <img src="https://i.postimg.cc/BbXB21f3/dadddd.png" />
+                                                        <img src="https://i.postimg.cc/BbXB21f3/dadddd.png" alt="medal" />
                                                     )
                                                 }
                                                 <span className="lvNum">6</span>
@@ -414,10 +440,10 @@ export default function Achievement(){
                                             <div className="levelMedal">
                                                 {levelSum >= 7 ?
                                                     (
-                                                        <img src="https://cdn-icons-png.flaticon.com/512/3176/3176367.png" />
+                                                        <img src="https://cdn-icons-png.flaticon.com/512/3176/3176367.png" alt="medal" />
                                                     ):
                                                     (
-                                                        <img src="https://i.postimg.cc/BbXB21f3/dadddd.png" />
+                                                        <img src="https://i.postimg.cc/BbXB21f3/dadddd.png" alt="medal" />
                                                     )
                                                 }
                                                 <span className="lvNum">7</span>
@@ -428,10 +454,10 @@ export default function Achievement(){
                                             <div className="levelMedal">
                                                 {levelSum >= 8 ?
                                                         (
-                                                            <img src="https://cdn-icons-png.flaticon.com/512/3176/3176367.png" />
+                                                            <img src="https://cdn-icons-png.flaticon.com/512/3176/3176367.png" alt="medal" />
                                                         ):
                                                         (
-                                                            <img src="https://i.postimg.cc/BbXB21f3/dadddd.png" />
+                                                            <img src="https://i.postimg.cc/BbXB21f3/dadddd.png" alt="medal" />
                                                         )
                                                 }
                                                 <span className="lvNum">8</span>
@@ -442,10 +468,10 @@ export default function Achievement(){
                                             <div className="levelMedal">
                                                 {levelSum >= 9 ?
                                                     (
-                                                        <img src="https://cdn-icons-png.flaticon.com/512/3176/3176367.png" />
+                                                        <img src="https://cdn-icons-png.flaticon.com/512/3176/3176367.png" alt="medal" />
                                                     ):
                                                     (
-                                                        <img src="https://i.postimg.cc/BbXB21f3/dadddd.png" />
+                                                        <img src="https://i.postimg.cc/BbXB21f3/dadddd.png" alt="medal" />
                                                     )
                                                 }
                                                 <span className="lvNum">9</span>
@@ -456,10 +482,10 @@ export default function Achievement(){
                                             <div className="levelMedal">
                                                 {levelSum >= 10 ?
                                                     (
-                                                        <img src="https://cdn-icons-png.flaticon.com/512/3176/3176367.png" />
+                                                        <img src="https://cdn-icons-png.flaticon.com/512/3176/3176367.png" alt="medal" />
                                                     ):
                                                     (
-                                                        <img src="https://i.postimg.cc/BbXB21f3/dadddd.png" />
+                                                        <img src="https://i.postimg.cc/BbXB21f3/dadddd.png" alt="medal" />
                                                     )
                                                     }
                                                 <span className="lvNum">10</span>

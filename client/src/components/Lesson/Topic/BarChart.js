@@ -18,15 +18,16 @@ import {
     Legend
   );
 
-export default function Chart(){
+export default function Chart({history}){
+    console.log(history);
     return(
         <Bar data= {
             {labels: ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
                 datasets: [
                 {
-                    label: "goal",
+                    label: "Exp",
                     backgroundColor: "#c45850",
-                    data: [10, 0, 0, 0, 0, 0, 0]
+                    data: [10]
                 }
                 ]}
         } 
