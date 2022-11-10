@@ -189,7 +189,7 @@ export default function Achievement(){
                                     <div>I have got &nbsp;&nbsp;  </div>
                                     <div className="achSpan">{achievement}</div>
                                     <div className="achSpace">/</div>
-                                    <div>20</div>
+                                    <div>23</div>
                                 </div>
                             </div>
                             <div className="medalCardArea">
@@ -279,6 +279,53 @@ export default function Achievement(){
                                     </div>
                                     
                                 </div>
+                                <div className="learnTime medalCard">
+                                        <div className="subHead">
+                                            <div>Continuous Learning</div>
+                                            <div>{percent} <span>/</span> 3</div>
+                                        </div>
+                                        <div className="medalList">
+                                            <div className="medal">
+                                                <div className="levelMedal">
+                                                    {percent >= 1 ?
+                                                    (
+                                                        <img src="https://cdn-icons-png.flaticon.com/512/474/474230.png" alt="medal" />
+                                                    ):
+                                                    (
+                                                        <img src="https://i.postimg.cc/zBkvjJ1G/daf.png" alt="medal" />
+                                                    )
+                                                    }
+                                                </div>
+                                                <div className="hour"> 2 days</div>
+                                            </div>
+                                            <div className="medal">
+                                            <div className="levelMedal">
+                                                {percent >= 2 ?
+                                                    (
+                                                        <img src="https://i.postimg.cc/ZRRYM5FQ/3884739.png" alt="medal" />
+                                                    ):
+                                                    (
+                                                        <img src="https://i.postimg.cc/s2nsDK7w/fwwww.png" alt="medal" />
+                                                    )
+                                                    }
+                                            </div>
+                                            <div className="hour"> 5 days</div>
+                                        </div>
+                                        <div className="medal">
+                                            <div className="levelMedal">
+                                                {percent >= 3 ?
+                                                    (
+                                                        <img src="https://i.postimg.cc/BnCfxG9w/908824.png"  alt="medal"/>
+                                                    ):
+                                                    (
+                                                        <img src="https://i.postimg.cc/kg9jYmzt/faf.png"  alt="medal"/>
+                                                    )
+                                                    }
+                                            </div>
+                                            <div className="hour"> 10 days</div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 <div className="levels medalCard">
                                         <div className="subHead">
                                             <div>Learning progress</div>
@@ -493,6 +540,7 @@ export default function Achievement(){
                                             <div className="hour"> LV10</div>
                                         </div>
                                         </div>
+                                        
                                 </div>
                             </div>
                         </div>

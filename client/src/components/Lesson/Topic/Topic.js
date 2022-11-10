@@ -109,15 +109,14 @@ export default function Topic(){
                 </Modal.Header>
                 <Modal.Body className='topicModal'>
                     <Form.Group className="mb-4">
-                        <Form.Label>Enter daily goal: </Form.Label>
-                        <Form.Control
-                            type="text"
-                            placeholder="Enter daily goal:"
-                            name="content1"
-                            value ={goal}
-                            onChange = { e => setGoal(e.target.value)}
-                            required
-                        />
+                        <Form.Label>Choose daily goal: </Form.Label>
+                        <Form.Select aria-label="Default select example" onChange={e => setGoal(e.target.value)} required>
+                            <option value= {100} >Open this select menu</option>
+                            <option value= {20} >20</option>
+                            <option value= {40} >40</option>
+                            <option value= {60} >60</option>
+                            <option value= {100}>100</option>                            
+                </Form.Select>
                     </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>
@@ -192,7 +191,7 @@ export default function Topic(){
                                         <div className='vLine'></div>
                                         <div className='cardLesson'>
                                         <div className='cardInner'>
-                                                <div >{achievement} / 20</div>
+                                                <div >{achievement} / 23</div>
                                                 <div >Achievements</div>
                                             </div>
                                         </div>
