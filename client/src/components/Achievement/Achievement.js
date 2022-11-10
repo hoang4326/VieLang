@@ -296,7 +296,7 @@ export default function Achievement(){
                                                     )
                                                     }
                                                 </div>
-                                                <div className="hour"> 2 days</div>
+                                                <div className="hour"> 2 day</div>
                                             </div>
                                             <div className="medal">
                                             <div className="levelMedal">
@@ -309,7 +309,7 @@ export default function Achievement(){
                                                     )
                                                     }
                                             </div>
-                                            <div className="hour"> 5 days</div>
+                                            <div className="hour"> 5 day</div>
                                         </div>
                                         <div className="medal">
                                             <div className="levelMedal">
@@ -322,7 +322,7 @@ export default function Achievement(){
                                                     )
                                                     }
                                             </div>
-                                            <div className="hour"> 10 days</div>
+                                            <div className="hour"> 10 day</div>
                                             </div>
                                         </div>
                                     </div>
