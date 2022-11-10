@@ -5,20 +5,22 @@ import { useParams } from "react-router-dom";
 import 'react-circular-progressbar/dist/styles.css';
 
 export default function Achievement(){
-    const param = useParams();
-    const [percentLessonDone, setPercentLessonDone] = useState(0);
-    const [data, setData] = useState();
-    const [history, setHistory] = useState();
-    const [level, setLevel] = useState(0);
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [achievement, setAchievement] = useState(0);
-    const [hour, setHour] = useState(0);
-    const [percent, setPercent] = useState(0);
-    const [levelSum, setLevelSum] = useState(0);
-    const [h,setH]= useState(0);
-    const [m,setM]= useState(0);
-    const [s,setS]= useState(0);
+    const param = useParams()
+    const [percentLessonDone, setPercentLessonDone] = useState(0)
+    const [data, setData] = useState()
+    const [history, setHistory] = useState()
+    const [level, setLevel] = useState(0)
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [achievement, setAchievement] = useState(0)
+    const [hour, setHour] = useState(0)
+    const [percent, setPercent] = useState(0)
+    const [levelSum, setLevelSum] = useState(0)
+    const [dailyGoal, setDailyGoal] = useState(0)
+    const [dailyAchieve, setDailyAchieve] = useState(0)
+    const [h,setH]= useState(0)
+    const [m,setM]= useState(0)
+    const [s,setS]= useState(0)
 
 
     useEffect(()=>{
@@ -33,6 +35,8 @@ export default function Achievement(){
             setEmail(data[0].email)
             setData(data[0])
             setHistory(data[1])
+            setDailyGoal(data[2])
+            console.log(data[2])
         })
         .catch((err) => {
             console.log(err)
@@ -41,6 +45,17 @@ export default function Achievement(){
 
     useEffect(()=>{
         if(data !== undefined){
+
+            function getAchievementByDailyGoal(dailyGoal) {
+                var achievement = 0;
+                [5, 15, 25, 26].some(function(v, i) {
+                    achievement = i ;        
+                    return v > dailyGoal; 
+                });
+                return achievement;
+            }
+            setDailyAchieve(getAchievementByDailyGoal(dailyGoal))
+
             function getAchievementByLevel(level) {
                 var achievement = 0;
                 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].some(function(v, i) {
@@ -79,7 +94,7 @@ export default function Achievement(){
             setS(s)
         }
     
-    },[data])
+    },[data, dailyGoal])
     return (
         <div className="mainContent">
             <div className="profile">
@@ -281,48 +296,48 @@ export default function Achievement(){
                                 </div>
                                 <div className="learnTime medalCard">
                                         <div className="subHead">
-                                            <div>Continuous Learning</div>
-                                            <div>{percent} <span>/</span> 3</div>
+                                            <div>Daily Goal Done</div>
+                                            <div>{dailyAchieve} <span>/</span> 3</div>
                                         </div>
                                         <div className="medalList">
                                             <div className="medal">
                                                 <div className="levelMedal">
-                                                    {percent >= 1 ?
+                                                    {dailyAchieve >= 1 ?
                                                     (
                                                         <img src="https://cdn-icons-png.flaticon.com/512/474/474230.png" alt="medal" />
                                                     ):
                                                     (
-                                                        <img src="https://i.postimg.cc/zBkvjJ1G/daf.png" alt="medal" />
+                                                        <img src="https://i.postimg.cc/02jGWpXs/nefaf.png" alt="medal" />
                                                     )
                                                     }
                                                 </div>
-                                                <div className="hour"> 2 day</div>
+                                                <div className="hour"> 5 goal</div>
                                             </div>
                                             <div className="medal">
                                             <div className="levelMedal">
-                                                {percent >= 2 ?
+                                                {dailyAchieve >= 2 ?
                                                     (
                                                         <img src="https://i.postimg.cc/ZRRYM5FQ/3884739.png" alt="medal" />
                                                     ):
                                                     (
-                                                        <img src="https://i.postimg.cc/s2nsDK7w/fwwww.png" alt="medal" />
+                                                        <img src="https://i.postimg.cc/XJr9vWRz/310754268-5626822137354336-2595953448445750652-n.png" alt="medal" />
                                                     )
                                                     }
                                             </div>
-                                            <div className="hour"> 5 day</div>
+                                            <div className="hour"> 15 goal</div>
                                         </div>
                                         <div className="medal">
                                             <div className="levelMedal">
-                                                {percent >= 3 ?
+                                                {dailyAchieve >= 3 ?
                                                     (
                                                         <img src="https://i.postimg.cc/BnCfxG9w/908824.png"  alt="medal"/>
                                                     ):
                                                     (
-                                                        <img src="https://i.postimg.cc/kg9jYmzt/faf.png"  alt="medal"/>
+                                                        <img src="https://i.postimg.cc/7Z50xwSJ/nihi.png"  alt="medal"/>
                                                     )
                                                     }
                                             </div>
-                                            <div className="hour"> 10 day</div>
+                                            <div className="hour"> 25 goal</div>
                                             </div>
                                         </div>
                                     </div>

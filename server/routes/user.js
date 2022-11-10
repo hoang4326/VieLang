@@ -48,7 +48,9 @@ router.get("/achievement/:id", async (req, res) => {
     const {id} = req.params;
     const data = await Achievement.findOne({userId: mongoose.Types.ObjectId(id)})
     const history = await History.findOne({userId: mongoose.Types.ObjectId(id)},{_id:0, history: 1})
-    res.send([data, history]);
+    const history1 = await History.findOne({userId: mongoose.Types.ObjectId(id)},{_id: 0, history: 1});
+    const dailyGoal = (history1.history.filter(a => a.dailyGoal === true)).length
+    res.send([data, history, dailyGoal]);
 })
 
 router.get("/topic/:name/:id", async (req, res) =>{
@@ -78,6 +80,50 @@ router.get("/topic",async (req, res)=>{
     res.send([ topicL, topicR, percentLesson, history ] );
 
 });
+// do-post and calculate exp, level, time, achievement
+function getLevel(exp) {
+    var level = 0;
+    [5, 15, 25, 35, 45, 55, 65, 75, 85, 95, 100].some(function(v, i) {
+        level = i;        
+        return v > exp; 
+    });
+    return level;
+}
+
+function getAchievementByLevel(level) {
+    var achievement = 0;
+    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].some(function(v, i) {
+        achievement = i;        
+        return v > level; 
+    });
+    return achievement;
+}
+
+function getAchievementByHour(hour) {
+    var achievement = 0;
+    [1, 5, 10, 15, 20, 25, 26].some(function(v, i) {
+        achievement = i;        
+        return v > hour;});
+    return achievement;}
+
+function getAchievementByLesson(percent) {
+    var achievement = 0;
+    [25, 50, 75, 100, 110].some(function(v, i) {
+        achievement = i ;        
+        return v > percent; 
+    });
+    return achievement;
+}
+
+function getAchievementByDailyGoal(dailyGoal) {
+    var achievement = 0;
+    [5, 15, 25, 26].some(function(v, i) {
+        achievement = i ;        
+        return v > dailyGoal; 
+    });
+    return achievement;
+}
+
 
 router.post("/do-post", async function (request, result){
     const {topic,lessonId,token,duration } = request.body;
@@ -87,13 +133,50 @@ router.post("/do-post", async function (request, result){
     const question = await Question.findOne({topic: topic, lesson: lessonId},{"_id": 0, "questions": 1});
     const countQuestion = (question.questions).length;
     const timeLimit = countQuestion * 120000;
-
     const today = new Date();
     const date = today.getDate();
     const month = today.getMonth() + parseInt(1);
     const year = today.getFullYear();
-    
     const total = date + "-" + month + "-" + year;
+
+    await History.findOneAndUpdate({
+        "userId": mongoose.Types.ObjectId(userId), "history.date" : total
+    }, {
+        $inc: {
+            "history.$.exp": 2,
+            "history.$.time": checkDuration(duration)
+        }
+    }
+    );
+
+    const history = await History.findOne({userId: mongoose.Types.ObjectId(userId)},{_id: 0, goal: 1});
+    let goal = history.goal;
+
+    await History.findOne({userId: mongoose.Types.ObjectId(userId)},function(err, item){
+        if(item.history.find(a => a.date === total && a.dailyGoal === false && a.exp >= goal )){
+                History.findOneAndUpdate({
+                    "userId": mongoose.Types.ObjectId(userId),
+                    "history.date": total
+                },{
+                    $set:{
+                        "history.$.dailyGoal": true
+                    }
+                },{
+                    new: true
+                },function (error){
+                    // return result.json({
+                    //     "status": "success",
+                    //     "message": "LessonId has been inserted",
+                    // });
+                    console.log("Sucess")
+                }
+                )
+            
+        }else{
+            console.log("cannot set dailyGoal")
+        }
+    }).clone();    
+
 
     function checkDuration(duration){
         if (duration <= timeLimit) {
@@ -103,6 +186,7 @@ router.post("/do-post", async function (request, result){
             return timeLimit
         }
     }
+
     const time = await  Achievement.find({userId: mongoose.Types.ObjectId(userId)},{_id: 0, totalTime:1});
     let timeArray = time.map(a => a.totalTime);
     const totalTimeBefore = parseInt((timeArray.toString()));
@@ -112,31 +196,6 @@ router.post("/do-post", async function (request, result){
     let expArray = data.map(a => a.exp);
     const expBefore = parseInt((expArray.toString()));
     const exp = parseInt(expBefore + 2);
-
-    function getLevel(exp) {
-        var level = 0;
-        [5, 15, 25, 35, 45, 55, 65, 75, 85, 95, 100].some(function(v, i) {
-            level = i;        
-            return v > exp; 
-        });
-        return level;
-    }
-
-    function getAchievementByLevel(level) {
-        var achievement = 0;
-        [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].some(function(v, i) {
-            achievement = i;        
-            return v > level; 
-        });
-        return achievement;
-    }
-
-    function getAchievementByHour(hour) {
-        var achievement = 0;
-        [1, 5, 10, 15, 20, 25, 26].some(function(v, i) {
-            achievement = i;        
-            return v > hour;});
-        return achievement;}
 
         await Topic.findOne({
             "name" : topic
@@ -242,6 +301,9 @@ router.post("/do-post", async function (request, result){
             });  
         }
     }).clone();
+
+    const history1 = await History.findOne({userId: mongoose.Types.ObjectId(userId)},{_id: 0, history: 1});
+    const dailyGoal = (history1.history.filter(a => a.dailyGoal === true)).length
     
     const totalLessonSub = await Lesson.find({
         isFinished : {
@@ -249,28 +311,9 @@ router.post("/do-post", async function (request, result){
         }
     }).count();
     const percentLessonDone = ((totalLessonSub / totalLessonDB.length) * 100).toFixed(1);
-
-    function getAchievementByLesson(percent) {
-        var achievement = 0;
-        [25, 50, 75, 100, 110].some(function(v, i) {
-            achievement = i ;        
-            return v > percent; 
-        });
-        return achievement;
-    }
-    const achievement = getAchievementByLevel(getLevel(exp)) + getAchievementByLesson(percentLessonDone) + getAchievementByHour(totalTime/1000/60/60);
+    const achievement = getAchievementByLevel(getLevel(exp)) + getAchievementByLesson(percentLessonDone) + getAchievementByHour(totalTime/1000/60/60) + getAchievementByDailyGoal(dailyGoal);
 
     try{
-
-        await History.findOneAndUpdate({
-            "userId": mongoose.Types.ObjectId(userId), "history.date" : total
-        }, {
-            $inc: {
-                "history.$.exp": 2,
-                "history.$.time": checkDuration(duration)
-            }
-        }
-        );
 
         await Achievement.findOneAndUpdate({
             "userId": mongoose.Types.ObjectId(userId)
@@ -370,7 +413,8 @@ router.post("/login",async(req,res)=>{
                                     "date": total,
                                     "dateAll": today.toString(),
                                     "exp": 0,
-                                    "time": 0
+                                    "time": 0,
+                                    "dailyGoal": false
                                 },                        
                         }
                     },{

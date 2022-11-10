@@ -19,7 +19,6 @@ import {
   );
 
 export default function Chart({history}){
-    console.log(history);
     return(
         <Bar data= {
             {labels: ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
@@ -27,7 +26,7 @@ export default function Chart({history}){
                 {
                     label: "Exp",
                     backgroundColor: "#c45850",
-                    data: [10]
+                    data: [10,10,0,0,0,0,0]
                 }
                 ]}
         } 

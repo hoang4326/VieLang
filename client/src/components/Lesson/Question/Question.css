@@ -270,3 +270,7 @@ button.questionButton{
     background-color: transparent;
     background-repeat: no-repeat;
 }
+.modelContainerWord.wordModel1 .optionsArea .option .item .tip.other .rankC .spanQuestion {
+    font-size: 15px;
+    line-height: 50px;
+}

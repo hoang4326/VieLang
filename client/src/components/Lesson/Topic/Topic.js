@@ -26,6 +26,8 @@ export default function Topic(){
     const [search,setSearch] = useState(null)
     const [achievement, setAchievement] = useState(0)
     const [goalCurr, setGoalCurr] = useState(0)
+    const [checkGoal, setCheckGoal] = useState(false)
+
     const token = localStorage.getItem('token')
     
 
@@ -112,7 +114,17 @@ export default function Topic(){
                 }
                 return 0
             })
+
+            let checkDailyGoal = history?.history?.map(item =>{
+                if(item.date === total){
+                    return item.dailyGoal
+                }
+                return 0
+            })
+
             let goal = valueGoal?.[0]
+            let checkGoal = checkDailyGoal?.[0]
+            setCheckGoal(checkGoal)
             setGoalCurr(goal)
         }
     },[history, token])
@@ -126,11 +138,10 @@ export default function Topic(){
                     <Form.Group className="mb-4">
                         <Form.Label>Choose daily goal: </Form.Label>
                         <Form.Select aria-label="Default select example" onChange={e => setGoal(e.target.value)} required>
-                            <option value= {100} >Open this select menu</option>
+                            <option value= {60} >Open this select menu</option>
                             <option value= {20} >20</option>
                             <option value= {40} >40</option>
                             <option value= {60} >60</option>
-                            <option value= {100}>100</option>                            
                 </Form.Select>
                     </Form.Group>
                 </Modal.Body>
@@ -177,7 +188,7 @@ export default function Topic(){
                                         </button>
                                     </div>
                                     <div className='chart'>
-                                        {goalCurr >= goal && goalCurr !==0 ?
+                                        {checkGoal === true ?
                                         (
                                             <div className='imageTreasure2'></div>
                                         ):
@@ -190,7 +201,7 @@ export default function Topic(){
                                             </div>
                                             <div className='expDaily'>
                                                 <div className='expTopic'>
-                                                    {goalCurr} / {goal}XP
+                                                    {goalCurr} / {goal} XP
                                                 </div>
                                             </div>
                                         </div>
