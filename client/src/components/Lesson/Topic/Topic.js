@@ -3,6 +3,8 @@ import './topic.css'
 import { CircularProgressbar } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
 // import Chart from './BarChart'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 import { useNavigate } from 'react-router-dom'
 import { Button, InputGroup, Form, Modal} from 'react-bootstrap'
 import jwt_decode from "jwt-decode"
@@ -12,6 +14,7 @@ import {
 
 
 export default function Topic(){
+    const MySwal = withReactContent(Swal)
     const [topic, setTopic] = useState([])
     const [history, setHistory] = useState()
     const [goal, setGoal] = useState(0);
@@ -27,7 +30,19 @@ export default function Topic(){
     
 
     const handleClose = () => setShow(false)
-    const handleShow = () => setShow(true)
+    const handleShow = () =>{
+        if (userId === null){
+            MySwal.fire({
+                title: <strong>Cannot access !</strong>,
+                html: <i>You need to be logged in to be able to edit the goal</i>,
+                icon: 'warning'
+            }).then(()=>{
+                navigate("/login")
+            })
+        }else{
+            setShow(true)
+        }
+    } 
 
     const searchByTopic = search =>{
         if ( (topic[0].find(a => a.name === search)) !== undefined || (topic[1].find(a => a.name === search)) !== undefined){
@@ -100,7 +115,7 @@ export default function Topic(){
             let goal = valueGoal?.[0]
             setGoalCurr(goal)
         }
-    },[history])
+    },[history, token])
     return (
         <div className='lesson'>
             <Modal show={show} onHide={handleClose}>
@@ -157,12 +172,12 @@ export default function Topic(){
                                 <div className='recordContent'>
                                     <div className='dayGoalArea'>
                                         <div>DAILY GOAL</div>
-                                        <button className='topicButton' onClick={handleShow}>
+                                        <button className='topicButton' onClick={()=>handleShow()}>
                                             <div>EDIT GOAL</div>
                                         </button>
                                     </div>
                                     <div className='chart'>
-                                        {goalCurr >= goal ?
+                                        {goalCurr >= goal && goalCurr !==0 ?
                                         (
                                             <div className='imageTreasure2'></div>
                                         ):
