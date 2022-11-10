@@ -258,3 +258,12 @@
     border-radius: 19px;
     border: 1px solid #3e98c7;
 }
+.mb-3.topic.input-group{
+    width: 75%; 
+}
+.topicDiffer{
+    width: 100% !important;
+}
+.hrLine.differ{
+    width: 100% !important;
+}

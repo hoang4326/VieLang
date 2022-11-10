@@ -21,6 +21,6 @@ export const dataFeedback = [
         id: 4,
         name: 'Thomas Micheal',
         content: '" The lessons and vocabulary are organized really effectively. It does so in a style that is incredibly memorable while also teaching vocabulary and grammar. "',
-        img:'https://preview.colorlib.com/theme/educature/img/faculty/xf1.jpg.pagespeed.ic.XbWix9NC"A"A.webp'
+        img:'https://phunugioi.com/wp-content/uploads/2020/02/hinh-anh-dep-thien-nhien.jpg'
     }
 ]

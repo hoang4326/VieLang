@@ -184,6 +184,7 @@
     align-items: center;
     float: left;
     margin-left: 20px;
+    margin-right: 20px;
 }
 .unitDetailP .switchContent .switchHead .wrapTitle .greyArrow {
     width: 12px;
@@ -192,6 +193,7 @@
 .unitDetailP .switchContent .switchHead .wrapTitle .tipsText {
     margin-left: 12px;
     font-size: 22px;
+    margin-right: 175px;
 }
 .vacabulary {
     background-color: #f4f5f7;
@@ -230,4 +232,8 @@
     color: #999;
 }button.lesson-link{
     border: none;
+}
+.mb-3.lesson{
+    margin-bottom: 0    !important;
+    float: right;
 }

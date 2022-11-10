@@ -1,22 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import './topic.css';
-import { CircularProgressbar } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
+import React, { useState, useEffect } from 'react'
+import './topic.css'
+import { CircularProgressbar } from 'react-circular-progressbar'
+import 'react-circular-progressbar/dist/styles.css'
 import Chart from './BarChart'
-import jwt_decode from "jwt-decode";
+import { useNavigate } from 'react-router-dom'
+import { Button, InputGroup, Form} from 'react-bootstrap'
+import jwt_decode from "jwt-decode"
 import {
     Link,
-} from "react-router-dom";
+} from "react-router-dom"
 
 
 export default function Topic(){
     const [topic, setTopic] = useState([])
+    let navigate = useNavigate()
     const [userId, setUserId] = useState(null)
     const [percentLessonDone, setPercentLessonDone] = useState(0)
     const [level,setLevel] = useState(0)
+    const [search,setSearch] = useState(null)
     const [achievement, setAchievement] = useState(0)
     const token = localStorage.getItem('token')
     
+    const searchByTopic = search =>{
+        if ( (topic[0].find(a => a.name === search)) !== undefined || (topic[1].find(a => a.name === search)) !== undefined){
+            navigate(`/topic/${search}`)
+        }
+    }
+
     useEffect(() => {
         fetch("http://localhost:5000/topic")
         .then(res => 
@@ -65,7 +75,7 @@ export default function Topic(){
                                     <div className='dayGoalArea'>
                                         <div>DAILY GOAL</div>
                                     </div>
-                                    <Chart />
+
                                     <div className='scoreCard'>
                                         <div className='cardLesson'>
                                             <div className='cardInner'>
@@ -120,8 +130,19 @@ export default function Topic(){
                                         <div className='oneUnit alphabet _1'  style={{cursor: "pointer"}}>
                                             <div className='rippleOuterCus rippleOuter_1 _1'>
                                                 <div className='rippleCus ripple_1 _1'>
-                                                    <div>
-                                                        <div className='hrLine'></div>
+                                                    <div className='topicDiffer'>
+                                                        <InputGroup className="mb-3 topic">
+                                                            <Form.Control
+                                                                placeholder='Search topic'
+                                                                onChange={(e) => setSearch(e.target.value)}
+                                                            />
+                                                            <Button variant="outline-secondary" id="button-addon1" className='change'
+                                                            onClick={()=>searchByTopic(search)}
+                                                            >
+                                                                Search
+                                                            </Button>
+                                                        </InputGroup>
+                                                        <div className='hrLine differ'></div>
                                                     </div>
                                                 </div>
                                             </div>  

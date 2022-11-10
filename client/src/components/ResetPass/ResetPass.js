@@ -1,16 +1,16 @@
-import React, { useState} from 'react';
-import { useParams } from "react-router-dom";
-import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
-import withReactContent from 'sweetalert2-react-content';
+import React, { useState} from 'react'
+import { useParams } from "react-router-dom"
+import Swal from 'sweetalert2'
+import { useNavigate } from 'react-router-dom'
+import withReactContent from 'sweetalert2-react-content'
 import './resetPass.css'
 
 export default function ResetPassword(){
-    const [password,setPassword] = useState("");
-    const [cpassword,setCpassword] = useState("");
-    const param = useParams();
-    const MySwal = withReactContent(Swal);
-    let navigate = useNavigate();
+    const [password,setPassword] = useState("")
+    const [cpassword,setCpassword] = useState("")
+    const param = useParams()
+    const MySwal = withReactContent(Swal)
+    let navigate = useNavigate()
 
 
     const handleSubmit = event => {

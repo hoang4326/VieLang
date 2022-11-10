@@ -1,48 +1,69 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from "react-router-dom";
-import jwt_decode from "jwt-decode";
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
+import React, { useState, useEffect } from 'react'
+import { useParams, useNavigate } from "react-router-dom"
+import jwt_decode from "jwt-decode"
+import Swal from 'sweetalert2'
+import { Button, InputGroup, Form} from 'react-bootstrap'
+import withReactContent from 'sweetalert2-react-content'
 import {
     Link,
-} from "react-router-dom";
+} from "react-router-dom"
 import "./lesson.css"
 
 
 export default function Lesson () {
     // eslint-disable-next-line 
-    const param = useParams();
-    const [lesson, setLesson] = useState([]);
-    const [showLesson, setShowLesson] = useState(false);
-    const [toggled, setToggled] = useState(false);
-    const [userId, setUserId] = useState(null);
-    const MySwal = withReactContent(Swal);
-    const style1 = {};
-    const style2 = {};
-    let navigate = useNavigate();
-    const token = localStorage.getItem('token');
+    const param = useParams()
+    const [lesson, setLesson] = useState([])
+    const [lessonSearch, setLessonSearch] = useState([])
+    const [search, setSearch] = useState(null)
+    const [showLesson, setShowLesson] = useState(false)
+    const [toggled, setToggled] = useState(false)
+    const [userId, setUserId] = useState(null)
+    const MySwal = withReactContent(Swal)
+    const style1 = {}
+    const style2 = {}
+    let navigate = useNavigate()
+    const token = localStorage.getItem('token')
 
-        if(!toggled) {
-            style1.display = 'block';
-            style2.display = 'none';
-        }else{
-            
-            style1.display = 'none';
-            style2.display = 'block';
-        }
+    if(!toggled) {
+        style1.display = 'block';
+        style2.display = 'none';
+    }else{
+        
+        style1.display = 'none';
+        style2.display = 'block';
+    }
+
+    const searchVocab = (search)=>{
+        let array = [... lesson];
+        let array1 = [... lessonSearch];
+        let data = lesson[2];
+        let data2 = [];
+            if((data[0].vocab.find(a => a.vocabVie === search)) !== undefined || (data[0].vocab.find(a => a.vocabEng === search)) !== undefined){
+                if((data[0].vocab.find(a => a.vocabVie === search)) !== undefined){
+                    data2 = [... data2, {vocab: [data[0].vocab.find(a => a.vocabVie === search)]}];
+                    array1[2] = data2;
+                    setLessonSearch(array1)
+                }else if ((data[0].vocab.find(a => a.vocabEng === search)) !== undefined){
+                    data2 = [... data2, {vocab: [data[0].vocab.find(a => a.vocabEng === search)]}];
+                    array1[2] = data2;
+                    setLessonSearch(array1)
+                }
+            }
+            else if ((data[0].vocab.find(a => a.vocabVie === search)) === undefined && (data[0].vocab.find(a => a.vocabEng === search)) === undefined){
+                setLessonSearch(array)
+            }
+    }
 
     const toggleMenu = () =>{
         setToggled(!toggled);
     }
 
-
     useEffect(() =>{
         if(token){
-            // eslint-disable-next-line
             const decoded = jwt_decode(token);
             const userId = decoded._id;
             setUserId(userId);
-            // eslint-disable-next-line
             setShowLesson(true);
         }else{
             setShowLesson(false);
@@ -65,12 +86,12 @@ export default function Lesson () {
             res.json()
         )
         .then((data)=>{
-            setLesson(data)
+            setLesson(data);
+            setLessonSearch(data)
         })
         .catch((err) => {
             console.log(err)
         })
-           // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return(
         <div className='mainContent'>
@@ -181,13 +202,24 @@ export default function Lesson () {
                             <div className='tipsText'>
                                 Vocabulary
                             </div>
+                            <InputGroup className="mb-3 lesson">
+                                <Form.Control
+                                    placeholder='Search vocabulary'
+                                    onChange={(e) => setSearch(e.target.value)}
+                                />
+                                <Button variant="outline-secondary" id="button-addon1" className='change' 
+                                    onClick={()=>searchVocab(search)}
+                                >
+                                    Search
+                                </Button>
+                            </InputGroup>
                         </div>
                     </div>
                     <div className='compContent'>
                         <div className='vacabulary'>
                             <div className='vocabContent'>
                                 <div className='vocList'>
-                                    {lesson[2]?.map?.((item, index)=>{
+                                    {lessonSearch[2]?.map?.((item, index)=>{
                                         return(
                                             <div key={index}>
                                                 {item.vocab?.map?.((a,b)=>

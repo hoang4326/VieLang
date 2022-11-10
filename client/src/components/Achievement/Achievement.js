@@ -26,11 +26,11 @@ export default function Achievement(){
             res.json())
         .then((data)=>{
             setAchievement(data.achievement)
-            setLevel(data.level);
-            setPercentLessonDone(data.percentLessonDone);
-            setName(data.name);
-            setEmail(data.email);
-            setData(data);
+            setLevel(data.level)
+            setPercentLessonDone(data.percentLessonDone)
+            setName(data.name)
+            setEmail(data.email)
+            setData(data)
         })
         .catch((err) => {
             console.log(err)
@@ -45,16 +45,18 @@ export default function Achievement(){
                     achievement = i;        
                     return v > level; 
                 });
-                return achievement;
+                return achievement
             }
             setLevelSum(getAchievementByLevel(data.level));
     
             function getAchievementByHour(hour) {
                 var achievement = 0;
-                [1, 5, 10, 50, 70, 100, 101].some(function(v, i) {
+                [1, 5, 10, 15, 20, 25, 26].some(function(v, i) {
                     achievement = i;        
-                    return v > hour;});
-                return achievement;}
+                    return v > hour;
+                });
+                return achievement
+            }
             setHour(getAchievementByHour((data.totalTime)/1000/60/60))
     
                 function getAchievementByLesson(percent) {
@@ -63,19 +65,20 @@ export default function Achievement(){
                         achievement = i ;        
                         return v > percent; 
                     });
-                    return achievement;
+                    return achievement
                 }
             setPercent(getAchievementByLesson(data.percentLessonDone))  
 
-            let h = Math.floor(data.totalTime/1000/60/60);
-            let m = Math.floor((data.totalTime/1000/60/60 - h)*60);
-            let s = Math.floor(((data.totalTime/1000/60/60 - h)*60 - m)*60);
-            setH(h);
-            setM(m);
-            setS(s);
+            let h = Math.floor(data.totalTime/1000/60/60)
+            let m = Math.floor((data.totalTime/1000/60/60 - h)*60)
+            let s = Math.floor(((data.totalTime/1000/60/60 - h)*60 - m)*60)
+            setH(h)
+            setM(m)
+            setS(s)
         }
     
     },[data])
+    console.log(hour)
     return (
         <div className="mainContent">
             <div className="profile">
@@ -184,7 +187,7 @@ export default function Achievement(){
                                         </div>
                                         <div className="medal">
                                             <div>
-                                                {hour >= 5 ?
+                                                {hour >= 2 ?
                                                 (
                                                     <img src="https://cdn-icons-png.flaticon.com/512/610/610172.png" />
                                                 ):
@@ -197,7 +200,7 @@ export default function Achievement(){
                                         </div>
                                         <div className="medal">
                                             <div>
-                                                {hour >= 10 ?
+                                                {hour >= 3 ?
                                                 (
                                                     <img src="https://cdn-icons-png.flaticon.com/512/610/610172.png" />
                                                 ):
@@ -210,7 +213,7 @@ export default function Achievement(){
                                         </div>
                                         <div className="medal">
                                             <div>
-                                                {hour >= 15 ?
+                                                {hour >= 4 ?
                                                 (
                                                     <img src="https://cdn-icons-png.flaticon.com/512/610/610172.png" />
 
@@ -223,7 +226,7 @@ export default function Achievement(){
                                         </div>
                                         <div className="medal">
                                             <div>
-                                                {hour >= 20 ?
+                                                {hour >= 5 ?
                                                 (
                                                     <img src="https://cdn-icons-png.flaticon.com/512/610/610172.png" />
                                                 ):
@@ -236,7 +239,7 @@ export default function Achievement(){
                                         </div>
                                         <div className="medal">
                                             <div>
-                                                {hour >= 25 ?
+                                                {hour >= 6 ?
                                                 (
                                                     <img src="https://cdn-icons-png.flaticon.com/512/610/610172.png" />
                                                 ):
