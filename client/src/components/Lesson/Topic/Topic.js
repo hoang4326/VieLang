@@ -124,7 +124,6 @@ export default function Topic(){
 
             let goal = valueGoal?.[0]
             let checkGoal = checkDailyGoal?.[0]
-            console.log(valueGoal, checkDailyGoal)
             setCheckGoal(checkGoal)
             setGoalCurr(goal)
         }

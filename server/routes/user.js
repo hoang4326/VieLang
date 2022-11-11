@@ -124,6 +124,14 @@ function getAchievementByDailyGoal(dailyGoal) {
     return achievement;
 }
 
+function bonusExp(goal) {
+    var exp = 0;
+    [20, 40, 60, 61].some(function(v, i) {
+        exp = i * 2;        
+        return v > goal; 
+    });
+    return exp;
+}
 
 router.post("/do-post", async function (request, result){
     const {topic,lessonId,token,duration } = request.body;
@@ -160,17 +168,25 @@ router.post("/do-post", async function (request, result){
                 },{
                     $set:{
                         "history.$.dailyGoal": true
+                    },
+                    $inc:{
+                        "history.$.exp": bonusExp(goal)
                     }
                 },{
                     new: true
-                },function (error){
-                    // return result.json({
-                    //     "status": "success",
-                    //     "message": "LessonId has been inserted",
-                    // });
-                    console.log("Sucess")
+                },function (err){
+                    if (err) return handleError(err);
                 }
                 )
+                Achievement.findOneAndUpdate({
+                    "userId": mongoose.Types.ObjectId(userId)
+                },{
+                    $inc:{
+                        "exp": bonusExp(goal),
+                    }
+                },function(err){
+                    if (err) return handleError(err);
+                })
             
         }else{
             console.log("cannot set dailyGoal")
@@ -215,11 +231,7 @@ router.post("/do-post", async function (request, result){
                 ,{
                     new: true
                 },function (error){
-                    // return result.json({
-                    //     "status": "success",
-                    //     "message": "LessonId has been inserted",
-                    // });
-                    console.log("Sucess")
+                    if (error) return handleError(err);
                 }
                 );
             }else if (item.lessonDone.find(e => e._id === userId && e.lesson === parseInt(lessonId))){
@@ -244,11 +256,7 @@ router.post("/do-post", async function (request, result){
                 ,{
                     new: true
                 },function (error){
-                    // return result.json({
-                    //     "status": "success",
-                    //     "message": "LessonId has been inserted",
-                    // });
-                    console.log("Sucess")
+                    if (error) return handleError(err);
                 }
                 );  
             }
