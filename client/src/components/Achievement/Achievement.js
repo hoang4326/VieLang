@@ -54,7 +54,6 @@ export default function Achievement(){
                 return achievement;
             }
             setDailyAchieve(getAchievementByDailyGoal(dailyGoal))
-
             function getAchievementByLevel(level) {
                 var achievement = 0;
                 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].some(function(v, i) {
@@ -229,10 +228,10 @@ export default function Achievement(){
                                             <div>
                                                 {hour >= 2 ?
                                                 (
-                                                    <img src="https://cdn-icons-png.flaticon.com/512/610/610172.png"  alt="medal" />
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/3285/3285494.png"  alt="medal" />
                                                 ):
                                                 (
-                                                    <img src="https://i.postimg.cc/jd6rGWJv/311900983-598494861965899-4970635466708121808-n.png"  alt="medal" />
+                                                    <img src="https://i.postimg.cc/prxZzK7y/311146651-818453952692626-1333288291058931606-n.png"  alt="medal" />
                                                 )
                                                 }
                                             </div>
@@ -242,10 +241,10 @@ export default function Achievement(){
                                             <div>
                                                 {hour >= 3 ?
                                                 (
-                                                    <img src="https://cdn-icons-png.flaticon.com/512/610/610172.png"  alt="medal" />
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/8711/8711121.png"  alt="medal" />
                                                 ):
                                                 (
-                                                    <img src="https://i.postimg.cc/jd6rGWJv/311900983-598494861965899-4970635466708121808-n.png"  alt="medal" />
+                                                    <img src="https://i.postimg.cc/vB77YcBy/313890839-443000204575221-1552472666283716789-n.png"  alt="medal" />
                                                 )
                                                 }
                                             </div>
@@ -255,11 +254,11 @@ export default function Achievement(){
                                             <div>
                                                 {hour >= 4 ?
                                                 (
-                                                    <img src="https://cdn-icons-png.flaticon.com/512/610/610172.png" alt="medal"/>
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/4168/4168977.png" alt="medal"/>
 
                                                 ):
                                                 (
-                                                    <img src="https://i.postimg.cc/jd6rGWJv/311900983-598494861965899-4970635466708121808-n.png"  alt="medal"/>
+                                                    <img src="https://i.postimg.cc/V64SZMvJ/311466345-662205648816436-3767100626626098514-n.png"  alt="medal"/>
                                                 )}
                                             </div>
                                             <div className="hour"> 15 Hours</div>
@@ -268,10 +267,10 @@ export default function Achievement(){
                                             <div>
                                                 {hour >= 5 ?
                                                 (
-                                                    <img src="https://cdn-icons-png.flaticon.com/512/610/610172.png"  alt="medal"/>
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/3871/3871118.png"  alt="medal"/>
                                                 ):
                                                 (
-                                                    <img src="https://i.postimg.cc/jd6rGWJv/311900983-598494861965899-4970635466708121808-n.png"  alt="medal"/>
+                                                    <img src="https://i.postimg.cc/h4yz99Nw/311332387-1990532114659417-7859830867438517872-n.png"  alt="medal"/>
                                                 )
                                                 }
                                             </div>
@@ -281,10 +280,10 @@ export default function Achievement(){
                                             <div>
                                                 {hour >= 6 ?
                                                 (
-                                                    <img src="https://cdn-icons-png.flaticon.com/512/610/610172.png" alt="medal" />
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/1959/1959465.png" alt="medal" />
                                                 ):
                                                 (
-                                                    <img src="https://i.postimg.cc/jd6rGWJv/311900983-598494861965899-4970635466708121808-n.png" alt="medal" />
+                                                    <img src="https://i.postimg.cc/3RLRFTfp/312101655-1557937457984016-3875450400642219435-n.png" alt="medal" />
                                                 )
                                                 }
                                             </div>

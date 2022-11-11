@@ -235,11 +235,7 @@ router.post("/do-post", async function (request, result){
                 }
                 );
             }else if (item.lessonDone.find(e => e._id === userId && e.lesson === parseInt(lessonId))){
-                // return result.json({
-                //     "status": "error",
-                //     "message": "Already had this LessonId"
-                // });
-                console.log("Already had this User");
+                console.log("Already had this User in this lesson");
 
             }else{
                 Topic.findOneAndUpdate({
