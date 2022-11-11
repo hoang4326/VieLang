@@ -112,18 +112,19 @@ export default function Topic(){
                 if(item.date === total){
                     return item.exp
                 }
-                return 0
-            })
+                return undefined
+            }).filter(e => e !== undefined)
 
             let checkDailyGoal = history?.history?.map(item =>{
                 if(item.date === total){
                     return item.dailyGoal
                 }
-                return 0
-            })
+                return undefined
+            }).filter(e => e !== undefined)
 
             let goal = valueGoal?.[0]
             let checkGoal = checkDailyGoal?.[0]
+            console.log(valueGoal, checkDailyGoal)
             setCheckGoal(checkGoal)
             setGoalCurr(goal)
         }

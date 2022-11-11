@@ -6,7 +6,7 @@ import 'react-circular-progressbar/dist/styles.css';
 
 export default function Achievement(){
     const param = useParams()
-    const [percentLessonDone, setPercentLessonDone] = useState(0)
+    // const [percentLessonDone, setPercentLessonDone] = useState(0)
     const [data, setData] = useState()
     const [history, setHistory] = useState()
     const [level, setLevel] = useState(0)
@@ -30,13 +30,12 @@ export default function Achievement(){
         .then((data)=>{
             setAchievement(data[0].achievement)
             setLevel(data[0].level)
-            setPercentLessonDone(data[0].percentLessonDone)
+            // setPercentLessonDone(data[0].percentLessonDone)
             setName(data[0].name)
             setEmail(data[0].email)
             setData(data[0])
             setHistory(data[1])
             setDailyGoal(data[2])
-            console.log(data[2])
         })
         .catch((err) => {
             console.log(err)
