@@ -442,7 +442,9 @@ router.post("/login",async(req,res)=>{
                                 "date": total,
                                 "dateAll": today.toString(),
                                 "exp": 0,
-                                "time": 0
+                                "time": 0,
+                                "dailyGoal": false
+
                             },
                             
                         }
