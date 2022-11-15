@@ -39,13 +39,17 @@ export default function Lesson () {
         let array1 = [...lessonSearch];
         let data = lesson[2];
         let data2 = [];
-            if((data[0].vocab.find(a => a.vocabVie === search)) !== undefined || (data[0].vocab.find(a => a.vocabEng === search)) !== undefined){
-                if((data[0].vocab.find(a => a.vocabVie === search)) !== undefined){
-                    data2 = [...data2, {vocab: [data[0].vocab.find(a => a.vocabVie === search)]}];
+            if(data[0].vocab.some(a => a.vocabVie.toLowerCase().includes(search.toLowerCase())) === true || data[0].vocab.some(a => a.vocabEng.toLowerCase().includes(search.toLowerCase())) === true){
+                if(data[0].vocab.some(a => a.vocabVie.toLowerCase().includes(search.toLowerCase())) === true){
+                    data2 = [...data2, {vocab: data[0].vocab.filter(function(e) {
+                        return e.vocabVie.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+                    })}];
                     array1[2] = data2;
                     setLessonSearch(array1)
-                }else if ((data[0].vocab.find(a => a.vocabEng === search)) !== undefined){
-                    data2 = [...data2, {vocab: [data[0].vocab.find(a => a.vocabEng === search)]}];
+                }else if (data[0].vocab.some(a => a.vocabEng.toLowerCase().includes(search.toLowerCase())) === true){
+                    data2 = [...data2, {vocab: data[0].vocab.filter(function(e) {
+                        return e.vocabEng.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+                    })}];
                     array1[2] = data2;
                     setLessonSearch(array1)
                 }
