@@ -52,8 +52,7 @@ export default function Home(){
                 <Link to='/topic' className='btnHome'>Learn now</Link>
             </div>
             <div className='image'>
-                <img src='https://preview.colorlib.com/theme/eclipse/img/xheader-img.png.pagespeed.ic.ungsFL0Q2L.webp' alt='description '/>
-                {/* <img src={require('../../assets/image/home-img.svg').default} /> */}
+                <img src={require('../../assets/image/homeBack.png')} alt='description '/>
             </div>
         </section>
         <section className='page-description'>
