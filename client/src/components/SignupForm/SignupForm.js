@@ -47,7 +47,15 @@ export default function SignupForm() {
                     html: <i>Your email already exists !</i>,
                     icon: 'warning'
                 })
-            }else{
+            }
+            // else if(data.message === 'Please provide a valid email address'){
+            //     MySwal.fire({
+            //         title: <strong>Try again!</strong>,
+            //         html: <i>Please provide a valid email address</i>,
+            //         icon: 'warning'
+            //     })
+            // }   
+            else{
                 MySwal.fire({
                     title: <strong>Success!</strong>,
                     html: <i>Registered successfully!</i>,

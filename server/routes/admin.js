@@ -6,7 +6,6 @@ const express = require('express'),
     { v4: uuidv4 } = require('uuid'),
     router = express.Router();
 const bcrypt = require('bcryptjs');
-const { response } = require('express');
 
 require("../models/userDetails");
 require("../models/topic");
@@ -119,11 +118,24 @@ router.post('/addUser', async (req, res) => {
 })
 
 router.post('/updateUser', async (req, res)=>{
-    const {name, email, username, role, id} = req.body;
+    const {name, email, emailCheck, username, role, id} = req.body;
     try{
-        const oldUser = await User.findOne({email});
-        if(oldUser){
-            return res.send({status:"User exits"});
+        if(email !== emailCheck){
+            const oldUser = await User.findOne({email});
+            if(oldUser){
+                return res.send({status:"User exits"});
+            }
+            await User.findOneAndUpdate({_id: mongoose.Types.ObjectId(id)},{
+                name: name,
+                email: email,
+                role: role,
+                username: username
+            })
+            await Achievement.findOneAndUpdate({userId: mongoose.Types.ObjectId(id)},{
+                name: name,
+                email: email,
+            })
+            res.send({status: 'success'})
         }
         await User.findOneAndUpdate({_id: mongoose.Types.ObjectId(id)},{
             name: name,
@@ -147,6 +159,7 @@ router.post('/deleteUser', async (req, res) => {
         const {id} = req.body;
         await User.deleteOne({_id: mongoose.Types.ObjectId(id)});
         await Achievement.deleteOne({userId: mongoose.Types.ObjectId(id)});
+        await History.deleteOne({userId: mongoose.Types.ObjectId(id)});
         res.send({status: 'success'})
     }catch(error){
         res.send({status: 'error'})

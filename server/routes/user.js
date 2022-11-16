@@ -6,6 +6,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 var nodemailer = require('nodemailer');
 const hbs = require('nodemailer-express-handlebars');
+const emailValidator = require('deep-email-validator');
 const path = require('path');
 const JWT_SECRET ="fafsfafw4124wrwqr#@#fasfasfsafasfsffa4%$@%@%";
 
@@ -336,6 +337,10 @@ router.post("/do-post", async function (request, result){
 
 })
 
+// async function isEmailValid(email) {
+//     return emailValidator.validate(email)
+// }
+
 router.post("/signup",async(req,res)=>{
     const {name, email, username, password, role } = req.body;
     const encryptedPassword = await bcrypt.hash(password, 10);
@@ -352,35 +357,45 @@ router.post("/signup",async(req,res)=>{
         if(oldUser){
             return res.send({status:"User exits"});
         }
-        await user.save( function(err){
-            if (err) return handleError(err);
-
-            const achievement = new Achievement({
-                _id: new mongoose.Types.ObjectId(),
-                userId: user._id,
-                name: name,
-                email: email,
-                totalTime: 0,
-                exp: 0,
-                level: 0,
-                percentLessonDone: 0,
-                achievement: 0
-            });
-            achievement.save(function(err){
+        // const {valid, reason, validators} = await isEmailValid(email);
+        // console.log(await isEmailValid(email))
+        // if(valid){
+            await user.save( function(err){
                 if (err) return handleError(err);
-
-                const history = new History({
+    
+                const achievement = new Achievement({
                     _id: new mongoose.Types.ObjectId(),
                     userId: user._id,
-                    goal: parseInt(100),
-                    history: []
+                    name: name,
+                    email: email,
+                    totalTime: 0,
+                    exp: 0,
+                    level: 0,
+                    percentLessonDone: 0,
+                    achievement: 0
                 });
-                history.save(function(err){
+                achievement.save(function(err){
                     if (err) return handleError(err);
+    
+                    const history = new History({
+                        _id: new mongoose.Types.ObjectId(),
+                        userId: user._id,
+                        goal: parseInt(100),
+                        history: []
+                    });
+                    history.save(function(err){
+                        if (err) return handleError(err);
+                    })
                 })
             })
-        })
-    res.send({status:"ok"});
+        res.send({status:"ok"});
+        // }else{
+        //     return res.status(400).send({
+        //         message: "Please provide a valid email address",
+        //         reason: validators[reason].reason
+        //     })
+        // }
+        
     }catch(error){
         res.send({status:"error"});
     }

@@ -4,12 +4,13 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
 const EditUser = ({user, chooseMessage}) =>{
-    const MySwal = withReactContent(Swal);
+    const MySwal = withReactContent(Swal)
     // const [topic,setTopic] = useState(lesson.topic);
-    const [name,setName] = useState(user.name);
-    const [email,setEmail] = useState(user.email);
-    const [username, setUsername] = useState(user.username);
-    const [role, setRole] = useState(user.role);
+    const [name,setName] = useState(user.name)
+    const [email,setEmail] = useState(user.email)
+    const [emailCheck] = useState(user.email)
+    const [username, setUsername] = useState(user.username)
+    const [role, setRole] = useState(user.role)
 
     const handleSubmit = event =>{
         event.preventDefault();
@@ -25,6 +26,7 @@ const EditUser = ({user, chooseMessage}) =>{
                 id: user._id,
                 name: name, 
                 email: email,
+                emailCheck: emailCheck,
                 username: username,
                 role: role
             }),
@@ -37,7 +39,14 @@ const EditUser = ({user, chooseMessage}) =>{
                     icon: 'success'
                 })
                 chooseMessage()
-            }else{
+            }else if(data.status === 'User exits'){
+                MySwal.fire({
+                    title: <strong>Try again!!</strong>,
+                    html: <i>Email already exists, please choose another email</i>,
+                    icon: 'warning'
+                })    
+            }
+            else{
                 MySwal.fire({
                     title: <strong>Try again!!</strong>,
                     html: <i>Cannot update</i>,
