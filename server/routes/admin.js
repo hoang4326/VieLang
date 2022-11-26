@@ -104,7 +104,8 @@ router.post('/addUser', async (req, res) => {
                 const history = new History({
                     _id: new mongoose.Types.ObjectId(),
                     userId: user._id,
-                    history: []
+                    history: [],
+                    goal: 60
                 });
                 history.save(function(err){
                     if (err) return handleError(err);

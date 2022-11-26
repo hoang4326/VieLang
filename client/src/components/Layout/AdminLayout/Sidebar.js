@@ -63,7 +63,7 @@ export default function AdminLayout({children}){
                     </div>
                         <Link to="/login" className="nav_link" onClick={logOut}>
                             <i className='bx bx-log-out nav_icon'></i>
-                            <span className="nav_name">SignOut</span>
+                            <span className="nav_name">Log Out</span>
                         </Link>
                 </nav>
             </div>

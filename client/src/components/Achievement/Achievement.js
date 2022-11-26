@@ -294,7 +294,7 @@ export default function Achievement(){
                                 </div>
                                 <div className="learnTime medalCard">
                                         <div className="subHead">
-                                            <div>Daily Goal Done</div>
+                                            <div>Daily goal done</div>
                                             <div>{dailyAchieve} <span>/</span> 3</div>
                                         </div>
                                         <div className="medalList">
