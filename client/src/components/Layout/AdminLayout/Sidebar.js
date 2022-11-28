@@ -38,10 +38,10 @@ export default function AdminLayout({children}){
             <div className={toggled ? 'l-navbar' : 'l-navbar show'} id="nav-bar">
                 <nav className="nav">
                     <div>
-                        <Link to="/" className="nav_logo">
+                        <div className="nav_logo">
                             <i className='bx bx-layer nav_logo-icon'></i>
                             <span className="nav_logo-name">VieLang</span>
-                        </Link>
+                        </div>
                         <div className="nav_list">
                             <Link to="/admin/user" className="nav_link ">
                                 <i className='bx bxs-user nav_icon'></i>
