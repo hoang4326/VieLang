@@ -65,7 +65,7 @@ const UserView = ({user,index, chooseMessage}) =>{
                 <Modal show={show} onHide={handleClose} dialogClassName="info-modal">
                         <Modal.Header closeButton>
                                 <Modal.Title>
-                                    Edit Lesson
+                                    Edit User
                                 </Modal.Title>
                             </Modal.Header>
                             <Modal.Body >
